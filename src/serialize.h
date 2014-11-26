@@ -245,7 +245,7 @@ uint64_t ReadCompactSize(Stream& is)
         uint64_t xSize;
         READDATA(is, xSize);
         nSizeRet = xSize;
-        if (nSizeRet < 0x100000000LLu)
+        if (nSizeRet < 0x100000000ULL)
             throw std::ios_base::failure("non-canonical ReadCompactSize()");
     }
     if (nSizeRet > (uint64_t)MAX_SIZE)
@@ -1154,7 +1154,7 @@ public:
 
 
 
-/** RAII wrapper for FILE*.
+/** Non-refcounted RAII wrapper for FILE*.
  *
  * Will automatically close the file when it goes out of scope if not null.
  * If you're returning the file pointer, return file.release().
@@ -1162,6 +1162,10 @@ public:
  */
 class CAutoFile
 {
+private:
+    // Disallow copies
+    CAutoFile(const CAutoFile&);
+    CAutoFile& operator=(const CAutoFile&);
 protected:
     FILE* file;
 public:

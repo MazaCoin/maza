@@ -22,8 +22,6 @@
 SplashScreen::SplashScreen(Qt::WindowFlags f, bool isTestNet) :
     QWidget(0, f), curAlignment(0)
 {
-    //setAutoFillBackground(true);
-
     // set reference point, paddings
     int paddingRight            = 50;
     int paddingTop              = 50;
@@ -120,6 +118,7 @@ SplashScreen::~SplashScreen()
 
 void SplashScreen::slotFinish(QWidget *mainWin)
 {
+    Q_UNUSED(mainWin);
     hide();
 }
 
@@ -186,4 +185,3 @@ void SplashScreen::closeEvent(QCloseEvent *event)
 {
     event->ignore();
 }
-

@@ -1062,7 +1062,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     }
 
     boost::filesystem::path est_path = GetDataDir() / FEE_ESTIMATES_FILENAME;
-    CAutoFile est_filein = CAutoFile(fopen(est_path.string().c_str(), "rb"), SER_DISK, CLIENT_VERSION);
+    CAutoFile est_filein(fopen(est_path.string().c_str(), "rb"), SER_DISK, CLIENT_VERSION);
     // Allowed to fail as this file IS missing on first startup.
     if (est_filein)
         mempool.ReadFeeEstimates(est_filein);
@@ -1163,7 +1163,7 @@ bool AppInit2(boost::thread_group& threadGroup)
             CWalletDB walletdb(strWalletFile);
             CBlockLocator locator;
             if (walletdb.ReadBestBlock(locator))
-                pindexRescan = chainActive.FindFork(locator);
+                pindexRescan = FindForkInGlobalIndex(chainActive, locator);
             else
                 pindexRescan = chainActive.Genesis();
         }
