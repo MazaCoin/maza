@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
@@ -105,7 +105,7 @@ bool fLogTimestamps = false;
 bool fLogIPs = false;
 volatile bool fReopenDebugLog = false;
 
-// Init OpenSSL library multithreading support
+/** Init OpenSSL library multithreading support */
 static CCriticalSection** ppmutexOpenSSL;
 void locking_callback(int mode, int i, const char* file, int line)
 {
@@ -149,18 +149,22 @@ public:
 }
 instance_of_cinit;
 
-// LogPrintf() has been broken a couple of times now
-// by well-meaning people adding mutexes in the most straightforward way.
-// It breaks because it may be called by global destructors during shutdown.
-// Since the order of destruction of static/global objects is undefined,
-// defining a mutex as a global object doesn't work (the mutex gets
-// destroyed, and then some later destructor calls OutputDebugStringF,
-// maybe indirectly, and you get a core dump at shutdown trying to lock
-// the mutex).
+/**
+ * LogPrintf() has been broken a couple of times now
+ * by well-meaning people adding mutexes in the most straightforward way.
+ * It breaks because it may be called by global destructors during shutdown.
+ * Since the order of destruction of static/global objects is undefined,
+ * defining a mutex as a global object doesn't work (the mutex gets
+ * destroyed, and then some later destructor calls OutputDebugStringF,
+ * maybe indirectly, and you get a core dump at shutdown trying to lock
+ * the mutex).
+ */
 
 static boost::once_flag debugPrintInitFlag = BOOST_ONCE_INIT;
-// We use boost::call_once() to make sure these are initialized in
-// in a thread-safe manner the first time it is called:
+/**
+ * We use boost::call_once() to make sure these are initialized
+ * in a thread-safe manner the first time called:
+ */
 static FILE* fileout = NULL;
 static boost::mutex* mutexDebugLog = NULL;
 
@@ -395,7 +399,8 @@ boost::filesystem::path GetDefaultDataDir()
 #endif
 }
 
-static boost::filesystem::path pathCached[CBaseChainParams::MAX_NETWORK_TYPES+1];
+static boost::filesystem::path pathCached;
+static boost::filesystem::path pathCachedNetSpecific;
 static CCriticalSection csPathCached;
 
 const boost::filesystem::path &GetDataDir(bool fNetSpecific)
@@ -404,10 +409,7 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
     LOCK(csPathCached);
 
-    int nNet = CBaseChainParams::MAX_NETWORK_TYPES;
-    if (fNetSpecific) nNet = BaseParams().NetworkID();
-
-    fs::path &path = pathCached[nNet];
+    fs::path &path = fNetSpecific ? pathCachedNetSpecific : pathCached;
 
     // This can be called during exceptions by LogPrintf(), so we cache the
     // value so we don't have to do memory allocations after that.
@@ -433,8 +435,8 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 void ClearDatadirCache()
 {
-    std::fill(&pathCached[0], &pathCached[CBaseChainParams::MAX_NETWORK_TYPES+1],
-        boost::filesystem::path());
+    pathCached = boost::filesystem::path();
+    pathCachedNetSpecific = boost::filesystem::path();
 }
 
 boost::filesystem::path GetConfigFile()
@@ -502,9 +504,11 @@ bool RenameOver(boost::filesystem::path src, boost::filesystem::path dest)
 #endif /* WIN32 */
 }
 
-// Ignores exceptions thrown by Boost's create_directory if the requested directory exists.
-// Specifically handles case where path p exists, but it wasn't possible for the user to
-// write to the parent directory.
+/**
+ * Ignores exceptions thrown by Boost's create_directory if the requested directory exists.
+ * Specifically handles case where path p exists, but it wasn't possible for the user to
+ * write to the parent directory.
+ */
 bool TryCreateDirectory(const boost::filesystem::path& p)
 {
     try
@@ -544,8 +548,10 @@ bool TruncateFile(FILE *file, unsigned int length) {
 #endif
 }
 
-// this function tries to raise the file descriptor limit to the requested number.
-// It returns the actual file descriptor limit (which may be more or less than nMinFD)
+/**
+ * this function tries to raise the file descriptor limit to the requested number.
+ * It returns the actual file descriptor limit (which may be more or less than nMinFD)
+ */
 int RaiseFileDescriptorLimit(int nMinFD) {
 #if defined(WIN32)
     return 2048;
@@ -565,8 +571,10 @@ int RaiseFileDescriptorLimit(int nMinFD) {
 #endif
 }
 
-// this function tries to make a particular range of a file allocated (corresponding to disk space)
-// it is advisory, and the range specified in the arguments will never contain live data
+/**
+ * this function tries to make a particular range of a file allocated (corresponding to disk space)
+ * it is advisory, and the range specified in the arguments will never contain live data
+ */
 void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length) {
 #if defined(WIN32)
     // Windows-specific version
@@ -618,7 +626,7 @@ void ShrinkDebugFile()
     {
         // Restart the file with some of the end
         std::vector <char> vch(200000,0);
-        fseek(file, -vch.size(), SEEK_END);
+        fseek(file, -((long)vch.size()), SEEK_END);
         int nBytes = fread(begin_ptr(vch), 1, vch.size(), file);
         fclose(file);
 
@@ -705,19 +713,21 @@ void RenameThread(const char* name)
 
 void SetupEnvironment()
 {
-#ifndef WIN32
-    try
-    {
-#if BOOST_FILESYSTEM_VERSION == 3
-            boost::filesystem::path::codecvt(); // Raises runtime error if current locale is invalid
-#else // boost filesystem v2
-            std::locale();                      // Raises runtime error if current locale is invalid
-#endif
-    } catch(std::runtime_error &e)
-    {
-        setenv("LC_ALL", "C", 1); // Force C locale
+    // On most POSIX systems (e.g. Linux, but not BSD) the environment's locale
+    // may be invalid, in which case the "C" locale is used as fallback.
+#if !defined(WIN32) && !defined(MAC_OSX) && !defined(__FreeBSD__) && !defined(__OpenBSD__)
+    try {
+        std::locale(""); // Raises a runtime error if current locale is invalid
+    } catch (const std::runtime_error&) {
+        setenv("LC_ALL", "C", 1);
     }
 #endif
+    // The path locale is lazy initialized and to avoid deinitialization errors
+    // in multithreading environments, it is set explicitly by the main thread.
+    // A dummy locale is used to extract the internal default locale, used by
+    // boost::filesystem::path, which is then used to explicitly imbue the path.
+    std::locale loc = boost::filesystem::path::imbue(std::locale::classic());
+    boost::filesystem::path::imbue(loc);
 }
 
 void SetThreadPriority(int nPriority)

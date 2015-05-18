@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>दो बार क्लिक करे पता या लेबल संपादन करने के लिए !</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>नया पता लिखिए !</translation>
     </message>
@@ -191,10 +187,6 @@
         <source>Tabs toolbar</source>
         <translation>टैबस टूलबार</translation>
     </message>
-    <message>
-        <source>[testnet]</source>
-        <translation>[टेस्टनेट]</translation>
-    </message>
     <message numerus="yes">
         <source>%n active connection(s) to Bitcoin network</source>
         <translation><numerusform>%n सक्रिया संपर्क बीटकोइन नेटवर्क से</numerusform><numerusform>%n सक्रिया संपर्क बीटकोइन नेटवर्क से</numerusform></translation>
@@ -271,10 +263,6 @@ Address: %4
     <message>
         <source>Amount</source>
         <translation>राशि</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>पता</translation>
     </message>
     <message>
         <source>Date</source>
@@ -388,14 +376,6 @@ Address: %4
     <message>
         <source>Form</source>
         <translation>फार्म</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>वॉलेट</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;हाल का लेन-देन&lt;/b&gt;</translation>
     </message>
     </context>
 <context>
@@ -861,14 +841,6 @@ Address: %4
         <translation>विकल्प:</translation>
     </message>
     <message>
-        <source>Specify configuration file (default: bitcoin.conf)</source>
-        <translation>configuraion की फाइल का विवरण दें (default: bitcoin.conf)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: bitcoind.pid)</source>
-        <translation>pid फाइल का विवरण दें (default: bitcoin.pid)</translation>
-    </message>
-    <message>
         <source>Specify data directory</source>
         <translation>डेटा डायरेक्टरी बताएं </translation>
     </message>
@@ -899,10 +871,6 @@ Address: %4
     <message>
         <source>Loading addresses...</source>
         <translation>पता पुस्तक आ रही है...</translation>
-    </message>
-    <message>
-        <source>Invalid amount</source>
-        <translation>राशि ग़लत है</translation>
     </message>
     <message>
         <source>Loading block index...</source>

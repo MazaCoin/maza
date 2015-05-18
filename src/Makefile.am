@@ -1,9 +1,6 @@
+DIST_SUBDIRS = secp256k1
 AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS)
 
-if USE_LIBSECP256K1
-secp256k1/libsecp256k1.la: $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
-	@$(MAKE) $(AM_MAKEFLAGS) -C $(@D) $(@F)
-endif
 
 if EMBEDDED_LEVELDB
 LEVELDB_CPPFLAGS += -I$(srcdir)/leveldb/include
@@ -23,9 +20,7 @@ endif
 BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
 BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
 
-if USE_LIBSECP256K1
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
-endif
 
 LIBBITCOIN_SERVER=libmazacoin_server.a
 LIBBITCOIN_WALLET=libmazacoin_wallet.a
@@ -35,17 +30,30 @@ LIBBITCOIN_UTIL=libmazacoin_util.a
 LIBBITCOIN_CRYPTO=crypto/libmazacoin_crypto.a
 LIBBITCOIN_UNIVALUE=univalue/libmazacoin_univalue.a
 LIBBITCOINQT=qt/libbitcoinqt.a
+LIBSECP256K1=secp256k1/libsecp256k1.la
 
-noinst_LIBRARIES = \
-  libmazacoin_server.a \
-  libmazacoin_common.a \
-  libmazacoin_cli.a \
+$(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
+	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C $(@D) $(@F)
+
+# Make is not made aware of per-object dependencies to avoid limiting building parallelization
+# But to build the less dependent modules first, we manually select their order here:
+EXTRA_LIBRARIES = \
+  crypto/libmazacoin_crypto.a \
   libmazacoin_util.a \
+  libmazacoin_common.a \
   univalue/libmazacoin_univalue.a \
-  crypto/libmazacoin_crypto.a
+  libmazacoin_server.a \
+  libmazacoin_cli.a
 if ENABLE_WALLET
 BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
-noinst_LIBRARIES += libmazacoin_wallet.a
+EXTRA_LIBRARIES += libmazacoin_wallet.a
+endif
+
+if BUILD_BITCOIN_LIBS
+lib_LTLIBRARIES = libmazacoinconsensus.la
+LIBBITCOIN_CONSENSUS=libmazacoinconsensus.la
+else
+LIBBITCOIN_CONSENSUS=
 endif
 
 bin_PROGRAMS =
@@ -65,8 +73,10 @@ BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
+  amount.h \
   base58.h \
   bloom.h \
+  chain.h \
   chainparams.h \
   chainparamsbase.h \
   chainparamsseeds.h \
@@ -76,10 +86,14 @@ BITCOIN_CORE_H = \
   coincontrol.h \
   coins.h \
   compat.h \
-  core.h \
+  compressor.h \
+  primitives/block.h \
+  primitives/transaction.h \
   core_io.h \
   crypter.h \
   db.h \
+  eccryptoverify.h \
+  ecwrapper.h \
   hash.h \
   init.h \
   key.h \
@@ -87,6 +101,7 @@ BITCOIN_CORE_H = \
   leveldbwrapper.h \
   limitedmap.h \
   main.h \
+  merkleblock.h \
   miner.h \
   mruset.h \
   netbase.h \
@@ -94,16 +109,19 @@ BITCOIN_CORE_H = \
   noui.h \
   pow.h \
   protocol.h \
+  pubkey.h \
   random.h \
   rpcclient.h \
   rpcprotocol.h \
   rpcserver.h \
-  script/compressor.h \
   script/interpreter.h \
   script/script.h \
+  script/sigcache.h \
   script/sign.h \
   script/standard.h \
+  script/script_error.h \
   serialize.h \
+  streams.h \
   sync.h \
   threadsafety.h \
   timedata.h \
@@ -112,6 +130,7 @@ BITCOIN_CORE_H = \
   txmempool.h \
   ui_interface.h \
   uint256.h \
+  undo.h \
   util.h \
   utilstrencodings.h \
   utilmoneystr.h \
@@ -137,7 +156,7 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libmazacoin_util_a-version.$(OBJEXT): obj/build.h
+libmazacoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
 # server: shared between bitcoind and bitcoin-qt
 libmazacoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS)
@@ -145,20 +164,24 @@ libmazacoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   bloom.cpp \
+  chain.cpp \
   checkpoints.cpp \
   init.cpp \
   leveldbwrapper.cpp \
   main.cpp \
+  merkleblock.cpp \
   miner.cpp \
   net.cpp \
   noui.cpp \
   pow.cpp \
+  rest.cpp \
   rpcblockchain.cpp \
   rpcmining.cpp \
   rpcmisc.cpp \
   rpcnet.cpp \
   rpcrawtransaction.cpp \
   rpcserver.cpp \
+  script/sigcache.cpp \
   timedata.cpp \
   txdb.cpp \
   txmempool.cpp \
@@ -182,10 +205,18 @@ libmazacoin_wallet_a_SOURCES = \
 crypto_libmazacoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES)
 crypto_libmazacoin_crypto_a_SOURCES = \
   crypto/sha1.cpp \
-  crypto/sha2.cpp \
+  crypto/sha256.cpp \
+  crypto/sha512.cpp \
+  crypto/hmac_sha256.cpp \
+  crypto/rfc6979_hmac_sha256.cpp \
+  crypto/hmac_sha512.cpp \
   crypto/ripemd160.cpp \
   crypto/common.h \
-  crypto/sha2.h \
+  crypto/sha256.h \
+  crypto/sha512.h \
+  crypto/hmac_sha256.h \
+  crypto/rfc6979_hmac_sha256.h \
+  crypto/hmac_sha512.h \
   crypto/sha1.h \
   crypto/ripemd160.h
 
@@ -201,22 +232,28 @@ univalue_libmazacoin_univalue_a_SOURCES = \
 libmazacoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libmazacoin_common_a_SOURCES = \
   allocators.cpp \
+  amount.cpp \
   base58.cpp \
   chainparams.cpp \
   coins.cpp \
-  core.cpp \
+  compressor.cpp \
+  primitives/block.cpp \
+  primitives/transaction.cpp \
   core_read.cpp \
   core_write.cpp \
+  eccryptoverify.cpp \
+  ecwrapper.cpp \
   hash.cpp \
   key.cpp \
   keystore.cpp \
   netbase.cpp \
   protocol.cpp \
-  script/compressor.cpp \
+  pubkey.cpp \
   script/interpreter.cpp \
   script/script.cpp \
   script/sign.cpp \
   script/standard.cpp \
+  script/script_error.cpp \
   $(BITCOIN_CORE_H)
 
 # util: shared between all executables.
@@ -224,9 +261,11 @@ libmazacoin_common_a_SOURCES = \
 # backward-compatibility objects and their sanity checks are linked.
 libmazacoin_util_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libmazacoin_util_a_SOURCES = \
+  compat/strnlen.cpp \
   compat/glibc_sanity.cpp \
   compat/glibcxx_sanity.cpp \
   chainparamsbase.cpp \
+  clientversion.cpp \
   random.cpp \
   rpcprotocol.cpp \
   sync.cpp \
@@ -235,7 +274,6 @@ libmazacoin_util_a_SOURCES = \
   utilstrencodings.cpp \
   utilmoneystr.cpp \
   utiltime.cpp \
-  version.cpp \
   $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
@@ -260,11 +298,8 @@ mazacoind_LDADD = \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBLEVELDB) \
-  $(LIBMEMENV)
-
-if USE_LIBSECP256K1
-  mazacoind_LDADD += secp256k1/libsecp256k1.la
-endif
+  $(LIBMEMENV) \
+  $(LIBSECP256K1)
 
 if ENABLE_WALLET
 mazacoind_LDADD += libmazacoin_wallet.a
@@ -276,16 +311,14 @@ if TARGET_WINDOWS
 mazacoind_SOURCES += bitcoind-res.rc
 endif
 
-mazacoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS)
+mazacoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
 mazacoind_CPPFLAGS = $(BITCOIN_INCLUDES)
-mazacoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS)
+mazacoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 # mazacoin-cli binary #
 mazacoin_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
-  $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO) \
   $(BOOST_LIBS) \
   $(SSL_LIBS) \
   $(CRYPTO_LIBS)
@@ -293,9 +326,6 @@ mazacoin_cli_LDADD = \
 mazacoin_cli_SOURCES = \
   bitcoin-cli.cpp
 
-if USE_LIBSECP256K1
-  mazacoin_cli_LDADD += secp256k1/libsecp256k1.la
-endif
 mazacoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
 
@@ -304,40 +334,68 @@ mazacoin_tx_LDADD = \
   $(LIBBITCOIN_UNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO)
-
-if USE_LIBSECP256K1
-  mazacoin_tx_LDADD += secp256k1/libsecp256k1.la
-endif
-
-  mazacoin_tx_LDADD += $(BOOST_LIBS) \
-  $(SSL_LIBS) \
+  $(LIBBITCOIN_CRYPTO) \
+  $(LIBSECP256K1) \
+  $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
+
 mazacoin_tx_SOURCES = bitcoin-tx.cpp
 mazacoin_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-mazacoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS)
+mazacoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
 mazacoin_cli_SOURCES += bitcoin-cli-res.rc
 endif
-mazacoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS)
+mazacoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+
+if BUILD_BITCOIN_LIBS
+include_HEADERS = script/bitcoinconsensus.h
+libmazacoinconsensus_la_SOURCES = \
+  primitives/transaction.cpp \
+  crypto/hmac_sha512.cpp \
+  crypto/sha1.cpp \
+  crypto/sha256.cpp \
+  crypto/sha512.cpp \
+  crypto/ripemd160.cpp \
+  eccryptoverify.cpp \
+  ecwrapper.cpp \
+  hash.cpp \
+  pubkey.cpp \
+  script/script.cpp \
+  script/interpreter.cpp \
+  script/bitcoinconsensus.cpp \
+  uint256.cpp \
+  utilstrencodings.cpp
+
+if GLIBC_BACK_COMPAT
+  libmazacoinconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libmazacoinconsensus_la_SOURCES += compat/glibcxx_compat.cpp
+endif
+
+libmazacoinconsensus_la_LDFLAGS = -no-undefined $(RELDFLAGS)
+libmazacoinconsensus_la_LIBADD = $(CRYPTO_LIBS)
+libmazacoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) -I$(builddir)/obj -DBUILD_BITCOIN_INTERNAL
+if USE_LIBSECP256K1
+libmazacoinconsensus_la_LIBADD += secp256k1/libsecp256k1.la
+endif
+endif
 
 CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno
 
 DISTCLEANFILES = obj/build.h
 
-EXTRA_DIST = leveldb secp256k1
+EXTRA_DIST = leveldb
 
 clean-local:
 	-$(MAKE) -C leveldb clean
-	-$(MAKE) -C secp256k1 clean 2>/dev/null
+	-$(MAKE) -C secp256k1 clean
 	rm -f leveldb/*/*.gcno leveldb/helpers/memenv/*.gcno
 	-rm -f config.h
 
 .rc.o:
 	@test -f $(WINDRES)
-	$(AM_V_GEN) $(WINDRES) -i $< -o $@
+	$(AM_V_GEN) $(WINDRES) -DWINDRES_PREPROC -i $< -o $@
 
 .mm.o:
 	$(AM_V_CXX) $(OBJCXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \

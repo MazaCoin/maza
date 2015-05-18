@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifdef HAVE_CONFIG_H
-#include "bitcoin-config.h"
+#include "config/bitcoin-config.h"
 #endif
 
 #include "netbase.h"
@@ -40,7 +40,7 @@ using namespace std;
 static proxyType proxyInfo[NET_MAX];
 static CService nameProxy;
 static CCriticalSection cs_proxyInfos;
-int nConnectTimeout = 5000;
+int nConnectTimeout = DEFAULT_CONNECT_TIMEOUT;
 bool fNameLookup = false;
 
 static const unsigned char pchIPv4[12] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xff, 0xff };
@@ -519,9 +519,11 @@ bool IsProxy(const CNetAddr &addr) {
     return false;
 }
 
-bool ConnectSocket(const CService &addrDest, SOCKET& hSocketRet, int nTimeout)
+bool ConnectSocket(const CService &addrDest, SOCKET& hSocketRet, int nTimeout, bool *outProxyConnectionFailed)
 {
     proxyType proxy;
+    if (outProxyConnectionFailed)
+        *outProxyConnectionFailed = false;
     // no proxy needed (none set for target network)
     if (!GetProxy(addrDest.GetNetwork(), proxy))
         return ConnectSocketDirectly(addrDest, hSocketRet, nTimeout);
@@ -529,8 +531,11 @@ bool ConnectSocket(const CService &addrDest, SOCKET& hSocketRet, int nTimeout)
     SOCKET hSocket = INVALID_SOCKET;
 
     // first connect to proxy server
-    if (!ConnectSocketDirectly(proxy, hSocket, nTimeout))
+    if (!ConnectSocketDirectly(proxy, hSocket, nTimeout)) {
+        if (outProxyConnectionFailed)
+            *outProxyConnectionFailed = true;
         return false;
+    }
     // do socks negotiation
     if (!Socks5(addrDest.ToStringIP(), addrDest.GetPort(), hSocket))
         return false;
@@ -539,10 +544,14 @@ bool ConnectSocket(const CService &addrDest, SOCKET& hSocketRet, int nTimeout)
     return true;
 }
 
-bool ConnectSocketByName(CService &addr, SOCKET& hSocketRet, const char *pszDest, int portDefault, int nTimeout)
+bool ConnectSocketByName(CService &addr, SOCKET& hSocketRet, const char *pszDest, int portDefault, int nTimeout, bool *outProxyConnectionFailed)
 {
     string strDest;
     int port = portDefault;
+
+    if (outProxyConnectionFailed)
+        *outProxyConnectionFailed = false;
+
     SplitHostPort(string(pszDest), port, strDest);
 
     SOCKET hSocket = INVALID_SOCKET;
@@ -561,8 +570,11 @@ bool ConnectSocketByName(CService &addr, SOCKET& hSocketRet, const char *pszDest
     if (!HaveNameProxy())
         return false;
     // first connect to name proxy server
-    if (!ConnectSocketDirectly(nameProxy, hSocket, nTimeout))
+    if (!ConnectSocketDirectly(nameProxy, hSocket, nTimeout)) {
+        if (outProxyConnectionFailed)
+            *outProxyConnectionFailed = true;
         return false;
+    }
     // do socks negotiation
     if (!Socks5(strDest, (unsigned short)port, hSocket))
         return false;
@@ -667,9 +679,26 @@ bool CNetAddr::IsRFC1918() const
         (GetByte(3) == 172 && (GetByte(2) >= 16 && GetByte(2) <= 31)));
 }
 
+bool CNetAddr::IsRFC2544() const
+{
+    return IsIPv4() && GetByte(3) == 198 && (GetByte(2) == 18 || GetByte(2) == 19);
+}
+
 bool CNetAddr::IsRFC3927() const
 {
     return IsIPv4() && (GetByte(3) == 169 && GetByte(2) == 254);
+}
+
+bool CNetAddr::IsRFC6598() const
+{
+    return IsIPv4() && GetByte(3) == 100 && GetByte(2) >= 64 && GetByte(2) <= 127;
+}
+
+bool CNetAddr::IsRFC5737() const
+{
+    return IsIPv4() && ((GetByte(3) == 192 && GetByte(2) == 0 && GetByte(1) == 2) ||
+        (GetByte(3) == 198 && GetByte(2) == 51 && GetByte(1) == 100) ||
+        (GetByte(3) == 203 && GetByte(2) == 0 && GetByte(1) == 113));
 }
 
 bool CNetAddr::IsRFC3849() const
@@ -778,7 +807,7 @@ bool CNetAddr::IsValid() const
 
 bool CNetAddr::IsRoutable() const
 {
-    return IsValid() && !(IsRFC1918() || IsRFC3927() || IsRFC4862() || (IsRFC4193() && !IsTor()) || IsRFC4843() || IsLocal());
+    return IsValid() && !(IsRFC1918() || IsRFC2544() || IsRFC3927() || IsRFC4862() || IsRFC6598() || IsRFC5737() || (IsRFC4193() && !IsTor()) || IsRFC4843() || IsLocal());
 }
 
 enum Network CNetAddr::GetNetwork() const

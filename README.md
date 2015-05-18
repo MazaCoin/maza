@@ -14,8 +14,6 @@ Mazacoin Core integration/staging tree
 
 https://www.bitcoin.org
 
-Copyright (c) 2009-2014 Bitcoin Core Developers
-
 What is Bitcoin?
 ----------------
 
@@ -121,7 +119,7 @@ are testing multi-machine code that needs to operate across the internet.
 
 If you are testing something that can run on one machine, run with the -regtest option.
 In regression test mode, blocks can be created on-demand; see qa/rpc-tests/ for tests
-that run in -regest mode.
+that run in -regtest mode.
 
 **DEBUG_LOCKORDER**
 

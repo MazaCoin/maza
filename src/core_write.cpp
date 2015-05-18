@@ -5,17 +5,54 @@
 #include "core_io.h"
 
 #include "base58.h"
-#include "core.h"
+#include "primitives/transaction.h"
 #include "script/script.h"
 #include "script/standard.h"
 #include "serialize.h"
+#include "streams.h"
 #include "univalue/univalue.h"
 #include "util.h"
 #include "utilmoneystr.h"
+#include "utilstrencodings.h"
 
 #include <boost/foreach.hpp>
 
 using namespace std;
+
+string FormatScript(const CScript& script)
+{
+    string ret;
+    CScript::const_iterator it = script.begin();
+    opcodetype op;
+    while (it != script.end()) {
+        CScript::const_iterator it2 = it;
+        vector<unsigned char> vch;
+        if (script.GetOp2(it, op, &vch)) {
+            if (op == OP_0) {
+                ret += "0 ";
+                continue;
+            } else if ((op >= OP_1 && op <= OP_16) || op == OP_1NEGATE) {
+                ret += strprintf("%i ", op - OP_1NEGATE - 1);
+                continue;
+            } else if (op >= OP_NOP && op <= OP_CHECKMULTISIGVERIFY) {
+                string str(GetOpName(op));
+                if (str.substr(0, 3) == string("OP_")) {
+                    ret += str.substr(3, string::npos) + " ";
+                    continue;
+                }
+            }
+            if (vch.size() > 0) {
+                ret += strprintf("0x%x 0x%x ", HexStr(it2, it - vch.size()), HexStr(it - vch.size(), it));
+            } else {
+                ret += strprintf("0x%x", HexStr(it2, it));
+            }
+            continue;
+        }
+        ret += strprintf("0x%x ", HexStr(it2, script.end()));
+        break;
+    }
+    return ret.substr(0, ret.size() - 1);
+}
 
 string EncodeHexTx(const CTransaction& tx)
 {
@@ -92,4 +129,6 @@ void TxToUniv(const CTransaction& tx, const uint256& hashBlock, UniValue& entry)
 
     if (hashBlock != 0)
         entry.pushKV("blockhash", hashBlock.GetHex());
+
+    entry.pushKV("hex", EncodeHexTx(tx)); // the hex-encoded transaction. used the name "hex" to be consistent with the verbose output of "getrawtransaction".
 }

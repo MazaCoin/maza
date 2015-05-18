@@ -2,8 +2,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef TRANSACTIONFILTERPROXY_H
-#define TRANSACTIONFILTERPROXY_H
+#ifndef BITCOIN_QT_TRANSACTIONFILTERPROXY_H
+#define BITCOIN_QT_TRANSACTIONFILTERPROXY_H
+
+#include "amount.h"
 
 #include <QDateTime>
 #include <QSortFilterProxyModel>
@@ -38,7 +40,7 @@ public:
       @note Type filter takes a bit field created with TYPE() or ALL_TYPES
      */
     void setTypeFilter(quint32 modes);
-    void setMinAmount(qint64 minimum);
+    void setMinAmount(const CAmount& minimum);
     void setWatchOnlyFilter(WatchOnlyFilter filter);
 
     /** Set maximum number of rows returned, -1 if unlimited. */
@@ -58,9 +60,9 @@ private:
     QString addrPrefix;
     quint32 typeFilter;
     WatchOnlyFilter watchOnlyFilter;
-    qint64 minAmount;
+    CAmount minAmount;
     int limitRows;
     bool showInactive;
 };
 
-#endif // TRANSACTIONFILTERPROXY_H
+#endif // BITCOIN_QT_TRANSACTIONFILTERPROXY_H

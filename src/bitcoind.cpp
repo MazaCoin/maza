@@ -3,6 +3,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "clientversion.h"
 #include "rpcserver.h"
 #include "init.h"
 #include "main.h"
@@ -58,13 +59,36 @@ bool AppInit(int argc, char* argv[])
     boost::thread* detectShutdownThread = NULL;
 
     bool fRet = false;
+
+    //
+    // Parameters
+    //
+    // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
+    ParseParameters(argc, argv);
+
+    // Process help and version before taking care about datadir
+    if (mapArgs.count("-?") || mapArgs.count("-help") || mapArgs.count("-version"))
+    {
+        std::string strUsage = _("Mazacoin Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n";
+
+        if (mapArgs.count("-version"))
+        {
+            strUsage += LicenseInfo();
+        }
+        else
+        {
+            strUsage += "\n" + _("Usage:") + "\n" +
+                  "  mazacoind [options]                     " + _("Start Mazacoin Core Daemon") + "\n";
+
+            strUsage += "\n" + HelpMessage(HMM_BITCOIND);
+        }
+
+        fprintf(stdout, "%s", strUsage.c_str());
+        return false;
+    }
+
     try
     {
-        //
-        // Parameters
-        //
-        // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
-        ParseParameters(argc, argv);
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
             fprintf(stderr, "Error: Specified data directory \"%s\" does not exist.\n", mapArgs["-datadir"].c_str());
@@ -80,26 +104,6 @@ bool AppInit(int argc, char* argv[])
         // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
         if (!SelectParamsFromCommandLine()) {
             fprintf(stderr, "Error: Invalid combination of -regtest and -testnet.\n");
-            return false;
-        }
-
-        if (mapArgs.count("-?") || mapArgs.count("-help") || mapArgs.count("-version"))
-        {
-            std::string strUsage = _("Mazacoin Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n";
-
-            if (mapArgs.count("-version"))
-            {
-                strUsage += LicenseInfo();
-            }
-            else
-            {
-                strUsage += "\n" + _("Usage:") + "\n" +
-                      "  mazacoind [options]                     " + _("Start Mazacoin Core Daemon") + "\n";
-
-                strUsage += "\n" + HelpMessage(HMM_BITCOIND);
-            }
-
-            fprintf(stdout, "%s", strUsage.c_str());
             return false;
         }
 

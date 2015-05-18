@@ -1,5 +1,5 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2014 The Bitcoin developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 //
@@ -196,9 +196,9 @@ bool PaymentRequestPlus::getMerchant(X509_STORE* certStore, QString& merchant) c
     return fResult;
 }
 
-QList<std::pair<CScript,qint64> > PaymentRequestPlus::getPayTo() const
+QList<std::pair<CScript,CAmount> > PaymentRequestPlus::getPayTo() const
 {
-    QList<std::pair<CScript,qint64> > result;
+    QList<std::pair<CScript,CAmount> > result;
     for (int i = 0; i < details.outputs_size(); i++)
     {
         const unsigned char* scriptStr = (const unsigned char*)details.outputs(i).script().data();

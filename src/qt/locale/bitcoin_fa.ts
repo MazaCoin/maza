@@ -2,12 +2,12 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>برای ویرایش نشانی یا برچسب دوبار کلیک کنید</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>ایجاد نشانی جدید</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;جدید</translation>
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
@@ -60,6 +60,10 @@
     <message>
         <source>Comma separated file (*.csv)</source>
         <translation>پروندهٔ نوع CSV جداشونده با کاما (*.csv)</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>استخراج انجام نشد</translation>
     </message>
     </context>
 <context>
@@ -327,10 +331,6 @@
         <translation>نوارابزار برگه‌ها</translation>
     </message>
     <message>
-        <source>[testnet]</source>
-        <translation>[شبکهٔ آزمایش]</translation>
-    </message>
-    <message>
         <source>Bitcoin Core</source>
         <translation> هسته Bitcoin </translation>
     </message>
@@ -341,10 +341,6 @@
     <message>
         <source>No block source available...</source>
         <translation>منبعی برای دریافت بلاک در دسترس نیست...</translation>
-    </message>
-    <message>
-        <source>Processed %1 blocks of transaction history.</source>
-        <translation>%1 بلاک از تاریخچهٔ تراکنش‌ها پردازش شده است.</translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
@@ -435,10 +431,6 @@ Address: %4
     <message>
         <source>Amount</source>
         <translation>مبلغ</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>نشانی</translation>
     </message>
     <message>
         <source>Date</source>
@@ -612,15 +604,7 @@ Address: %4
         <source>Error</source>
         <translation>خطا</translation>
     </message>
-    <message>
-        <source>GB of free space available</source>
-        <translation>گیگابات فضا موجود است</translation>
-    </message>
-    <message>
-        <source>(of %1GB needed)</source>
-        <translation>(از %1 گیگابایت فضای مورد نیاز)</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>OpenURIDialog</name>
     </context>
@@ -633,14 +617,6 @@ Address: %4
     <message>
         <source>&amp;Main</source>
         <translation>&amp;عمومی</translation>
-    </message>
-    <message>
-        <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB.</source>
-        <translation>کارمزد اختیاریِ هر کیلوبایت برای انتقال سریع‌تر تراکنش. اکثر تراکنش‌ها ۱ کیلوبایتی هستند.</translation>
-    </message>
-    <message>
-        <source>Pay transaction &amp;fee</source>
-        <translation>پرداخت &amp;کارمزد تراکنش</translation>
     </message>
     <message>
         <source>Automatically start Bitcoin after logging in to the system.</source>
@@ -762,10 +738,6 @@ Address: %4
         <translation>اطلاعات نمایش‌داده شده ممکن است قدیمی باشند. بعد از این که یک اتصال با شبکه برقرار شد، کیف پول شما به‌صورت خودکار با شبکهٔ بیت‌کوین همگام‌سازی می‌شود. اما این روند هنوز کامل نشده است.</translation>
     </message>
     <message>
-        <source>Wallet</source>
-        <translation>کیف پول</translation>
-    </message>
-    <message>
         <source>Available:</source>
         <translation>در دسترس:</translation>
     </message>
@@ -792,10 +764,6 @@ Address: %4
     <message>
         <source>Your current total balance</source>
         <translation>تراز کل فعلی شما</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;تراکنش‌های اخیر&lt;/b&gt;</translation>
     </message>
     <message>
         <source>out of sync</source>
@@ -923,6 +891,10 @@ Address: %4
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>برای نمایش یک مرور کلی از دستورات ممکن، عبارت &lt;b&gt;help&lt;/b&gt; را بنویسید.</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>ناشناخته</translation>
     </message>
     </context>
 <context>
@@ -1544,6 +1516,10 @@ Address: %4
         <translation>نمایش جزئیات تراکنش</translation>
     </message>
     <message>
+        <source>Exporting Failed</source>
+        <translation>استخراج انجام نشد</translation>
+    </message>
+    <message>
         <source>Comma separated file (*.csv)</source>
         <translation>پروندهٔ نوع CSV جداشونده با کاما (*.csv)</translation>
     </message>
@@ -1627,24 +1603,8 @@ Address: %4
         <translation>گزینه‌ها:</translation>
     </message>
     <message>
-        <source>Specify configuration file (default: bitcoin.conf)</source>
-        <translation>مشخص کردن فایل پیکربندی (پیش‌فرض: bitcoin.conf)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: bitcoind.pid)</source>
-        <translation>مشخص کردن فایل شناسهٔ پردازش - pid - (پیش‌فرض: bitcoin.pid)</translation>
-    </message>
-    <message>
         <source>Specify data directory</source>
         <translation>مشخص کردن دایرکتوری داده‌ها</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
-        <translation>پذیرش اتصالات روی پورت &lt;port&gt; (پیش‌فرض: 8833 یا شبکهٔ آزمایشی: 18333)</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>حداکثر &lt;n&gt; اتصال با همتایان برقرار شود (پیش‌فرض: ۱۲۵)</translation>
     </message>
     <message>
         <source>Connect to a node to retrieve peer addresses, and disconnect</source>
@@ -1653,18 +1613,6 @@ Address: %4
     <message>
         <source>Specify your own public address</source>
         <translation>آدرس عمومی خود را مشخص کنید</translation>
-    </message>
-    <message>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation>حد آستانه برای قطع ارتباط با همتایان بدرفتار (پیش‌فرض: ۱۰۰)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation>مدت زمان جلوگیری از اتصال مجدد همتایان بدرفتار، به ثانیه (پیش‌فرض: ۸۴۶۰۰)</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8332 or testnet: 18332)</source>
-        <translation>پورت مورد شنود برای اتصالات JSON-RPC (پیش‌فرض: 8332 برای شبکهٔ تست 18332)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
@@ -1685,14 +1633,6 @@ Address: %4
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>مقید به نشانی داده شده باشید و همیشه از آن پیروی کنید. از نشانه گذاری استاندار IPv6 به صورت Host]:Port] استفاده کنید.</translation>
-    </message>
-    <message>
-        <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>تراکنش پذیرفته نیست! این خطا ممکن است در حالتی رخ داده باشد که مقداری از سکه های شما در کیف پولتان از جایی دیگر، همانند یک کپی از کیف پول اصلی اتان، خرج شده باشد اما در کیف پول اصلی اتان به عنوان مبلغ خرج شده، نشانه گذاری نشده باشد.</translation>
-    </message>
-    <message>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
-        <translation>خطا: این تراکنش به علت میزان وجه، دشواری، و یا استفاده از وجوه دریافتی اخیر نیازمند کارمزد به مبلغ حداقل %s است.</translation>
     </message>
     <message>
         <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
@@ -1739,56 +1679,8 @@ Address: %4
         <translation>خطا در بازگشایی پایگاه داده ی بلوک</translation>
     </message>
     <message>
-        <source>Error: system error: </source>
-        <translation>خطا: خطای سامانه:</translation>
-    </message>
-    <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>شنیدن هر گونه درگاه انجام پذیر نیست. ازlisten=0  برای اینکار استفاده کیند.</translation>
-    </message>
-    <message>
-        <source>Failed to read block info</source>
-        <translation>خواندن اطلاعات بلوک با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to read block</source>
-        <translation>خواندن بلوک با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to sync block index</source>
-        <translation>همگام سازی فهرست بلوک با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write block index</source>
-        <translation>نوشتن فهرست بلوک با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write block info</source>
-        <translation>نوشتن اطلاعات بلوک با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write block</source>
-        <translation>نوشتن بلوک با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write file info</source>
-        <translation>نوشتن اطلاعات پرونده با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write to coin database</source>
-        <translation>نوشتن اطلاعات در پایگاه داده ی سکه ها با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write transaction index</source>
-        <translation>نوشتن فهرست تراکنش ها با شکست مواجه شد</translation>
-    </message>
-    <message>
-        <source>Failed to write undo data</source>
-        <translation>عملیات بازگشت دادن اطلاعات با شکست مواجه شدن</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: 288, 0 = all)</source>
-        <translation>چند بلوک نیاز است که در ابتدای راه اندازی بررسی شوند(پیش فرض:288 ،0=همه)</translation>
     </message>
     <message>
         <source>Verifying blocks...</source>
@@ -1803,40 +1695,12 @@ Address: %4
         <translation>اطلاعات</translation>
     </message>
     <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation>حداکثر بافر دریافت شده بر اساس اتصال &lt;n&gt;*  1000 بایت  (پیش فرض:5000)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation>حداکثر بافر دریافت شده بر اساس اتصال &lt;n&gt;*  1000 بایت  (پیش فرض:1000)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
-        <translation>تنها =به گره ها در شبکه متصا شوید  &lt;net&gt; (IPv4, IPv6 or Tor)</translation>
-    </message>
-    <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>اطلاعات ردگیری/اشکال‌زدایی را به جای فایل لاگ اشکال‌زدایی به کنسول بفرستید</translation>
     </message>
     <message>
-        <source>Set minimum block size in bytes (default: 0)</source>
-        <translation>حداقل سایز بلاک بر اساس بایت تنظیم شود (پیش فرض: 0)</translation>
-    </message>
-    <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>فایل debug.log  را در startup مشتری کوچک کن (پیش فرض:1 اگر اشکال زدایی روی نداد)</translation>
-    </message>
-    <message>
-        <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation>(میلی ثانیه )فاصله ارتباط خاص</translation>
-    </message>
-    <message>
-        <source>System error: </source>
-        <translation>خطای سامانه</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>از UPnP  برای شناسایی درگاه شنیداری استفاده کنید (پیش فرض:0)</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
@@ -1867,24 +1731,12 @@ Address: %4
         <translation>wallet  را به جدیدترین فرمت روزآمد کنید</translation>
     </message>
     <message>
-        <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation> (100پیش فرض:)&amp;lt;n&amp;gt; گذاشتن اندازه کلید روی </translation>
-    </message>
-    <message>
         <source>Rescan the block chain for missing wallet transactions</source>
         <translation>اسکان مجدد زنجیر بلوکها برای گم والت معامله</translation>
     </message>
     <message>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation>JSON-RPCبرای ارتباطات   استفاده کنید OpenSSL (https)</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: server.cert)</source>
-        <translation> (server.certپیش فرض: )گواهی نامه سرور</translation>
-    </message>
-    <message>
-        <source>Server private key (default: server.pem)</source>
-        <translation>(server.pemپیش فرض: ) کلید خصوصی سرور</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -1927,10 +1779,6 @@ Address: %4
         <translation>میزان وجه اشتباه برای paytxfee=&lt;میزان وجه&gt;: %s</translation>
     </message>
     <message>
-        <source>Invalid amount</source>
-        <translation>میزان وجه اشتباه</translation>
-    </message>
-    <message>
         <source>Insufficient funds</source>
         <translation>بود جه نا کافی </translation>
     </message>
@@ -1961,10 +1809,6 @@ Address: %4
     <message>
         <source>Done loading</source>
         <translation>بار گیری انجام شده است</translation>
-    </message>
-    <message>
-        <source>To use the %s option</source>
-        <translation>برای استفاده از %s از انتخابات</translation>
     </message>
     <message>
         <source>Error</source>

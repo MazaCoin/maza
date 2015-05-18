@@ -2,10 +2,12 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef SPLASHSCREEN_H
-#define SPLASHSCREEN_H
+#ifndef BITCOIN_QT_SPLASHSCREEN_H
+#define BITCOIN_QT_SPLASHSCREEN_H
 
 #include <QSplashScreen>
+
+class NetworkStyle;
 
 /** Class for the splashscreen with information of the running client.
  *
@@ -18,7 +20,7 @@ class SplashScreen : public QWidget
     Q_OBJECT
 
 public:
-    explicit SplashScreen(Qt::WindowFlags f, bool isTestNet);
+    explicit SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle);
     ~SplashScreen();
 
 protected:
@@ -44,4 +46,4 @@ private:
     int curAlignment;
 };
 
-#endif // SPLASHSCREEN_H
+#endif // BITCOIN_QT_SPLASHSCREEN_H

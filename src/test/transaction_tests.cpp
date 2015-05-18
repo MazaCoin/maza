@@ -5,10 +5,12 @@
 #include "data/tx_invalid.json.h"
 #include "data/tx_valid.json.h"
 
+#include "clientversion.h"
 #include "key.h"
 #include "keystore.h"
 #include "main.h"
 #include "script/script.h"
+#include "script/script_error.h"
 #include "core_io.h"
 
 #include <map>
@@ -17,6 +19,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/assign/list_of.hpp>
 #include "json/json_spirit_writer_template.h"
 
 using namespace std;
@@ -26,21 +29,25 @@ using namespace boost::algorithm;
 // In script_tests.cpp
 extern Array read_json(const std::string& jsondata);
 
-unsigned int ParseScriptFlags(string strFlags){
+static std::map<string, unsigned int> mapFlagNames = boost::assign::map_list_of
+    (string("NONE"), (unsigned int)SCRIPT_VERIFY_NONE)
+    (string("P2SH"), (unsigned int)SCRIPT_VERIFY_P2SH)
+    (string("STRICTENC"), (unsigned int)SCRIPT_VERIFY_STRICTENC)
+    (string("DERSIG"), (unsigned int)SCRIPT_VERIFY_DERSIG)
+    (string("LOW_S"), (unsigned int)SCRIPT_VERIFY_LOW_S)
+    (string("SIGPUSHONLY"), (unsigned int)SCRIPT_VERIFY_SIGPUSHONLY)
+    (string("MINIMALDATA"), (unsigned int)SCRIPT_VERIFY_MINIMALDATA)
+    (string("NULLDUMMY"), (unsigned int)SCRIPT_VERIFY_NULLDUMMY)
+    (string("DISCOURAGE_UPGRADABLE_NOPS"), (unsigned int)SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS);
+
+unsigned int ParseScriptFlags(string strFlags)
+{
+    if (strFlags.empty()) {
+        return 0;
+    }
     unsigned int flags = 0;
     vector<string> words;
     split(words, strFlags, is_any_of(","));
-
-    // Note how NOCACHE is not included as it is a runtime-only flag.
-    static map<string, unsigned int> mapFlagNames;
-    if (mapFlagNames.size() == 0)
-    {
-        mapFlagNames["NONE"] = SCRIPT_VERIFY_NONE;
-        mapFlagNames["P2SH"] = SCRIPT_VERIFY_P2SH;
-        mapFlagNames["STRICTENC"] = SCRIPT_VERIFY_STRICTENC;
-        mapFlagNames["LOW_S"] = SCRIPT_VERIFY_LOW_S;
-        mapFlagNames["NULLDUMMY"] = SCRIPT_VERIFY_NULLDUMMY;
-    }
 
     BOOST_FOREACH(string word, words)
     {
@@ -50,6 +57,22 @@ unsigned int ParseScriptFlags(string strFlags){
     }
 
     return flags;
+}
+
+string FormatScriptFlags(unsigned int flags)
+{
+    if (flags == 0) {
+        return "";
+    }
+    string ret;
+    std::map<string, unsigned int>::const_iterator it = mapFlagNames.begin();
+    while (it != mapFlagNames.end()) {
+        if (flags & it->second) {
+            ret += it->first + ",";
+        }
+        it++;
+    }
+    return ret.substr(0, ret.size() - 1);
 }
 
 BOOST_AUTO_TEST_SUITE(transaction_tests)
@@ -65,6 +88,7 @@ BOOST_AUTO_TEST_CASE(tx_valid)
     // verifyFlags is a comma separated list of script verification flags to apply, or "NONE"
     Array tests = read_json(std::string(json_tests::tx_valid, json_tests::tx_valid + sizeof(json_tests::tx_valid)));
 
+    ScriptError err;
     BOOST_FOREACH(Value& tv, tests)
     {
         Array test = tv.get_array();
@@ -121,8 +145,9 @@ BOOST_AUTO_TEST_CASE(tx_valid)
 
                 unsigned int verify_flags = ParseScriptFlags(test[2].get_str());
                 BOOST_CHECK_MESSAGE(VerifyScript(tx.vin[i].scriptSig, mapprevOutScriptPubKeys[tx.vin[i].prevout],
-                                                 tx, i, verify_flags),
+                                                 verify_flags, TransactionSignatureChecker(&tx, i), &err),
                                     strTest);
+                BOOST_CHECK_MESSAGE(err == SCRIPT_ERR_OK, ScriptErrorString(err));
             }
         }
     }
@@ -139,6 +164,7 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
     // verifyFlags is a comma separated list of script verification flags to apply, or "NONE"
     Array tests = read_json(std::string(json_tests::tx_invalid, json_tests::tx_invalid + sizeof(json_tests::tx_invalid)));
 
+    ScriptError err;
     BOOST_FOREACH(Value& tv, tests)
     {
         Array test = tv.get_array();
@@ -194,10 +220,10 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
 
                 unsigned int verify_flags = ParseScriptFlags(test[2].get_str());
                 fValid = VerifyScript(tx.vin[i].scriptSig, mapprevOutScriptPubKeys[tx.vin[i].prevout],
-                                      tx, i, verify_flags);
+                                      verify_flags, TransactionSignatureChecker(&tx, i), &err);
             }
-
             BOOST_CHECK_MESSAGE(!fValid, strTest);
+            BOOST_CHECK_MESSAGE(err != SCRIPT_ERR_OK, ScriptErrorString(err));
         }
     }
 }
@@ -225,7 +251,7 @@ BOOST_AUTO_TEST_CASE(basic_transaction_tests)
 // paid to a TX_PUBKEYHASH.
 //
 static std::vector<CMutableTransaction>
-SetupDummyInputs(CBasicKeyStore& keystoreRet, CCoinsView & coinsRet)
+SetupDummyInputs(CBasicKeyStore& keystoreRet, CCoinsViewCache& coinsRet)
 {
     std::vector<CMutableTransaction> dummyTransactions;
     dummyTransactions.resize(2);
@@ -241,17 +267,17 @@ SetupDummyInputs(CBasicKeyStore& keystoreRet, CCoinsView & coinsRet)
     // Create some dummy input transactions
     dummyTransactions[0].vout.resize(2);
     dummyTransactions[0].vout[0].nValue = 11*CENT;
-    dummyTransactions[0].vout[0].scriptPubKey << key[0].GetPubKey() << OP_CHECKSIG;
+    dummyTransactions[0].vout[0].scriptPubKey << ToByteVector(key[0].GetPubKey()) << OP_CHECKSIG;
     dummyTransactions[0].vout[1].nValue = 50*CENT;
-    dummyTransactions[0].vout[1].scriptPubKey << key[1].GetPubKey() << OP_CHECKSIG;
-    coinsRet.SetCoins(dummyTransactions[0].GetHash(), CCoins(dummyTransactions[0], 0));
+    dummyTransactions[0].vout[1].scriptPubKey << ToByteVector(key[1].GetPubKey()) << OP_CHECKSIG;
+    coinsRet.ModifyCoins(dummyTransactions[0].GetHash())->FromTx(dummyTransactions[0], 0);
 
     dummyTransactions[1].vout.resize(2);
     dummyTransactions[1].vout[0].nValue = 21*CENT;
     dummyTransactions[1].vout[0].scriptPubKey = GetScriptForDestination(key[2].GetPubKey().GetID());
     dummyTransactions[1].vout[1].nValue = 22*CENT;
     dummyTransactions[1].vout[1].scriptPubKey = GetScriptForDestination(key[3].GetPubKey().GetID());
-    coinsRet.SetCoins(dummyTransactions[1].GetHash(), CCoins(dummyTransactions[1], 0));
+    coinsRet.ModifyCoins(dummyTransactions[1].GetHash())->FromTx(dummyTransactions[1], 0);
 
     return dummyTransactions;
 }
@@ -260,7 +286,7 @@ BOOST_AUTO_TEST_CASE(test_Get)
 {
     CBasicKeyStore keystore;
     CCoinsView coinsDummy;
-    CCoinsViewCache coins(coinsDummy);
+    CCoinsViewCache coins(&coinsDummy);
     std::vector<CMutableTransaction> dummyTransactions = SetupDummyInputs(keystore, coins);
 
     CMutableTransaction t1;
@@ -295,7 +321,7 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     LOCK(cs_main);
     CBasicKeyStore keystore;
     CCoinsView coinsDummy;
-    CCoinsViewCache coins(coinsDummy);
+    CCoinsViewCache coins(&coinsDummy);
     std::vector<CMutableTransaction> dummyTransactions = SetupDummyInputs(keystore, coins);
 
     CMutableTransaction t;

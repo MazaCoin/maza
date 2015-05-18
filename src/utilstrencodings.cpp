@@ -1,24 +1,26 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "utilstrencodings.h"
 
 #include "tinyformat.h"
 
+#include <cstdlib>
+#include <cstring>
 #include <errno.h>
 #include <limits>
 
-#include <boost/foreach.hpp>
-
 using namespace std;
 
-// safeChars chosen to allow simple messages/URLs/email addresses, but avoid anything
-// even possibly remotely dangerous like & or >
-static string safeChars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890 .,;_/:?@");
 string SanitizeString(const string& str)
 {
+    /**
+     * safeChars chosen to allow simple messages/URLs/email addresses, but avoid anything
+     * even possibly remotely dangerous like & or >
+     */
+    static string safeChars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890 .,;_/:?@()");
     string strResult;
     for (std::string::size_type i = 0; i < str.size(); i++)
     {
@@ -53,9 +55,9 @@ signed char HexDigit(char c)
 
 bool IsHex(const string& str)
 {
-    BOOST_FOREACH(char c, str)
+    for(std::string::const_iterator it(str.begin()); it != str.end(); ++it)
     {
-        if (HexDigit(c) < 0)
+        if (HexDigit(*it) < 0)
             return false;
     }
     return (str.size() > 0) && (str.size()%2 == 0);
@@ -457,7 +459,7 @@ std::string FormatParagraph(const std::string in, size_t width, size_t indent)
         }
         // Append word
         out << in.substr(ptr, endword - ptr);
-        col += endword - ptr;
+        col += endword - ptr + 1;
         ptr = endword;
     }
     return out.str();

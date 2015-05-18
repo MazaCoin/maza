@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>Clicio dwywaith i olygu cyfeiriad neu label</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>Creu cyfeiriad newydd</translation>
     </message>
@@ -155,10 +151,6 @@
         <translation>Bar offer tabiau</translation>
     </message>
     <message>
-        <source>[testnet]</source>
-        <translation>[testnet]</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Gwall</translation>
     </message>
@@ -200,10 +192,6 @@
     </context>
 <context>
     <name>CoinControlDialog</name>
-    <message>
-        <source>Address</source>
-        <translation>Cyfeiriad</translation>
-    </message>
     <message>
         <source>Date</source>
         <translation>Dyddiad</translation>
@@ -284,10 +272,6 @@
     <message>
         <source>Form</source>
         <translation>Ffurflen</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Trafodion diweddar&lt;/b&gt;</translation>
     </message>
     </context>
 <context>

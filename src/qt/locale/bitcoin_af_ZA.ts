@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>Dubbel-klik om die adres of etiket te wysig</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>Skep 'n nuwe adres</translation>
     </message>
@@ -201,10 +197,6 @@
         <translation>Bedrag</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>Adres</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -276,14 +268,6 @@
     <message>
         <source>Form</source>
         <translation>Vorm</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Beursie</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Onlangse transaksies&lt;/b&gt;</translation>
     </message>
     </context>
 <context>
@@ -651,14 +635,6 @@
         <translation>Opsies:</translation>
     </message>
     <message>
-        <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
-        <translation>Luister vir konneksies op &lt;port&gt; (standaard: 8333 of testnet: 18333)</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>Onderhou op die meeste &lt;n&gt; konneksies na eweknieë (standaard: 125)</translation>
-    </message>
-    <message>
         <source>Use the test network</source>
         <translation>Gebruik die toets netwerk</translation>
     </message>
@@ -671,20 +647,12 @@
         <translation>Informasie</translation>
     </message>
     <message>
-        <source>System error: </source>
-        <translation>Sisteem fout:</translation>
-    </message>
-    <message>
         <source>This help message</source>
         <translation>Hierdie help boodskap</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
         <translation>Laai adresse...</translation>
-    </message>
-    <message>
-        <source>Invalid amount</source>
-        <translation>Ongeldige bedrag</translation>
     </message>
     <message>
         <source>Insufficient funds</source>

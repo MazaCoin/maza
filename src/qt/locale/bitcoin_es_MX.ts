@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>Haga doble clic para editar el domicilio o la etiqueta</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>Crear una dirección nueva</translation>
     </message>
@@ -397,10 +393,6 @@
         <translation>Monto</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>Domicilio</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Fecha</translation>
     </message>
@@ -568,10 +560,6 @@
     <message>
         <source>Form</source>
         <translation>Formulario</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Transacciones recientes&lt;/b&gt;</translation>
     </message>
     </context>
 <context>

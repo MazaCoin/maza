@@ -2,20 +2,44 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>Klik dua kali untuk mengubah alamat atau label</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>Cipta alamat baru</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Baru</translation>
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
         <translation>Salin alamat terpilih ke dalam sistem papan klip</translation>
     </message>
     <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Salin</translation>
+    </message>
+    <message>
+        <source>&amp;Copy Address</source>
+        <translation>&amp;Salin Alamat</translation>
+    </message>
+    <message>
+        <source>&amp;Export</source>
+        <translation>&amp;Eksport</translation>
+    </message>
+    <message>
         <source>&amp;Delete</source>
         <translation>&amp;Padam</translation>
+    </message>
+    <message>
+        <source>Choose the address to send coins to</source>
+        <translation>Pilih alamat untuk menghantar syiling</translation>
+    </message>
+    <message>
+        <source>Choose the address to receive coins with</source>
+        <translation>Pilih alamat untuk menerima syiling</translation>
+    </message>
+    <message>
+        <source>C&amp;hoose</source>
+        <translation>&amp;Pilih</translation>
     </message>
     <message>
         <source>Comma separated file (*.csv)</source>
@@ -44,10 +68,6 @@
     </context>
 <context>
     <name>CoinControlDialog</name>
-    <message>
-        <source>Address</source>
-        <translation>Alamat</translation>
-    </message>
     </context>
 <context>
     <name>EditAddressDialog</name>
@@ -163,6 +183,10 @@
     </context>
 <context>
     <name>WalletView</name>
+    <message>
+        <source>&amp;Export</source>
+        <translation>&amp;Eksport</translation>
+    </message>
     </context>
 <context>
     <name>bitcoin-core</name>

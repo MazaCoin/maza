@@ -6,6 +6,7 @@
 
 #include "clientversion.h"
 #include "init.h"
+#include "networkstyle.h"
 #include "ui_interface.h"
 #include "util.h"
 #include "version.h"
@@ -19,11 +20,9 @@
 #include <QDesktopWidget>
 #include <QPainter>
 
-SplashScreen::SplashScreen(Qt::WindowFlags f, bool isTestNet) :
+SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) :
     QWidget(0, f), curAlignment(0)
 {
-    //setAutoFillBackground(true);
-
     // set reference point, paddings
     int paddingRight            = 50;
     int paddingTop              = 50;
@@ -40,17 +39,12 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, bool isTestNet) :
     QString copyrightText   = QChar(0xA9)+QString(" 2013-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Mazacoin Core developers"));
     QString copyrightText2  = QChar(0xA9)+QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
     QString copyrightText3  = QChar(0xA9)+QString(" 2013 ") + QString(tr("The Zetacoin Developers"));
-    QString testnetAddText  = QString(tr("[testnet]")); // define text to place as single text object
+    QString titleAddText    = networkStyle->getTitleAddText();
 
-    QString font            = "Arial";
+    QString font            = QApplication::font().toString();
 
     // load the bitmap for writing some text over it
-    if(isTestNet) {
-        pixmap     = QPixmap(":/images/splash_testnet");
-    }
-    else {
-        pixmap     = QPixmap(":/images/splash");
-    }
+    pixmap     = networkStyle->getSplashImage();
 
     QPainter pixPaint(&pixmap);
     pixPaint.setPen(QColor(100,100,100));
@@ -86,23 +80,20 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, bool isTestNet) :
     pixPaint.drawText(pixmap.width()-titleTextWidth-paddingRight,paddingTop+titleCopyrightVSpace2,copyrightText2);
     pixPaint.drawText(pixmap.width()-titleTextWidth-paddingRight,paddingTop+titleCopyrightVSpace3,copyrightText3);
 
-    // draw testnet string if testnet is on
-    if(isTestNet) {
+    // draw additional text if special network
+    if(!titleAddText.isEmpty()) {
         QFont boldFont = QFont(font, 10*fontFactor);
         boldFont.setWeight(QFont::Bold);
         pixPaint.setFont(boldFont);
         fm = pixPaint.fontMetrics();
-        int testnetAddTextWidth  = fm.width(testnetAddText);
-        pixPaint.drawText(pixmap.width()-testnetAddTextWidth-10,15,testnetAddText);
+        int titleAddTextWidth  = fm.width(titleAddText);
+        pixPaint.drawText(pixmap.width()-titleAddTextWidth-10,15,titleAddText);
     }
 
     pixPaint.end();
 
     // Set window title
-    if(isTestNet)
-        setWindowTitle(titleText + " " + testnetAddText);
-    else
-        setWindowTitle(titleText);
+    setWindowTitle(titleText + " " + titleAddText);
 
     // Resize window and move to center of desktop, disallow resizing
     QRect r(QPoint(), pixmap.size());
@@ -120,6 +111,7 @@ SplashScreen::~SplashScreen()
 
 void SplashScreen::slotFinish(QWidget *mainWin)
 {
+    Q_UNUSED(mainWin);
     hide();
 }
 
@@ -184,6 +176,6 @@ void SplashScreen::paintEvent(QPaintEvent *event)
 
 void SplashScreen::closeEvent(QCloseEvent *event)
 {
+    StartShutdown(); // allows an "emergency" shutdown during startup
     event->ignore();
 }
-

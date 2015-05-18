@@ -10,8 +10,9 @@ $(package)_qt_libs=corelib network widgets gui plugins testlib
 $(package)_patches=mac-qmake.conf fix-xcb-include-order.patch qt5-tablet-osx.patch
 
 define $(package)_set_vars
-$(package)_config_opts  = -release -opensource -confirm-license
-$(package)_config_opts += -no-audio-backend -no-sql-tds -no-glib -no-icu
+$(package)_config_opts_release = -release
+$(package)_config_opts_debug   = -debug
+$(package)_config_opts += -opensource -confirm-license -no-audio-backend -no-sql-tds -no-glib -no-icu
 $(package)_config_opts += -no-cups -no-iconv -no-gif -no-audio-backend -no-freetype
 $(package)_config_opts += -no-sql-sqlite -no-nis -no-cups -no-iconv -no-pch
 $(package)_config_opts += -no-gif -no-feature-style-plastique
@@ -47,13 +48,20 @@ define $(package)_preprocess_cmds
   sed -i.old "s|updateqm.commands = \$$$$\$$$$LRELEASE|updateqm.commands = $($(package)_extract_dir)/qttools/bin/lrelease|" qttranslations/translations/translations.pro && \
   sed -i.old "s/src_plugins.depends = src_sql src_xml src_network/src_plugins.depends = src_xml src_network/" qtbase/src/src.pro && \
   sed -i.old "/XIproto.h/d" qtbase/src/plugins/platforms/xcb/qxcbxsettings.cpp && \
+  sed -i.old 's/if \[ "$$$$XPLATFORM_MAC" = "yes" \]; then xspecvals=$$$$(macSDKify/if \[ "$$$$BUILD_ON_MAC" = "yes" \]; then xspecvals=$$$$(macSDKify/' qtbase/configure && \
   mkdir -p qtbase/mkspecs/macx-clang-linux &&\
   cp -f qtbase/mkspecs/macx-clang/Info.plist.lib qtbase/mkspecs/macx-clang-linux/ &&\
   cp -f qtbase/mkspecs/macx-clang/Info.plist.app qtbase/mkspecs/macx-clang-linux/ &&\
   cp -f qtbase/mkspecs/macx-clang/qplatformdefs.h qtbase/mkspecs/macx-clang-linux/ &&\
   cp -f $($(package)_patch_dir)/mac-qmake.conf qtbase/mkspecs/macx-clang-linux/qmake.conf && \
   patch -p1 < $($(package)_patch_dir)/fix-xcb-include-order.patch && \
-  patch -p1 < $($(package)_patch_dir)/qt5-tablet-osx.patch
+  patch -p1 < $($(package)_patch_dir)/qt5-tablet-osx.patch && \
+  echo "QMAKE_CFLAGS     += $($(package)_cflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
+  echo "QMAKE_CXXFLAGS   += $($(package)_cxxflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
+  echo "QMAKE_LFLAGS     += $($(package)_ldflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
+  sed -i.old "s|QMAKE_CFLAGS            = |QMAKE_CFLAGS            = $($(package)_cflags) $($(package)_cppflags) |" qtbase/mkspecs/win32-g++/qmake.conf && \
+  sed -i.old "s|QMAKE_LFLAGS            = |QMAKE_LFLAGS            = $($(package)_ldflags) |" qtbase/mkspecs/win32-g++/qmake.conf && \
+  sed -i.old "s|QMAKE_CXXFLAGS          = |QMAKE_CXXFLAGS            = $($(package)_cxxflags) $($(package)_cppflags) |" qtbase/mkspecs/win32-g++/qmake.conf
 endef
 
 define $(package)_config_cmds
@@ -86,5 +94,5 @@ endef
 
 define $(package)_postprocess_cmds
   rm -rf mkspecs/ lib/cmake/ && \
-  rm lib/libQt5Bootstrap.a lib/lib*.la lib/lib*.prl
+  rm lib/libQt5Bootstrap.a lib/lib*.la lib/*.prl plugins/*/*.prl
 endef

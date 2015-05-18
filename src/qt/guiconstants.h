@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef GUICONSTANTS_H
-#define GUICONSTANTS_H
+#ifndef BITCOIN_QT_GUICONSTANTS_H
+#define BITCOIN_QT_GUICONSTANTS_H
 
 /* Milliseconds between model updates */
 static const int MODEL_UPDATE_DELAY = 250;
@@ -38,9 +38,6 @@ static const int TOOLTIP_WRAP_THRESHOLD = 80;
 /* Maximum allowed URI length */
 static const int MAX_URI_LENGTH = 255;
 
-/* Maximum somewhat-sane size of a payment request file */
-static const int MAX_PAYMENT_REQUEST_SIZE = 50000; // bytes
-
 /* QRCodeDialog -- size of exported QR Code image */
 #define EXPORT_IMAGE_SIZE 256
 
@@ -52,4 +49,4 @@ static const int MAX_PAYMENT_REQUEST_SIZE = 50000; // bytes
 #define QAPP_APP_NAME_DEFAULT "Mazacoin-Qt"
 #define QAPP_APP_NAME_TESTNET "Mazacoin-Qt-testnet"
 
-#endif // GUICONSTANTS_H
+#endif // BITCOIN_QT_GUICONSTANTS_H

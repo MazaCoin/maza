@@ -5,10 +5,9 @@
 
 #include "pow.h"
 
+#include "chain.h"
 #include "chainparams.h"
-#include "core.h"
-#include "main.h"
-#include "timedata.h"
+#include "primitives/block.h"
 #include "uint256.h"
 #include "util.h"
 
@@ -171,6 +170,10 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
     bool fNegative;
     bool fOverflow;
     uint256 bnTarget;
+
+    if (Params().SkipProofOfWorkCheck())
+       return true;
+
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
     // Check range
@@ -184,56 +187,12 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
     return true;
 }
 
-//
-// true if nBits is greater than the minimum amount of work that could
-// possibly be required deltaTime after minimum work required was nBase
-//
-bool CheckMinWork(unsigned int nBits, unsigned int nBase, int64_t deltaTime)
-{
-    static const int64_t nMaxAdjustDown = 20; // 20% adjustment down
-    static const int64_t nTargetTimespanAdjDown = Params().TargetTimespan() * (100 + nMaxAdjustDown) / 100;
-
-    bool fOverflow = false;
-    uint256 bnNewBlock;
-    bnNewBlock.SetCompact(nBits, NULL, &fOverflow);
-    if (fOverflow)
-        return false;
-
-    const uint256 &bnLimit = Params().ProofOfWorkLimit();
-    // Testnet has min-difficulty blocks
-    // after Params().TargetSpacing()*2 time between blocks:
-    if (Params().AllowMinDifficultyBlocks() && deltaTime > Params().TargetSpacing()*2)
-        return bnNewBlock <= bnLimit;
-
-    uint256 bnResult;
-    bnResult.SetCompact(nBase);
-    while (deltaTime > 0 && bnResult < bnLimit)
-    {
-        bnResult *= (100 + nMaxAdjustDown);
-        bnResult /= 100;
-        deltaTime -= nTargetTimespanAdjDown;
-    }
-    if (bnResult > bnLimit)
-        bnResult = bnLimit;
-
-    return bnNewBlock <= bnResult;
-}
-
-void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
-{
-    pblock->nTime = std::max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
-
-    // Updating time can change work required on testnet:
-    if (Params().AllowMinDifficultyBlocks())
-        pblock->nBits = GetNextWorkRequired(pindexPrev, pblock);
-}
-
-uint256 GetProofIncrement(unsigned int nBits)
+uint256 GetBlockProof(const CBlockIndex& block)
 {
     uint256 bnTarget;
     bool fNegative;
     bool fOverflow;
-    bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
+    bnTarget.SetCompact(block.nBits, &fNegative, &fOverflow);
     if (fNegative || fOverflow || bnTarget == 0)
         return 0;
     // We need to compute 2**256 / (bnTarget+1), but we can't represent 2**256

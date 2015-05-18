@@ -2,8 +2,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPTIONSMODEL_H
-#define OPTIONSMODEL_H
+#ifndef BITCOIN_QT_OPTIONSMODEL_H
+#define BITCOIN_QT_OPTIONSMODEL_H
+
+#include "amount.h"
 
 #include <QAbstractListModel>
 
@@ -32,7 +34,6 @@ public:
         ProxyUse,               // bool
         ProxyIP,                // QString
         ProxyPort,              // int
-        Fee,                    // qint64
         DisplayUnit,            // BitcoinUnits::Unit
         ThirdPartyTxUrls,       // QString
         Language,               // QString
@@ -82,8 +83,7 @@ private:
 
 signals:
     void displayUnitChanged(int unit);
-    void transactionFeeChanged(qint64);
     void coinControlFeaturesChanged(bool);
 };
 
-#endif // OPTIONSMODEL_H
+#endif // BITCOIN_QT_OPTIONSMODEL_H

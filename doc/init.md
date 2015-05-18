@@ -4,10 +4,10 @@ Sample init scripts and service configuration for mazacoind
 Sample scripts and configuration files for systemd, Upstart and OpenRC
 can be found in the contrib/init folder.
 
-contrib/init/mazacoind.service:    systemd service unit configuration
-contrib/init/mazacoind.openrc:     OpenRC compatible SysV style init script
-contrib/init/mazacoind.openrcconf: OpenRC conf.d file
-contrib/init/mazacoind.conf:       Upstart service configuration file
+    contrib/init/mazacoind.service:    systemd service unit configuration
+    contrib/init/mazacoind.openrc:     OpenRC compatible SysV style init script
+    contrib/init/mazacoind.openrcconf: OpenRC conf.d file
+    contrib/init/mazacoind.conf:       Upstart service configuration file
 
 1. Service User
 ---------------------------------

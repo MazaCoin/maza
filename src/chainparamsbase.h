@@ -1,9 +1,9 @@
 // Copyright (c) 2014 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CHAIN_PARAMS_BASE_H
-#define BITCOIN_CHAIN_PARAMS_BASE_H
+#ifndef BITCOIN_CHAINPARAMSBASE_H
+#define BITCOIN_CHAINPARAMSBASE_H
 
 #include <string>
 #include <vector>
@@ -19,13 +19,13 @@ public:
         MAIN,
         TESTNET,
         REGTEST,
+        UNITTEST,
 
         MAX_NETWORK_TYPES
     };
 
     const std::string& DataDir() const { return strDataDir; }
     int RPCPort() const { return nRPCPort; }
-    Network NetworkID() const { return networkID; }
 
 protected:
     CBaseChainParams() {}
@@ -45,7 +45,13 @@ const CBaseChainParams& BaseParams();
 void SelectBaseParams(CBaseChainParams::Network network);
 
 /**
- * Looks for -regtest or -testnet and then calls SelectParams as appropriate.
+ * Looks for -regtest or -testnet and returns the appropriate Network ID.
+ * Returns MAX_NETWORK_TYPES if an invalid combination is given.
+ */
+CBaseChainParams::Network NetworkIdFromCommandLine();
+
+/**
+ * Calls NetworkIdFromCommandLine() and then calls SelectParams as appropriate.
  * Returns false if an invalid combination is given.
  */
 bool SelectBaseParamsFromCommandLine();
@@ -56,4 +62,4 @@ bool SelectBaseParamsFromCommandLine();
  */
 bool AreBaseParamsConfigured();
 
-#endif // BITCOIN_CHAIN_PARAMS_BASE_H
+#endif // BITCOIN_CHAINPARAMSBASE_H

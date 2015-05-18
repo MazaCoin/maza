@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_BIGNUM_H
-#define BITCOIN_BIGNUM_H
+#ifndef BITCOIN_TEST_BIGNUM_H
+#define BITCOIN_TEST_BIGNUM_H
 
 #include <algorithm>
 #include <limits>
@@ -63,11 +63,11 @@ public:
 
     int getint() const
     {
-        unsigned long n = BN_get_word(this);
+        BN_ULONG n = BN_get_word(this);
         if (!BN_is_negative(this))
-            return (n > (unsigned long)std::numeric_limits<int>::max() ? std::numeric_limits<int>::max() : n);
+            return (n > (BN_ULONG)std::numeric_limits<int>::max() ? std::numeric_limits<int>::max() : n);
         else
-            return (n > (unsigned long)std::numeric_limits<int>::max() ? std::numeric_limits<int>::min() : -(int)n);
+            return (n > (BN_ULONG)std::numeric_limits<int>::max() ? std::numeric_limits<int>::min() : -(int)n);
     }
 
     void setint64(int64_t sn)
@@ -177,4 +177,4 @@ inline bool operator>=(const CBigNum& a, const CBigNum& b) { return (BN_cmp(&a, 
 inline bool operator<(const CBigNum& a, const CBigNum& b)  { return (BN_cmp(&a, &b) < 0); }
 inline bool operator>(const CBigNum& a, const CBigNum& b)  { return (BN_cmp(&a, &b) > 0); }
 
-#endif
+#endif // BITCOIN_TEST_BIGNUM_H

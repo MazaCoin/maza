@@ -2,12 +2,36 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>ایڈریس یا لیبل میں ترمیم کرنے پر ڈبل کلک کریں</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>نیا ایڈریس بنائیں</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>نیا</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>نقل</translation>
+    </message>
+    <message>
+        <source>C&amp;lose</source>
+        <translation>بند</translation>
+    </message>
+    <message>
+        <source>&amp;Copy Address</source>
+        <translation>کاپی پتہ</translation>
+    </message>
+    <message>
+        <source>&amp;Export</source>
+        <translation>برآمد</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>مٹا</translation>
+    </message>
+    <message>
+        <source>C&amp;hoose</source>
+        <translation>چننا</translation>
     </message>
     </context>
 <context>
@@ -71,10 +95,6 @@
     <message>
         <source>Amount</source>
         <translation>رقم</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation> پتہ</translation>
     </message>
     <message>
         <source>Date</source>
@@ -291,16 +311,16 @@
     </context>
 <context>
     <name>WalletView</name>
+    <message>
+        <source>&amp;Export</source>
+        <translation>برآمد</translation>
+    </message>
     </context>
 <context>
     <name>bitcoin-core</name>
     <message>
         <source>This help message</source>
         <translation>یہ مدد کا پیغام</translation>
-    </message>
-    <message>
-        <source>Invalid amount</source>
-        <translation>غلط رقم</translation>
     </message>
     <message>
         <source>Insufficient funds</source>

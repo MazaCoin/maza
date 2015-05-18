@@ -3,15 +3,18 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "base58.h"
-#include "core.h"
+#include "clientversion.h"
+#include "primitives/block.h" // for MAX_BLOCK_SIZE
+#include "primitives/transaction.h"
 #include "core_io.h"
+#include "coins.h"
 #include "keystore.h"
-#include "main.h" // for MAX_BLOCK_SIZE
 #include "script/script.h"
 #include "script/sign.h"
 #include "ui_interface.h" // for _(...)
 #include "univalue/univalue.h"
 #include "util.h"
+#include "utilstrencodings.h"
 #include "utilmoneystr.h"
 
 #include <stdio.h>
@@ -56,6 +59,7 @@ static bool AppInitRawTx(int argc, char* argv[])
         strUsage += "  -?                      " + _("This help message") + "\n";
         strUsage += "  -create                 " + _("Create new, empty TX.") + "\n";
         strUsage += "  -json                   " + _("Select JSON output") + "\n";
+        strUsage += "  -txid                   " + _("Output only the hex-encoded transaction id of the resultant transaction.") + "\n";
         strUsage += "  -regtest                " + _("Enter regression test mode, which uses a special chain in which blocks can be solved instantly.") + "\n";
         strUsage += "  -testnet                " + _("Use the test network") + "\n";
         strUsage += "\n";
@@ -214,7 +218,7 @@ static void MutateTxAddOutAddr(CMutableTransaction& tx, const string& strInput)
 
     // extract and validate VALUE
     string strValue = strInput.substr(0, pos);
-    int64_t value;
+    CAmount value;
     if (!ParseMoney(strValue, value))
         throw runtime_error("invalid TX output value");
 
@@ -242,7 +246,7 @@ static void MutateTxAddOutScript(CMutableTransaction& tx, const string& strInput
 
     // extract and validate VALUE
     string strValue = strInput.substr(0, pos);
-    int64_t value;
+    CAmount value;
     if (!ParseMoney(strValue, value))
         throw runtime_error("invalid TX output value");
 
@@ -340,7 +344,7 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
     CMutableTransaction mergedTx(txVariants[0]);
     bool fComplete = true;
     CCoinsView viewDummy;
-    CCoinsViewCache view(viewDummy);
+    CCoinsViewCache view(&viewDummy);
 
     if (!registers.count("privatekeys"))
         throw runtime_error("privatekeys register variable must be set.");
@@ -364,7 +368,7 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
     // Add previous txouts given in the RPC call:
     if (!registers.count("prevtxs"))
         throw runtime_error("prevtxs register variable must be set.");
-    UniValue prevtxsObj = registers["privatekeys"];
+    UniValue prevtxsObj = registers["prevtxs"];
     {
         for (unsigned int previdx = 0; previdx < prevtxsObj.count(); previdx++) {
             UniValue prevOut = prevtxsObj[previdx];
@@ -375,30 +379,28 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
             if (!prevOut.checkObject(types))
                 throw runtime_error("prevtxs internal object typecheck fail");
 
-            uint256 txid = ParseHashUV(prevOut, "txid");
+            uint256 txid = ParseHashUV(prevOut["txid"], "txid");
 
             int nOut = atoi(prevOut["vout"].getValStr());
             if (nOut < 0)
                 throw runtime_error("vout must be positive");
 
-            vector<unsigned char> pkData(ParseHexUV(prevOut, "scriptPubKey"));
+            vector<unsigned char> pkData(ParseHexUV(prevOut["scriptPubKey"], "scriptPubKey"));
             CScript scriptPubKey(pkData.begin(), pkData.end());
 
-            CCoins coins;
-            if (view.GetCoins(txid, coins)) {
-                if (coins.IsAvailable(nOut) && coins.vout[nOut].scriptPubKey != scriptPubKey) {
+            {
+                CCoinsModifier coins = view.ModifyCoins(txid);
+                if (coins->IsAvailable(nOut) && coins->vout[nOut].scriptPubKey != scriptPubKey) {
                     string err("Previous output scriptPubKey mismatch:\n");
-                    err = err + coins.vout[nOut].scriptPubKey.ToString() + "\nvs:\n"+
+                    err = err + coins->vout[nOut].scriptPubKey.ToString() + "\nvs:\n"+
                         scriptPubKey.ToString();
                     throw runtime_error(err);
                 }
-                // what todo if txid is known, but the actual output isn't?
+                if ((unsigned int)nOut >= coins->vout.size())
+                    coins->vout.resize(nOut+1);
+                coins->vout[nOut].scriptPubKey = scriptPubKey;
+                coins->vout[nOut].nValue = 0; // we don't know the actual output value
             }
-            if ((unsigned int)nOut >= coins.vout.size())
-                coins.vout.resize(nOut+1);
-            coins.vout[nOut].scriptPubKey = scriptPubKey;
-            coins.vout[nOut].nValue = 0; // we don't know the actual output value
-            view.SetCoins(txid, coins);
 
             // if redeemScript given and private keys given,
             // add redeemScript to the tempKeystore so it can be signed:
@@ -435,7 +437,7 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
         BOOST_FOREACH(const CTransaction& txv, txVariants) {
             txin.scriptSig = CombineSignatures(prevPubKey, mergedTx, i, txin.scriptSig, txv.vin[i].scriptSig);
         }
-        if (!VerifyScript(txin.scriptSig, prevPubKey, mergedTx, i, STANDARD_SCRIPT_VERIFY_FLAGS))
+        if (!VerifyScript(txin.scriptSig, prevPubKey, STANDARD_SCRIPT_VERIFY_FLAGS, MutableTransactionSignatureChecker(&mergedTx, i)))
             fComplete = false;
     }
 
@@ -489,6 +491,13 @@ static void OutputTxJSON(const CTransaction& tx)
     fprintf(stdout, "%s\n", jsonOutput.c_str());
 }
 
+static void OutputTxHash(const CTransaction& tx)
+{
+    string strHexHash = tx.GetHash().GetHex(); // the hex-encoded transaction hash (aka the transaction id)
+
+    fprintf(stdout, "%s\n", strHexHash.c_str());
+}
+
 static void OutputTxHex(const CTransaction& tx)
 {
     string strHex = EncodeHexTx(tx);
@@ -500,6 +509,8 @@ static void OutputTx(const CTransaction& tx)
 {
     if (GetBoolArg("-json", false))
         OutputTxJSON(tx);
+    else if (GetBoolArg("-txid", false))
+        OutputTxHash(tx);
     else
         OutputTxHex(tx);
 }

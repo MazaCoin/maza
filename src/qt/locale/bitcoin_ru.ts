@@ -2,8 +2,8 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>Для того, чтобы изменить адрес или метку, дважды кликните по изменяемому объекту</translation>
+        <source>Right-click to edit address or label</source>
+        <translation>Клик правой кнопкой для редактирования адреса или метки</translation>
     </message>
     <message>
         <source>Create a new address</source>
@@ -264,7 +264,7 @@
     </message>
     <message>
         <source>&amp;Options...</source>
-        <translation>Опции</translation>
+        <translation>&amp;Параметры</translation>
     </message>
     <message>
         <source>&amp;Encrypt Wallet...</source>
@@ -387,10 +387,6 @@
         <translation>Панель вкладок</translation>
     </message>
     <message>
-        <source>[testnet]</source>
-        <translation>[тестовая сеть]</translation>
-    </message>
-    <message>
         <source>Bitcoin Core</source>
         <translation>Bitcoin Core</translation>
     </message>
@@ -416,35 +412,31 @@
     </message>
     <message>
         <source>&amp;Command-line options</source>
-        <translation>&amp;Опции командной строки</translation>
+        <translation>&amp;Параметры командной строки</translation>
     </message>
     <message>
         <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
-        <translation>Показать помощь по Bitcoin Core и получить список доступных опций командной строки.</translation>
+        <translation>Показать помощь по Bitcoin Core и получить список доступных параметров командной строки.</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n активное соединение с сетью</numerusform><numerusform>%n активных соединений с сетью</numerusform><numerusform>%n активных соединений с сетью Bitcoin</numerusform></translation>
+        <translation><numerusform>%n активное соединение с сетью</numerusform><numerusform>%n активных соединений с сетью</numerusform><numerusform>%n активных соединений с сетью Bitcoin</numerusform><numerusform>%n активных соединений с сетью Bitcoin</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
         <translation>Источник блоков недоступен...</translation>
     </message>
-    <message>
-        <source>Processed %1 blocks of transaction history.</source>
-        <translation>Обработано %1 блоков истории транзакций.</translation>
-    </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
-        <translation><numerusform>%n час</numerusform><numerusform>%n часа</numerusform><numerusform>%n часов</numerusform></translation>
+        <translation><numerusform>%n час</numerusform><numerusform>%n часа</numerusform><numerusform>%n часов</numerusform><numerusform>%n часов</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
-        <translation><numerusform>%n день</numerusform><numerusform>%n дня</numerusform><numerusform>%n дней</numerusform></translation>
+        <translation><numerusform>%n день</numerusform><numerusform>%n дня</numerusform><numerusform>%n дней</numerusform><numerusform>%n дней</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n week(s)</source>
-        <translation><numerusform>%n неделя</numerusform><numerusform>%n недели</numerusform><numerusform>%n недель</numerusform></translation>
+        <translation><numerusform>%n неделя</numerusform><numerusform>%n недели</numerusform><numerusform>%n недель</numerusform><numerusform>%n недель</numerusform></translation>
     </message>
     <message>
         <source>%1 and %2</source>
@@ -452,7 +444,7 @@
     </message>
     <message numerus="yes">
         <source>%n year(s)</source>
-        <translation><numerusform>%n год</numerusform><numerusform>%n лет</numerusform><numerusform>%n года</numerusform></translation>
+        <translation><numerusform>%n год</numerusform><numerusform>%n лет</numerusform><numerusform>%n года</numerusform><numerusform>%n года</numerusform></translation>
     </message>
     <message>
         <source>%1 behind</source>
@@ -481,6 +473,10 @@
     <message>
         <source>Up to date</source>
         <translation>Синхронизировано</translation>
+    </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>Обработан %n блок истории транзакций.</numerusform><numerusform>Обработано %n блока истории транзакций.</numerusform><numerusform>Обработано %n блоков истории транзакций.</numerusform><numerusform>Обработано %n блоков истории транзакций.</numerusform></translation>
     </message>
     <message>
         <source>Catching up...</source>
@@ -525,8 +521,8 @@ Address: %4
 <context>
     <name>CoinControlDialog</name>
     <message>
-        <source>Coin Control Address Selection</source>
-        <translation>Выбор адреса контроля монет</translation>
+        <source>Coin Selection</source>
+        <translation>Выбор монет</translation>
     </message>
     <message>
         <source>Quantity:</source>
@@ -577,8 +573,12 @@ Address: %4
         <translation>Сумма</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>Адрес</translation>
+        <source>Received with label</source>
+        <translation>Получено с пометкой</translation>
+    </message>
+    <message>
+        <source>Received with address</source>
+        <translation>Получено с адреса</translation>
     </message>
     <message>
         <source>Date</source>
@@ -847,11 +847,11 @@ Address: %4
     </message>
     <message>
         <source>command-line options</source>
-        <translation>опции командной строки</translation>
+        <translation>параметры командной строки</translation>
     </message>
     <message>
         <source>UI options</source>
-        <translation>Опции интерфейса</translation>
+        <translation>Настройки интерфейса</translation>
     </message>
     <message>
         <source>Set language, for example "de_DE" (default: system locale)</source>
@@ -912,13 +912,13 @@ Address: %4
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
-    <message>
-        <source>GB of free space available</source>
-        <translation>ГБ свободного места доступно</translation>
+    <message numerus="yes">
+        <source>%n GB of free space available</source>
+        <translation><numerusform>%nГБ свободного места доступно</numerusform><numerusform>%nГБ свободного места доступно</numerusform><numerusform>%nГБ свободного места доступно</numerusform><numerusform>%nГБ свободного места доступно</numerusform></translation>
     </message>
-    <message>
-        <source>(of %1GB needed)</source>
-        <translation>(из необходимых %1ГБ)</translation>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(из необходимых %nГБ)</numerusform><numerusform>(из необходимых %nГБ)</numerusform><numerusform>(из необходимых %nГБ)</numerusform><numerusform>(из необходимых %nГБ)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -948,19 +948,11 @@ Address: %4
     <name>OptionsDialog</name>
     <message>
         <source>Options</source>
-        <translation>Опции</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <source>&amp;Main</source>
         <translation>&amp;Главная</translation>
-    </message>
-    <message>
-        <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB.</source>
-        <translation>Необязательная комиссия за каждый КБ транзакции, которая ускоряет обработку Ваших транзакций.  Большинство транзакций занимают 1КБ.</translation>
-    </message>
-    <message>
-        <source>Pay transaction &amp;fee</source>
-        <translation>Заплатить ко&amp;миссию</translation>
     </message>
     <message>
         <source>Automatically start Bitcoin after logging in to the system.</source>
@@ -991,14 +983,6 @@ Address: %4
         <translation>Разрешить входящие подключения</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a SOCKS proxy.</source>
-        <translation>Подключаться к сети Bitcoin через прокси SOCKS.</translation>
-    </message>
-    <message>
-        <source>&amp;Connect through SOCKS proxy (default proxy):</source>
-        <translation>&amp;Подключаться через SOCKS прокси (прокси по умолчанию):</translation>
-    </message>
-    <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation>IP-адрес прокси (например IPv4: 127.0.0.1 / IPv6: ::1)</translation>
     </message>
@@ -1016,11 +1000,11 @@ Address: %4
     </message>
     <message>
         <source>Reset all client options to default.</source>
-        <translation>Сбросить все опции клиента на значения по умолчанию.</translation>
+        <translation>Сбросить все настройки клиента на значения по умолчанию.</translation>
     </message>
     <message>
         <source>&amp;Reset Options</source>
-        <translation>&amp;Сбросить опции</translation>
+        <translation>&amp;Сбросить параметры</translation>
     </message>
     <message>
         <source>&amp;Network</source>
@@ -1057,6 +1041,14 @@ Address: %4
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation>Пробросить порт через &amp;UPnP</translation>
+    </message>
+    <message>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation>Подключаться к сети Bitcoin через прокси SOCKS5</translation>
+    </message>
+    <message>
+        <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
+        <translation>&amp;Подключаться к сети Bitcoin через прокси SOCKS5 (прокси по умолчанию):</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1132,7 +1124,7 @@ Address: %4
     </message>
     <message>
         <source>Confirm options reset</source>
-        <translation>Подтвердите сброс опций</translation>
+        <translation>Подтвердите сброс параметров</translation>
     </message>
     <message>
         <source>Client restart required to activate changes.</source>
@@ -1160,10 +1152,6 @@ Address: %4
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
         <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью Bitcoin после подключения, но этот процесс пока не завершён.</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Бумажник</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1194,6 +1182,10 @@ Address: %4
         <translation>Баланс добытых монет, который ещё не созрел</translation>
     </message>
     <message>
+        <source>Balances</source>
+        <translation>Балансы</translation>
+    </message>
+    <message>
         <source>Total:</source>
         <translation>Итого:</translation>
     </message>
@@ -1206,6 +1198,14 @@ Address: %4
         <translation>Ваш текущий баланс в адресах наблюдения</translation>
     </message>
     <message>
+        <source>Spendable:</source>
+        <translation>Доступно:</translation>
+    </message>
+    <message>
+        <source>Recent transactions</source>
+        <translation>Последние транзакции</translation>
+    </message>
+    <message>
         <source>Unconfirmed transactions to watch-only addresses</source>
         <translation>Неподтверждённые транзакции на адреса наблюдения</translation>
     </message>
@@ -1216,10 +1216,6 @@ Address: %4
     <message>
         <source>Current total balance in watch-only addresses</source>
         <translation>Текущий общий баланс на адресах наблюдения</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Недавние транзакции&lt;/b&gt;</translation>
     </message>
     <message>
         <source>out of sync</source>
@@ -1287,6 +1283,14 @@ Address: %4
     <message>
         <source>Refund from %1</source>
         <translation>Возврат от %1</translation>
+    </message>
+    <message>
+        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
+        <translation>Запрос платежа %1 слишком большой (%2 байтов, разрешено %3 байтов).</translation>
+    </message>
+    <message>
+        <source>Payment request DoS protection</source>
+        <translation>DoS-защита запроса платежа</translation>
     </message>
     <message>
         <source>Error communicating with %1: %2</source>
@@ -1454,7 +1458,7 @@ Address: %4
     </message>
     <message>
         <source>Sent</source>
-        <translation>посланный</translation>
+        <translation>Отправлено</translation>
     </message>
     <message>
         <source>&amp;Peers</source>
@@ -1479,10 +1483,6 @@ Address: %4
     <message>
         <source>Services</source>
         <translation>Сервисы</translation>
-    </message>
-    <message>
-        <source>Sync Node</source>
-        <translation>Узел синхронизации</translation>
     </message>
     <message>
         <source>Starting Height</source>
@@ -1611,14 +1611,6 @@ Address: %4
     <message>
         <source>Outbound</source>
         <translation>Исходящие</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Да</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Нет</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -1857,6 +1849,78 @@ Address: %4
         <translation>Свой адрес для сдачи</translation>
     </message>
     <message>
+        <source>Transaction Fee:</source>
+        <translation>Комиссия</translation>
+    </message>
+    <message>
+        <source>Choose...</source>
+        <translation>Выберите...</translation>
+    </message>
+    <message>
+        <source>collapse fee-settings</source>
+        <translation>Свернуть настройки комиссии</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Сворачивать</translation>
+    </message>
+    <message>
+        <source>If the custom fee is set to 1000 satoshis and the transaction is only 250 bytes, then "per kilobyte" only pays 250 satoshis in fee, while "at least" pays 1000 satoshis. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Если комиссия установлена в 1000 сатоши, а транзакция составляет лишь 250 байт, тогда комиссия "на килобайт" составит 250 сатоши, а "как минимум" — 1000 сатоши. Для транзакций крупнее килобайта в обоих случаях будет использоваться платёж "на килобайт".</translation>
+    </message>
+    <message>
+        <source>per kilobyte</source>
+        <translation>за килобайт</translation>
+    </message>
+    <message>
+        <source>If the custom fee is set to 1000 satoshis and the transaction is only 250 bytes, then "per kilobyte" only pays 250 satoshis in fee, while "total at least" pays 1000 satoshis. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Если комиссия установлена в 1000 сатоши, а транзакция составляет лишь 250 байт, тогда комиссия "на килобайт" составит 250 сатоши, а "всего как минимум" — 1000 сатоши. Для транзакций крупнее килобайта в обоих случаях будет использоваться платёж "на килобайт".</translation>
+    </message>
+    <message>
+        <source>total at least</source>
+        <translation>Итого как минимум</translation>
+    </message>
+    <message>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation>Уплата минимальной комиссии — не проблема, пока объём транзакций меньше, чем свободное место в блоках. Учтите, однако, что такая транзакция может никогда не подтвердиться, если спрос на транзакции превышает возможности сети по их обработке.</translation>
+    </message>
+    <message>
+        <source>(read the tooltip)</source>
+        <translation>(прочтите подсказку)</translation>
+    </message>
+    <message>
+        <source>Recommended:</source>
+        <translation>Рекомендовано:</translation>
+    </message>
+    <message>
+        <source>Custom:</source>
+        <translation>Выборочно:</translation>
+    </message>
+    <message>
+        <source>(Smart fee not initialized yet. This usually takes a few blocks...)</source>
+        <translation>(Умная комиссия пока не инициализирована. Обычно для этого требуется несколько блоков...)</translation>
+    </message>
+    <message>
+        <source>Confirmation time:</source>
+        <translation>Время подтверждения:</translation>
+    </message>
+    <message>
+        <source>normal</source>
+        <translation>обычный</translation>
+    </message>
+    <message>
+        <source>fast</source>
+        <translation>ускоренный</translation>
+    </message>
+    <message>
+        <source>Send as zero-fee transaction if possible</source>
+        <translation>Осуществить транзакцию бесплатно, если возможно</translation>
+    </message>
+    <message>
+        <source>(confirmation may take longer)</source>
+        <translation>(подтверждение может занять больше времени)</translation>
+    </message>
+    <message>
         <source>Send to multiple recipients at once</source>
         <translation>Отправить нескольким получателям одновременно</translation>
     </message>
@@ -1959,6 +2023,14 @@ Address: %4
     <message>
         <source>The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation>Транзакция была отклонена! Такое может произойти, если некоторые монеты уже были потрачены, например, если Вы используете одну копию бумажника (wallet.dat), а монеты были потрачены из другой копии, но не были отмечены как потраченные в этой.</translation>
+    </message>
+    <message>
+        <source>A fee higher than %1 is considered an insanely high fee.</source>
+        <translation>Комиссия больше, чем %1, считается невероятно большой.</translation>
+    </message>
+    <message>
+        <source>Estimated to begin confirmation within %1 block(s).</source>
+        <translation>Начало подтверждения ожидается через %1 блок(ов).</translation>
     </message>
     <message>
         <source>Warning: Invalid Bitcoin address</source>
@@ -2260,7 +2332,7 @@ Address: %4
     </message>
     <message numerus="yes">
         <source>, broadcast through %n node(s)</source>
-        <translation><numerusform>, разослано через %n узел</numerusform><numerusform>, разослано через %n узла</numerusform><numerusform>, разослано через %n узлов</numerusform></translation>
+        <translation><numerusform>, разослано через %n узел</numerusform><numerusform>, разослано через %n узла</numerusform><numerusform>, разослано через %n узлов</numerusform><numerusform>, разослано через %n узлов</numerusform></translation>
     </message>
     <message>
         <source>Date</source>
@@ -2300,7 +2372,7 @@ Address: %4
     </message>
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
-        <translation><numerusform>будет доступно через %n блок</numerusform><numerusform>будет доступно через %n блока</numerusform><numerusform>будет доступно через %n блоков</numerusform></translation>
+        <translation><numerusform>будет доступно через %n блок</numerusform><numerusform>будет доступно через %n блока</numerusform><numerusform>будет доступно через %n блоков</numerusform><numerusform>будет доступно через %n блоков</numerusform></translation>
     </message>
     <message>
         <source>not accepted</source>
@@ -2376,7 +2448,7 @@ Address: %4
     </message>
     <message numerus="yes">
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>Открыто для ещё %n блока</numerusform><numerusform>Открыто для ещё %n блоков</numerusform><numerusform>Открыто для ещё %n блоков</numerusform></translation>
+        <translation><numerusform>Открыто для ещё %n блока</numerusform><numerusform>Открыто для ещё %n блоков</numerusform><numerusform>Открыто для ещё %n блоков</numerusform><numerusform>Открыто для ещё %n блоков</numerusform></translation>
     </message>
     <message>
         <source>unknown</source>
@@ -2414,7 +2486,7 @@ Address: %4
     </message>
     <message numerus="yes">
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>Открыто для ещё %n блока</numerusform><numerusform>Открыто для ещё %n блоков</numerusform><numerusform>Открыто для ещё %n блоков</numerusform></translation>
+        <translation><numerusform>Открыто для ещё %n блока</numerusform><numerusform>Открыто для ещё %n блоков</numerusform><numerusform>Открыто для ещё %n блоков</numerusform><numerusform>Открыто для ещё %n блоков</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
@@ -2465,6 +2537,10 @@ Address: %4
         <translation>Добыто</translation>
     </message>
     <message>
+        <source>watch-only</source>
+        <translation>только наблюдение</translation>
+    </message>
+    <message>
         <source>(n/a)</source>
         <translation>[не доступно]</translation>
     </message>
@@ -2479,6 +2555,10 @@ Address: %4
     <message>
         <source>Type of transaction.</source>
         <translation>Тип транзакции.</translation>
+    </message>
+    <message>
+        <source>Whether or not a watch-only address is involved in this transaction.</source>
+        <translation>Использовался ли в транзакции адрес для наблюдения.</translation>
     </message>
     <message>
         <source>Destination address of transaction.</source>
@@ -2574,6 +2654,10 @@ Address: %4
     <message>
         <source>Export Transaction History</source>
         <translation>Экспортировать историю транзакций</translation>
+    </message>
+    <message>
+        <source>Watch-only</source>
+        <translation>Для наблюдения</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
@@ -2688,27 +2772,11 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <source>Options:</source>
-        <translation>Опции:</translation>
-    </message>
-    <message>
-        <source>Specify configuration file (default: bitcoin.conf)</source>
-        <translation>Указать конфигурационный файл (по умолчанию: bitcoin.conf)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: bitcoind.pid)</source>
-        <translation>Задать pid-файл (по умолчанию: bitcoin.pid)</translation>
+        <translation>Параметры:</translation>
     </message>
     <message>
         <source>Specify data directory</source>
         <translation>Задать каталог данных</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
-        <translation>Принимать входящие подключения на &lt;port&gt; (по умолчанию: 8333 или 18333 в тестовой сети)</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>Поддерживать не более &lt;n&gt; подключений к участникам (по умолчанию: 125)</translation>
     </message>
     <message>
         <source>Connect to a node to retrieve peer addresses, and disconnect</source>
@@ -2717,18 +2785,6 @@ Address: %4
     <message>
         <source>Specify your own public address</source>
         <translation>Укажите ваш собственный публичный адрес</translation>
-    </message>
-    <message>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation>Порог для отключения неправильно ведущих себя участников (по умолчанию: 100)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation>Число секунд блокирования неправильно ведущих себя участников (по умолчанию: 86400)</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8332 or testnet: 18332)</source>
-        <translation>Прослушивать подключения JSON-RPC на &lt;порту&gt; (по умолчанию: 8332 или для testnet: 18332)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
@@ -2747,68 +2803,24 @@ Address: %4
         <translation>Принимать подключения извне (по умолчанию: 1, если не используется -proxy или -connect)</translation>
     </message>
     <message>
-        <source>%s, you must set a rpcpassword in the configuration file:
-%s
-It is recommended you use the following random password:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-The username and password MUST NOT be the same.
-If the file does not exist, create it with owner-readable-only file permissions.
-It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
-</source>
-        <translation>%s, вы должны установить опцию rpcpassword в конфигурационном файле:
- %s
-Рекомендуется использовать следующий случайный пароль:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(вам не нужно запоминать этот пароль)
-Имя и пароль ДОЛЖНЫ различаться.
-Если файл не существует, создайте его и установите права доступа только для владельца, только для чтения.
-Также рекомендуется включить alertnotify для оповещения о проблемах;
-Например: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
-</translation>
-    </message>
-    <message>
-        <source>Acceptable ciphers (default: TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH)</source>
-        <translation>Разрешённые алгоритмы(по умолчанию: TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH)</translation>
-    </message>
-    <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Привязаться к указанному адресу и всегда прослушивать только его. Используйте [хост]:порт для IPv6</translation>
-    </message>
-    <message>
-        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:15)</source>
-        <translation>Ограничить скорость передачи бесплатных транзакций до &lt;n&gt;*1000 байт в минуту (по умолчанию: 15)</translation>
     </message>
     <message>
         <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
         <translation>Удалить все транзакции бумажника с возможностью восстановить эти части цепи блоков с помощью -rescan при запуске</translation>
     </message>
     <message>
+        <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
+        <translation>Распространяется под лицензией MIT, см. приложенный файл COPYING или &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
+    </message>
+    <message>
         <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
         <translation>Войти в режим тестирования на регрессии, в котором используется специальная цепь, где блоки находятся мгновенно.</translation>
     </message>
     <message>
-        <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Ошибка: транзакция была отклонена! Это могло произойти в случае, если некоторые монеты в вашем бумажнике уже были потрачены, например, если вы используете копию wallet.dat, и монеты были использованы в копии, но не отмечены как потраченные здесь.</translation>
-    </message>
-    <message>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
-        <translation>Ошибка: эта транзакция требует комиссию как минимум %s из-за суммы, сложности или использования недавно полученных средств!</translation>
-    </message>
-    <message>
         <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
         <translation>Выполнить команду, когда меняется транзакция в бумажнике (%s в команде заменяется на TxID)</translation>
-    </message>
-    <message>
-        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: 100)</source>
-        <translation>Сбрасывать активность базы данных из памяти на диск каждые &lt;n&gt; мегабайт (по умолчанию: 100)</translation>
-    </message>
-    <message>
-        <source>How thorough the block verification of -checkblocks is (0-4, default: 3)</source>
-        <translation>Насколько тщательна проверка контрольных блоков -checkblocks (0-4, по умолчанию: 3)</translation>
     </message>
     <message>
         <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
@@ -2819,20 +2831,12 @@ rpcpassword=%s
         <translation>Задать число потоков проверки скрипта (от %u до %d, 0=авто, &lt;0 = оставить столько ядер свободными, по умолчанию: %d)</translation>
     </message>
     <message>
-        <source>Set the processor limit for when generation is on (-1 = unlimited, default: -1)</source>
-        <translation>Задать лимит процессора, когда генерация работает (-1 = безлимитно, по умолчанию: -1)</translation>
-    </message>
-    <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation>Это пре-релизная тестовая сборка - используйте на свой страх и риск - не используйте для добычи или торговых приложений</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer. Bitcoin Core is probably already running.</source>
         <translation>Не удалось забиндиться на %s на этом компьютере. Возможно, Bitcoin Core уже запущен.</translation>
-    </message>
-    <message>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: -proxy)</source>
-        <translation>Использовать отдельный прокси SOCKS5 для соединения с участниками через скрытые сервисы Tor (по умолчанию: -proxy)</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -2855,12 +2859,12 @@ rpcpassword=%s
         <translation>Внимание: wallet.dat повреждён, данные спасены! Оригинальный wallet.dat сохранён как wallet.{timestamp}.bak в %s; если ваш баланс или транзакции некорректны, вы должны восстановить файл из резервной копии.</translation>
     </message>
     <message>
-        <source>(default: 1)</source>
-        <translation>(по умолчанию: 1)</translation>
+        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
+        <translation>Вносить в белый список участников, подключающихся с указанной маски сети или IP. Можно использовать многократно.</translation>
     </message>
     <message>
-        <source>(default: wallet.dat)</source>
-        <translation>(по умолчанию: wallet.dat)</translation>
+        <source>(default: 1)</source>
+        <translation>(по умолчанию: 1)</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>
@@ -2891,10 +2895,6 @@ rpcpassword=%s
         <translation>Параметры отладки/тестирования:</translation>
     </message>
     <message>
-        <source>Disable safemode, override a real safe mode event (default: 0)</source>
-        <translation>Отключить безопасный режим, отклонить реальное событие безопасного режима (по умолчанию: 0)</translation>
-    </message>
-    <message>
         <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
         <translation>Определить свой IP (по умолчанию: 1 при прослушивании и если не используется -externalip)</translation>
     </message>
@@ -2923,72 +2923,16 @@ rpcpassword=%s
         <translation>Не удалось открыть БД блоков</translation>
     </message>
     <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>Ошибка: произошла неустранимая ошибка, детали в debug.log</translation>
+    </message>
+    <message>
         <source>Error: Disk space is low!</source>
         <translation>Ошибка: мало места на диске!</translation>
     </message>
     <message>
-        <source>Error: Wallet locked, unable to create transaction!</source>
-        <translation>Ошибка: бумажник заблокирован, невозможно создать транзакцию!</translation>
-    </message>
-    <message>
-        <source>Error: system error: </source>
-        <translation>Ошибка: системная ошибка:</translation>
-    </message>
-    <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Не удалось начать прослушивание на порту. Используйте -listen=0 если вас это устраивает.</translation>
-    </message>
-    <message>
-        <source>Failed to read block info</source>
-        <translation>Не удалось прочитать информацию блока</translation>
-    </message>
-    <message>
-        <source>Failed to read block</source>
-        <translation>Не удалось прочитать блок</translation>
-    </message>
-    <message>
-        <source>Failed to sync block index</source>
-        <translation>Не удалось синхронизировать индекс блоков</translation>
-    </message>
-    <message>
-        <source>Failed to write block index</source>
-        <translation>Не удалось записать индекс блоков</translation>
-    </message>
-    <message>
-        <source>Failed to write block info</source>
-        <translation>Не удалось записать информацию блока</translation>
-    </message>
-    <message>
-        <source>Failed to write block</source>
-        <translation>Не удалось записать блок</translation>
-    </message>
-    <message>
-        <source>Failed to write file info</source>
-        <translation>Не удалось записать информацию файла</translation>
-    </message>
-    <message>
-        <source>Failed to write to coin database</source>
-        <translation>Не удалось записать БД монет</translation>
-    </message>
-    <message>
-        <source>Failed to write transaction index</source>
-        <translation>Не удалось записать индекс транзакций</translation>
-    </message>
-    <message>
-        <source>Failed to write undo data</source>
-        <translation>Не удалось записать данные для отмены</translation>
-    </message>
-    <message>
-        <source>Force safe mode (default: 0)</source>
-        <translation>Принудительный безопасный режим (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Generate coins (default: 0)</source>
-        <translation>Включить добычу монет (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: 288, 0 = all)</source>
-        <translation>Сколько блоков проверять при запуске (по умолчанию: 288, 0 = все)</translation>
     </message>
     <message>
         <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
@@ -3011,8 +2955,8 @@ rpcpassword=%s
         <translation>Недостаточно файловых дескрипторов.</translation>
     </message>
     <message>
-        <source>Prepend debug output with timestamp (default: 1)</source>
-        <translation>Дописывать отметки времени к отладочному выводу (по умолчанию: 1)</translation>
+        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
+        <translation>Соединяться только по сети &lt;net&gt; (ipv4, ipv6 или onion)</translation>
     </message>
     <message>
         <source>Rebuild block chain index from current blk000??.dat files</source>
@@ -3027,24 +2971,16 @@ rpcpassword=%s
         <translation>Задать максимальный размер блока в байтах (по умолчанию: %d)</translation>
     </message>
     <message>
-        <source>Set the number of threads to service RPC calls (default: 4)</source>
-        <translation>Задать число потоков выполнения(по умолчанию: 4)</translation>
-    </message>
-    <message>
         <source>Specify wallet file (within data directory)</source>
         <translation>Укажите файл бумажника (внутри каталога данных)</translation>
     </message>
     <message>
-        <source>Spend unconfirmed change when sending transactions (default: 1)</source>
-        <translation>Тратить неподтвержденную сдачу при отправке транзакций (по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Stop running after importing blocks from disk (default: 0)</source>
-        <translation>Остановиться после импорта блоков с диска (по умолчанию: 0)</translation>
-    </message>
-    <message>
         <source>This is intended for regression testing tools and app development.</source>
         <translation>Это рассчитано на инструменты регрессионного тестирования и разработку приложений.</translation>
+    </message>
+    <message>
+        <source>Use UPnP to map the listening port (default: %u)</source>
+        <translation>Использовать UPnP для проброса порта (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Verifying blocks...</source>
@@ -3060,7 +2996,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Wallet options:</source>
-        <translation>Опции бумажника:</translation>
+        <translation>Настройки бумажника:</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to change -txindex</source>
@@ -3069,10 +3005,6 @@ rpcpassword=%s
     <message>
         <source>Imports blocks from external blk000??.dat file</source>
         <translation>Импортировать блоки из внешнего файла blk000??.dat</translation>
-    </message>
-    <message>
-        <source>(default: 1, 1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
-        <translation>(по умолчанию: 1, 1 = сохранять метаданные транзакции, например, владельца аккаунта и информацию запроса платежа, 2 = отбросить метаданные)</translation>
     </message>
     <message>
         <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
@@ -3095,12 +3027,12 @@ rpcpassword=%s
         <translation>Не удалось установить блокировку на каталог данных %s. Возможно, Bitcoin Core уже запущен.</translation>
     </message>
     <message>
-        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation>Создавать новые файлы с системными правами по умолчанию вместо umask 077 (эффективно только при отключенном бумажнике)</translation>
+        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
+        <translation>Ограничить скорость передачи бесплатных транзакций до &lt;n&gt;*1000 байт в минуту (по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>Distributed under the MIT/X11 software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
-        <translation>Распространяется под лицензией MIT/X11, см. приложенный файл COPYING или &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
+        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
+        <translation>Создавать новые файлы с системными правами по умолчанию вместо umask 077 (эффективно только при отключенном бумажнике)</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
@@ -3109,10 +3041,6 @@ rpcpassword=%s
     <message>
         <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
         <translation>Ошибка: обнаружен неподдерживаемый аргумент -socks. Выбор версии SOCKS более невозможен, поддерживаются только прокси SOCKS5.</translation>
-    </message>
-    <message>
-        <source>Execute command when a network tx respends wallet tx input (%s=respend TxID, %t=wallet TxID)</source>
-        <translation>Выполнить команду, когда транзакция из сети повторно тратит вход транзакции в бумажнике (%s=TxID транзакции сети, %t=TxID транзакции в бумажнике)</translation>
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
@@ -3127,40 +3055,80 @@ rpcpassword=%s
         <translation>Комиссии (в BTC/Кб) меньшие этого значения считаются нулевыми для создания транзакции (по умолчанию: %s)</translation>
     </message>
     <message>
-        <source>If paytxfee is not set, include enough fee so transactions are confirmed on average within n blocks (default: 1)</source>
-        <translation>Если paytxfee не задан, включить достаточную комиссию для подтверждения транзакции в среднем за n блоков (по умолчанию: 1)</translation>
+        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
+        <translation>Если paytxfee не задан, включить достаточную комиссию для подтверждения транзакции в среднем за n блоков (по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>Output debugging information (default: 0, supplying &lt;category&gt; is optional)</source>
-        <translation>Выводить отладочную информацию (по умолчанию: 0, указание &lt;category&gt; необязательно)</translation>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
+        <translation>Неверное значение для -maxtxfee=&lt;amount&gt;: '%s' (минимальная комиссия трансляции %s для предотвращения зависания транзакций)</translation>
+    </message>
+    <message>
+        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
+        <translation>Наибольший размер данных в носителе данных транзакций, которые мы передаем и генерируем (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
+        <translation>Максимальная сумма комиссий для одной транзакции в бумажнике, слишком низкое значение может вызвать прерывание больших транзакций (по умолчанию: %s)</translation>
     </message>
     <message>
         <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect)</source>
         <translation>Запрашивать адреса участников с помощью DNS, если адресов мало (по умолчанию: 1, если не указан -connect)</translation>
     </message>
     <message>
+        <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
+        <translation>Требовать высокий приоритет для пересылки бесплатных или низкокомиссионных транзакций (по умолчанию: %u)</translation>
+    </message>
+    <message>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
         <translation>Задать максимальный размер высокоприоритетных/низкокомиссионных транзакций в байтах (по умолчанию: %d)</translation>
+    </message>
+    <message>
+        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
+        <translation>Задать число потоков генерации монет, если она включена (-1 = все ядра процессора, по умолчанию: %d)</translation>
     </message>
     <message>
         <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
         <translation>Этот продукт включает ПО, разработанное OpenSSL Project для использования в OpenSSL Toolkit &lt;https://www.openssl.org/&gt; и криптографическое ПО, написанное Eric Young и ПО для работы с UPnP, написанное Thomas Bernard.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Bitcoin Core will not work properly.</source>
-        <translation>Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, Bitcoin Core будет работать некорректно.</translation>
+        <source>To use bitcoind, or the -server option to bitcoin-qt, you must set an rpcpassword in the configuration file:
+%s
+It is recommended you use the following random password:
+rpcuser=bitcoinrpc
+rpcpassword=%s
+(you do not need to remember this password)
+The username and password MUST NOT be the same.
+If the file does not exist, create it with owner-readable-only file permissions.
+It is also recommended to set alertnotify so you are notified of problems;
+for example: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
+</source>
+        <translation>Для использования bitcoind или опции bitcoin-qt -server, вы должны установить опцию rpcpassword в конфигурационном файле:
+ %s
+Рекомендуется использовать следующий случайный пароль:
+rpcuser=bitcoinrpc
+rpcpassword=%s
+(вам не нужно запоминать этот пароль)
+Имя и пароль ДОЛЖНЫ различаться.
+Если файл не существует, создайте его и установите право доступа только для чтения только для владельца.
+Также рекомендуется включить alertnotify для оповещения о проблемах;
+Например: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
+</translation>
     </message>
     <message>
-        <source>Whitelist peers connecting from the given netmask or ip. Can be specified multiple times.</source>
-        <translation>Вносить в белый список участников, подключающихся с указанной маски сети или ip. Можно использовать многократно.</translation>
+        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
+        <translation>Внимание: установлено очень большое значение -paytxfee. Такие большие комиссии могут быть уплачены в отдельной транзакции.</translation>
+    </message>
+    <message>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Bitcoin Core will not work properly.</source>
+        <translation>Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, Bitcoin Core будет работать некорректно.</translation>
     </message>
     <message>
         <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
         <translation>Участники из белого списка не могуть быть забанены за DoS, и их транзакции всегда транслируются, даже если они уже содержатся в памяти. Полезно, например, для шлюза.</translation>
     </message>
     <message>
-        <source>Always query for peer addresses via DNS lookup (default: 0)</source>
-        <translation>Всегда запрашивать адреса участников с помощью DNS (по умолчанию: 0)</translation>
+        <source>Accept public REST requests (default: %u)</source>
+        <translation>Принимать публичные REST-запросы (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Cannot resolve -whitebind address: '%s'</source>
@@ -3183,6 +3151,10 @@ rpcpassword=%s
         <translation>Ошибка загрузки wallet.dat: бумажник требует более новую версию Bitcoin Core</translation>
     </message>
     <message>
+        <source>Error reading from database, shutting down.</source>
+        <translation>Ошибка чтения базы данных, работа завершается.</translation>
+    </message>
+    <message>
         <source>Error: Unsupported argument -tor found, use -onion.</source>
         <translation>Ошибка: обнаружен неподдерживаемый параметр -tor, используйте -onion.</translation>
     </message>
@@ -3191,16 +3163,16 @@ rpcpassword=%s
         <translation>Комиссия (в BTC/Кб) для добавления к вашим транзакциям (по умолчанию: %s)</translation>
     </message>
     <message>
-        <source>Include IP addresses in debug output (default: 0)</source>
-        <translation>Включать IP-адреса в отладочный вывод (по умолчанию: 0)</translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
         <source>Initialization sanity check failed. Bitcoin Core is shutting down.</source>
         <translation>Не удалось проверить чистоту. Bitcoin Core выключается.</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Неверное значение -maxtxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
@@ -3219,28 +3191,8 @@ rpcpassword=%s
         <translation>Указана неверная сетевая маска в -whitelist: '%s'</translation>
     </message>
     <message>
-        <source>Keep at most &lt;n&gt; unconnectable blocks in memory (default: %u)</source>
-        <translation>Хранить максимум &lt;n&gt; несоединённых блоков в памяти (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Limit size of signature cache to &lt;n&gt; entries (default: 50000)</source>
-        <translation>Ограничить размер кэша подписей &lt;n&gt; записями (по умолчанию: 50000)</translation>
-    </message>
-    <message>
-        <source>Log transaction priority and fee per kB when mining blocks (default: 0)</source>
-        <translation>Записывать в лог приоритет транзакции и комиссию на килобайт во время добычи блоков (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Maintain a full transaction index (default: 0)</source>
-        <translation>Держать полный индекс транзакций (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation>Максимальный размер буфера приёма на соединение, &lt;n&gt;*1000 байт (по умолчанию: 5000)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation>Максимальный размер буфера отправки на соединение, &lt;n&gt;*1000 байт (по умолчанию: 1000)</translation>
+        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
+        <translation>Держать в памяти до &lt;n&gt; несвязных транзакций (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Need to specify a port with -whitebind: '%s'</source>
@@ -3251,28 +3203,16 @@ rpcpassword=%s
         <translation>Параметры трансляции узла:</translation>
     </message>
     <message>
-        <source>Only accept block chain matching built-in checkpoints (default: 1)</source>
-        <translation>Принимать цепь блоков, только если она соответствует встроенным контрольным точкам (по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
-        <translation>Подключаться только к узлам из сети &lt;net&gt; (IPv4, IPv6 или Tor)</translation>
-    </message>
-    <message>
-        <source>Print block on startup, if found in block index</source>
-        <translation>Печатать блок при запуске, если он найден в индексе блоков</translation>
-    </message>
-    <message>
-        <source>Print block tree on startup (default: 0)</source>
-        <translation>Печатать дерево блоков при запуске (по умолчанию: 0)</translation>
-    </message>
-    <message>
         <source>RPC SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
         <translation>Параметры RPC SSL: (см. Bitcoin вики для инструкций по настройке SSL)</translation>
     </message>
     <message>
         <source>RPC server options:</source>
         <translation>Параметры сервера RPC:</translation>
+    </message>
+    <message>
+        <source>RPC support for HTTP persistent connections (default: %d)</source>
+        <translation>Поддержка RPC постоянных HTTP подключений (по умолчанию: %d)</translation>
     </message>
     <message>
         <source>Randomly drop 1 of every &lt;n&gt; network messages</source>
@@ -3283,28 +3223,12 @@ rpcpassword=%s
         <translation>Случайно разбрасывать 1 из каждых &lt;n&gt; сетевых сообщений</translation>
     </message>
     <message>
-        <source>Relay and mine data carrier transactions (default: 1)</source>
-        <translation>Транслировать и генерировать транзакции носители данных (по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Relay non-P2SH multisig (default: 1)</source>
-        <translation>Транслировать не-P2SH мультиподпись (по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Run a thread to flush wallet periodically (default: 1)</source>
-        <translation>Запустить поток для периодического сохранения бумажника (по умолчанию: 1)</translation>
-    </message>
-    <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Выводить информацию трассировки/отладки на консоль вместо файла debug.log</translation>
     </message>
     <message>
-        <source>Set minimum block size in bytes (default: 0)</source>
-        <translation>Минимальный размер блока в байтах (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: 1)</source>
-        <translation>Установить флаг DB_PRIVATE в окружении базы данных бумажника (по умолчанию: 1)</translation>
+        <source>Send transactions as zero-fee transactions if possible (default: %u)</source>
+        <translation>Осуществить транзакцию бесплатно, если возможно (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
@@ -3319,14 +3243,6 @@ rpcpassword=%s
         <translation>Не удалось подписать транзакцию</translation>
     </message>
     <message>
-        <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation>Тайм-аут соединения в миллисекундах (по умолчанию: 5000)</translation>
-    </message>
-    <message>
-        <source>System error: </source>
-        <translation>Системная ошибка:</translation>
-    </message>
-    <message>
         <source>This is experimental software.</source>
         <translation>Это экспериментальное ПО.</translation>
     </message>
@@ -3339,16 +3255,16 @@ rpcpassword=%s
         <translation>Сумма транзакции должна быть положительна</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Транзакция слишком большая для правил комиссии.</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>Транзакция слишком большая</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
         <translation>Невозможно привязаться к %s на этом компьютере (bind вернул ошибку %s)</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Использовать UPnP для проброса порта (по умолчанию: 0)</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
@@ -3403,24 +3319,12 @@ rpcpassword=%s
         <translation>Обновить бумажник до последнего формата</translation>
     </message>
     <message>
-        <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation>Установить размер запаса ключей в &lt;n&gt; (по умолчанию: 100)</translation>
-    </message>
-    <message>
         <source>Rescan the block chain for missing wallet transactions</source>
         <translation>Перепроверить цепь блоков на предмет отсутствующих в бумажнике транзакций</translation>
     </message>
     <message>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation>Использовать OpenSSL (https) для подключений JSON-RPC</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: server.cert)</source>
-        <translation>Файл серверного сертификата (по умолчанию: server.cert)</translation>
-    </message>
-    <message>
-        <source>Server private key (default: server.pem)</source>
-        <translation>Приватный ключ сервера (по умолчанию: server.pem)</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -3439,12 +3343,164 @@ rpcpassword=%s
         <translation>Ошибка загрузки wallet.dat: Бумажник поврежден</translation>
     </message>
     <message>
+        <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
+        <translation>(1 = сохранять метаданные транзакции: например, владельца аккаунта и информацию запроса платежа; 2 = отбросить метаданные)</translation>
+    </message>
+    <message>
+        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
+        <translation>Сбрасывать активность базы данных из памяти на диск каждые &lt;n&gt; мегабайт (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>How thorough the block verification of -checkblocks is (0-4, default: %u)</source>
+        <translation>Насколько тщательна проверка контрольных блоков -checkblocks (0-4, по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
+        <translation>Записывать в лог приоритет транзакции и комиссию на килобайт во время добычи блоков (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
+        <translation>Держать полный индекс транзакций, используемый RPC-запросом getrawtransaction (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
+        <translation>Число секунд блокирования неправильно ведущих себя узлов (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
+        <translation>Выводить отладочную информацию (по умолчанию: %u, указание &lt;category&gt; необязательно)</translation>
+    </message>
+    <message>
+        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
+        <translation>Использовать отдельный прокси SOCKS5 для соединения с участниками через скрытые сервисы Tor (по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>(default: %s)</source>
+        <translation>(по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>Acceptable ciphers (default: %s)</source>
+        <translation>Допустимые шифры (по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
+        <translation>Всегда запрашивать адреса участников с помощью DNS (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Disable safemode, override a real safe mode event (default: %u)</source>
+        <translation>Отключить безопасный режим, перекрыть реальное событие безопасного режима (по умолчанию: %u)</translation>
+    </message>
+    <message>
         <source>Error loading wallet.dat</source>
         <translation>Ошибка при загрузке wallet.dat</translation>
     </message>
     <message>
+        <source>Force safe mode (default: %u)</source>
+        <translation>Принудительный безопасный режим (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Generate coins (default: %u)</source>
+        <translation>Включить добычу монет (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
+        <translation>Сколько блоков проверять при запуске (по умолчанию: %u, 0 = все)</translation>
+    </message>
+    <message>
+        <source>Include IP addresses in debug output (default: %u)</source>
+        <translation>Включить IP-адреса в отладочный вывод (по умолчанию: %u)</translation>
+    </message>
+    <message>
         <source>Invalid -proxy address: '%s'</source>
         <translation>Неверный адрес -proxy: '%s'</translation>
+    </message>
+    <message>
+        <source>Limit size of signature cache to &lt;n&gt; entries (default: %u)</source>
+        <translation>Ограничить размер кэша подписей &lt;n&gt; записями (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
+        <translation>Прослушивать подключения JSON-RPC на &lt;порту&gt; (по умолчанию: %u или %u в тестовой сети)</translation>
+    </message>
+    <message>
+        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
+        <translation>Принимать входящие подключения на &lt;port&gt; (по умолчанию: %u или %u в тестовой сети)</translation>
+    </message>
+    <message>
+        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
+        <translation>Поддерживать не более &lt;n&gt; подключений к узлам (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
+        <translation>Максимальный размер буфера приёма на соединение, &lt;n&gt;*1000 байт (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
+        <translation>Максимальный размер буфера отправки на соединение, &lt;n&gt;*1000 байт (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
+        <translation>Принимать цепь блоков, лишь если она соответствует встроенным контрольным точкам (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Prepend debug output with timestamp (default: %u)</source>
+        <translation>Дописывать отметки времени к отладочному выводу (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Relay and mine data carrier transactions (default: %u)</source>
+        <translation>Транслировать и генерировать транзакции носителей данных (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Relay non-P2SH multisig (default: %u)</source>
+        <translation>Транслировать не-P2SH мультиподпись (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Run a thread to flush wallet periodically (default: %u)</source>
+        <translation>Запустить поток для периодического сохранения бумажника (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Server certificate file (default: %s)</source>
+        <translation>Файл сертификата сервера (по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>Server private key (default: %s)</source>
+        <translation>Закрытый ключ сервера (по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
+        <translation>Установить размер пула ключей в &lt;n&gt; (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Set the number of threads to service RPC calls (default: %d)</source>
+        <translation>Задать число потоков выполнения запросов RPC (по умолчанию: %d)</translation>
+    </message>
+    <message>
+        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</source>
+        <translation>Установить флаг DB_PRIVATE в окружении базы данных бумажника (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Specify configuration file (default: %s)</source>
+        <translation>Указать конфигурационный файл (по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
+        <translation>Указать тайм-аут соединения в миллисекундах (минимум: 1, по умолчанию: %d)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: %s)</source>
+        <translation>Указать pid-файл (по умолчанию: %s)</translation>
+    </message>
+    <message>
+        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
+        <translation>Тратить неподтвержденную сдачу при отправке транзакций (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Stop running after importing blocks from disk (default: %u)</source>
+        <translation>Остановиться после импорта блоков с диска (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
+        <translation>Порог для отключения неправильно ведущих себя узлов (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Unknown network specified in -onlynet: '%s'</source>
@@ -3461,10 +3517,6 @@ rpcpassword=%s
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s'</source>
         <translation>Неверная сумма в параметре -paytxfee=&lt;кол-во&gt;: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount</source>
-        <translation>Неверная сумма</translation>
     </message>
     <message>
         <source>Insufficient funds</source>
@@ -3497,10 +3549,6 @@ rpcpassword=%s
     <message>
         <source>Done loading</source>
         <translation>Загрузка завершена</translation>
-    </message>
-    <message>
-        <source>To use the %s option</source>
-        <translation>Чтобы использовать опцию %s</translation>
     </message>
     <message>
         <source>Error</source>

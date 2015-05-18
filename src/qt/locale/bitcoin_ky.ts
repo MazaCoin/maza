@@ -73,10 +73,6 @@
 <context>
     <name>CoinControlDialog</name>
     <message>
-        <source>Address</source>
-        <translation>Дарек</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Дата</translation>
     </message>
@@ -153,10 +149,6 @@
     </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Wallet</source>
-        <translation>Капчык</translation>
-    </message>
     <message>
         <source>out of sync</source>
         <translation>синхрондоштурулган эмес</translation>

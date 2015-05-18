@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Double-click to edit address or label</source>
-        <translation>დააკლიკეთ ორჯერ მისამართის ან ნიშნულის შესაცვლელად</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>ახალი მისამართის შექმნა</translation>
     </message>
@@ -375,10 +371,6 @@
         <translation>ბარათების პანელი</translation>
     </message>
     <message>
-        <source>[testnet]</source>
-        <translation>[testnet]</translation>
-    </message>
-    <message>
         <source>Bitcoin Core</source>
         <translation>Bitcoin Core</translation>
     </message>
@@ -413,10 +405,6 @@
     <message>
         <source>No block source available...</source>
         <translation>ბლოკების წყარო მიუწვდომელია...</translation>
-    </message>
-    <message>
-        <source>Processed %1 blocks of transaction history.</source>
-        <translation>დამუშავებულია ტრანსაქციების ისტორიის %1 ბლოკი.</translation>
     </message>
     <message>
         <source>%1 and %2</source>
@@ -493,10 +481,6 @@ Address: %4
 <context>
     <name>CoinControlDialog</name>
     <message>
-        <source>Coin Control Address Selection</source>
-        <translation>მონეტების კონტროლის მისამართის არჩევა</translation>
-    </message>
-    <message>
         <source>Quantity:</source>
         <translation>რაოდენობა:</translation>
     </message>
@@ -539,10 +523,6 @@ Address: %4
     <message>
         <source>Amount</source>
         <translation>თანხა</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>მისამართი</translation>
     </message>
     <message>
         <source>Date</source>
@@ -852,15 +832,7 @@ Address: %4
         <source>Error</source>
         <translation>შეცდომა</translation>
     </message>
-    <message>
-        <source>GB of free space available</source>
-        <translation>გიგაბაიტია თავისუფალი</translation>
-    </message>
-    <message>
-        <source>(of %1GB needed)</source>
-        <translation>(საჭიროა  %1GB)</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>OpenURIDialog</name>
     <message>
@@ -895,14 +867,6 @@ Address: %4
         <translation>&amp;მთავარი</translation>
     </message>
     <message>
-        <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB.</source>
-        <translation>დამატებითი საკომისიო თითო კილობაიტზე; აჩქარებს ტრანსაქციის შესრულებას. ტრანსაქციების უმეტესობა არის 1 კბ.</translation>
-    </message>
-    <message>
-        <source>Pay transaction &amp;fee</source>
-        <translation>ტრანსაქციის სა&amp;ფასურის გადახდა</translation>
-    </message>
-    <message>
         <source>Automatically start Bitcoin after logging in to the system.</source>
         <translation>სისტემაში შესვლის შემდეგ Bitcoin-ის ავტომატური გაშვება.</translation>
     </message>
@@ -921,14 +885,6 @@ Address: %4
     <message>
         <source>Number of script &amp;verification threads</source>
         <translation>სკრიპტის &amp;ვერიფიცირების ნაკადების რაოდენობა</translation>
-    </message>
-    <message>
-        <source>Connect to the Bitcoin network through a SOCKS proxy.</source>
-        <translation>Bitcoin-ქსელზე მიერთება SOCKS-პროქსით.</translation>
-    </message>
-    <message>
-        <source>&amp;Connect through SOCKS proxy (default proxy):</source>
-        <translation>SO&amp;CKS (ნაგულისხმევი) პროქსი მიერთებისათვის:</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
@@ -1070,10 +1026,6 @@ Address: %4
         <translation>ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება Bitcoin-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
     </message>
     <message>
-        <source>Wallet</source>
-        <translation>საფულე</translation>
-    </message>
-    <message>
         <source>Available:</source>
         <translation>ხელმისაწვდომია:</translation>
     </message>
@@ -1104,10 +1056,6 @@ Address: %4
     <message>
         <source>Your current total balance</source>
         <translation>თქვენი სრული მიმდინარე ბალანსი</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;ბოლო ტრანსაქციები&lt;/b&gt;</translation>
     </message>
     <message>
         <source>out of sync</source>
@@ -2351,24 +2299,8 @@ Address: %4
         <translation>ოპციები:</translation>
     </message>
     <message>
-        <source>Specify configuration file (default: bitcoin.conf)</source>
-        <translation>მიუთითეთ საკონფიგურაციო ფაილი (ნაგულისხმევია: bitcoin.conf)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: bitcoind.pid)</source>
-        <translation>მიუთითეთ pid ფაილი (ნაგულისხმევია: bitcoind.pid)</translation>
-    </message>
-    <message>
         <source>Specify data directory</source>
         <translation>მიუთითეთ მონაცემთა კატალოგი</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
-        <translation>მიყურადება პორტზე &lt;port&gt; (ნაგულისხმევი: 8333 ან სატესტო ქსელში: 18333)</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>არაუმეტეს &lt;n&gt; შეერთებისა პირებზე (ნაგულისხმევი: 125)</translation>
     </message>
     <message>
         <source>Connect to a node to retrieve peer addresses, and disconnect</source>
@@ -2377,18 +2309,6 @@ Address: %4
     <message>
         <source>Specify your own public address</source>
         <translation>მიუთითეთ თქვენი საჯარო მისამართი</translation>
-    </message>
-    <message>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation>არასწორად მოქმედი პირების გათიშვის ზღვარი (ნაგულისხმევი:100)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation>არასწორად მოქმედი პირების ბლოკირების დრო წამებში (ნაგულისხმევი: 86400)</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8332 or testnet: 18332)</source>
-        <translation> JSON-RPC-შეერთებების მიყურადება პორტზე &lt;port&gt; (ნაგულისხმევი: 8332 ან სატესტო ქსელში: 18332)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
@@ -2407,34 +2327,6 @@ Address: %4
         <translation>გარედან შეერთებების დაშვება (ნაგულისხმევი: 1 თუ არ გამოიყენება -proxy ან -connect)</translation>
     </message>
     <message>
-        <source>%s, you must set a rpcpassword in the configuration file:
-%s
-It is recommended you use the following random password:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-The username and password MUST NOT be the same.
-If the file does not exist, create it with owner-readable-only file permissions.
-It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
-</source>
-        <translation>%s, მიუთითეთ rpcpassword საკონფიგურაციო ფაილში:
-%s
-რეკომენდებულია შემდეგი შემთხვევითი პაროლი:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(ამის დამახსოვრება არ გჭირდებათ)
-სახელი და პაროლი ერთმანეთს არ უნდა ემთხვეოდეს.
-თუ ფაილი არ არსებობს, შექმენით იგი უფლებებით owner-readable-only.
-ასევე რეკომენდებულია დააყენოთ alertnotify რათა მიიღოთ შეტყობინებები პრობლემების შესახებ;
-მაგალითად: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
-</translation>
-    </message>
-    <message>
-        <source>Acceptable ciphers (default: TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH)</source>
-        <translation>დაშვებული ალგორითმები (ნაგულისხმევი: TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH)</translation>
-    </message>
-    <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>მოცემულ მისამართზე მიჯაჭვა მუდმივად მასზე მიყურადებით. გამოიყენეთ [host]:port ფორმა IPv6-სათვის</translation>
     </message>
@@ -2443,24 +2335,12 @@ rpcpassword=%s
         <translation>გადასვლა რეგრესული ტესტირების რეჟიმში, რომელიც იყენებს სპეციალურ ჯაჭვს ბლოკების დაუყოვნებლივი პოვნის შესაძლებლობით.</translation>
     </message>
     <message>
-        <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>შეცდომა: ტრანსაქცია უარყოფილია! შესაძლოა მონეტების ნაწილი თქვენი საფულიდან უკვე გამოყენებულია, რაც შეიძლება მოხდეს wallet.dat-ის ასლის გამოყენებისას, როცა მონეტები გაიგზავნა სხვა ასლიდან, აქ კი არ არის გაგზავნილად მონიშნული.</translation>
-    </message>
-    <message>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
-        <translation>შეცდომა: ტრანსაქცია მოითხოვს საკომისიოს მინიმუმ %s რაოდენობის, სირთულის ან ბოლოს მიღებული თანხების შესაბამისად!</translation>
-    </message>
-    <message>
         <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
         <translation>კომანდის შესრულება საფულის ტრანსაქციის ცვლილებისას (%s კომანდაში ჩანაცვლდება TxID-ით)</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation>ეს არის წინასწარი სატესტო ვერსია - გამოიყენეთ საკუთარი რისკით - არ გამოიყენოთ მოპოვებისა ან კომერციული მიზნებისათვის</translation>
-    </message>
-    <message>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: -proxy)</source>
-        <translation>ფარული Tor-სერვისებით პირების წვდომისათვის სხვა SOCKS5 პროქსის გამოყენება (ნაგულისხმევია: -proxy)</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -2535,64 +2415,8 @@ rpcpassword=%s
         <translation>შეცდომა: დისზე არ არის ადგილი!</translation>
     </message>
     <message>
-        <source>Error: Wallet locked, unable to create transaction!</source>
-        <translation>შეცდომა: საფულე დაბლოკილია, ტრანსაქცია ვერ შეიქმნება!</translation>
-    </message>
-    <message>
-        <source>Error: system error: </source>
-        <translation>შეცდომა: სისტემური შეცდომა:</translation>
-    </message>
-    <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>ვერ ხერხდება პორტების მიყურადება. თუ გსურთ, გამოიყენეთ -listen=0.</translation>
-    </message>
-    <message>
-        <source>Failed to read block info</source>
-        <translation>ბლოკის ინფორმაცია არ იკითხება</translation>
-    </message>
-    <message>
-        <source>Failed to read block</source>
-        <translation>ბლოკი არ იკითხება</translation>
-    </message>
-    <message>
-        <source>Failed to sync block index</source>
-        <translation>ბლოკების ინდექსის სინქრონიზება ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write block index</source>
-        <translation>ბლოკების ინდექსის ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write block info</source>
-        <translation>ბლოკის ინფორმაციის ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write block</source>
-        <translation>ბლოკის ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write file info</source>
-        <translation>ფაილის ინფორმაციის ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write to coin database</source>
-        <translation>მონეტების ბაზის ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write transaction index</source>
-        <translation>ტრანსაქციების ინდექსის ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Failed to write undo data</source>
-        <translation>ცვლილებების გაუქმების მონაცემთა ჩაწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Generate coins (default: 0)</source>
-        <translation>მონეტების გენერირება (ნაგულისხმევი: 0)</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: 288, 0 = all)</source>
-        <translation>რამდენი ბლოკი შემოწმდეს გაშვებისას (ნაგულისხმევი: 288, 0 - ყველა)</translation>
     </message>
     <message>
         <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
@@ -2611,10 +2435,6 @@ rpcpassword=%s
         <translation>არ არის საკმარისი ფაილ-დესკრიპტორები.</translation>
     </message>
     <message>
-        <source>Prepend debug output with timestamp (default: 1)</source>
-        <translation>დაემატოს დახვეწის ინფორმაციას დროის ჭდეები (ნაგულისხმევი: 1)</translation>
-    </message>
-    <message>
         <source>Rebuild block chain index from current blk000??.dat files</source>
         <translation>ბლოკთა ჯაჭვის ინდექსის  ხელახლა აგება blk000??.dat ფაილიდან</translation>
     </message>
@@ -2623,16 +2443,8 @@ rpcpassword=%s
         <translation>ბლოკის მაქსიმალური ზომის განსაზღვრა ბაიტებში (ნადულისხმევი: %d)</translation>
     </message>
     <message>
-        <source>Set the number of threads to service RPC calls (default: 4)</source>
-        <translation>RPC-ნაკადების რაოდენობა (ნაგულისხმევი: 4)</translation>
-    </message>
-    <message>
         <source>Specify wallet file (within data directory)</source>
         <translation>მიუთითეთ საფულის ფაილი (კატალოგში)</translation>
-    </message>
-    <message>
-        <source>Spend unconfirmed change when sending transactions (default: 1)</source>
-        <translation>დაუდასტურებელი ხურდის გამოყენება ტრანსაქციის გაგზავნისას (ნაგულისხმევი: 1)</translation>
     </message>
     <message>
         <source>This is intended for regression testing tools and app development.</source>
@@ -2667,10 +2479,6 @@ rpcpassword=%s
         <translation>ბრძანების შესრულება შესაბამისი უწყების მიღებისას ან როცა შეინიშნება საგრძნობი გახლეჩა (cmd-ში %s შეიცვლება მესიჯით)</translation>
     </message>
     <message>
-        <source>Output debugging information (default: 0, supplying &lt;category&gt; is optional)</source>
-        <translation>დახვეწის ინფორმაციის გამოყვანა (ნაგულისხმევი: 0, &lt;category&gt; - არააუცილებელი არგუმენტია)</translation>
-    </message>
-    <message>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
         <translation>მაღალპრიორიტეტული/დაბალსაკომისიოიანი ტრანსაქციების მაქსიმალური ზომა ბაიტებში (ნაგულისხმევი: %d)</translation>
     </message>
@@ -2687,32 +2495,8 @@ rpcpassword=%s
         <translation>დაუშვებელი მნიშვნელობა -mintxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Maintain a full transaction index (default: 0)</source>
-        <translation>ტრანსაქციის სრული ინდექსი (ნაგულისხმევი: 0)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation>მიღების ბუფერის მაქსიმალური ზომა შეერთებაზე, &lt;n&gt;*1000 ბაიტი (ნაგულისხმევი: 5000)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation>გაგზავნის ბუფერის მაქსიმალური ზომა შეერთებაზე, &lt;n&gt;*1000 ბაიტი (ნაგულისხმევი: 5000)</translation>
-    </message>
-    <message>
-        <source>Only accept block chain matching built-in checkpoints (default: 1)</source>
-        <translation>ბლოკთა ჯაჭვი მიიღეთ მხოლოდ მაშინ, თუ ემთხვევა შიდა ჩეკპოინტები (ნაგულისხმევი: 1)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
-        <translation>შეერთება მხოლოდ &lt;net&gt; ქსელის კვანძებთან (IPv4, IPv6 ან Tor)</translation>
-    </message>
-    <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>ტრასირების/დახვეწის ინფოს გაგზავნა კონსოლზე debug.log ფაილის ნაცვლად</translation>
-    </message>
-    <message>
-        <source>Set minimum block size in bytes (default: 0)</source>
-        <translation>დააყენეთ ბლოკის მინიმალური ზომა ბაიტებში (ნაგულისხმევი: 0)</translation>
     </message>
     <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
@@ -2721,14 +2505,6 @@ rpcpassword=%s
     <message>
         <source>Signing transaction failed</source>
         <translation>ტრანსაქციების ხელმოწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation>მიუთითეთ შეერთების ტაიმაუტი მილიწამებში (ნაგულისხმევი: 5000)</translation>
-    </message>
-    <message>
-        <source>System error: </source>
-        <translation>სისტემური შეცდომა:</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -2741,10 +2517,6 @@ rpcpassword=%s
     <message>
         <source>Transaction too large</source>
         <translation>ტრანსაქცია ძალიან დიდია</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>გამოიყენეთ UPnP მისაყურადებელი პორტის გადასამისამართებლად (ნაგულისხმევი: 0)</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
@@ -2783,24 +2555,12 @@ rpcpassword=%s
         <translation>საფულის ფორმატის განახლება</translation>
     </message>
     <message>
-        <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation>გასაღების პულის ზომა იქნება &lt;n&gt; (ნაგულისხმევი: 100)</translation>
-    </message>
-    <message>
         <source>Rescan the block chain for missing wallet transactions</source>
         <translation>ბლოკების ჯაჭვის გადამოწმება საფულეში გამორჩენილ ტრანსაქციებზე</translation>
     </message>
     <message>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation>OpenSSL-ის (https) გამოყენება JSON-RPC-შეერთებებისათვის</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: server.cert)</source>
-        <translation>სერვერის სერტიფიკატის ფაილი (ნაგულისხმევი: server.cert)</translation>
-    </message>
-    <message>
-        <source>Server private key (default: server.pem)</source>
-        <translation>სერვერის პირადი გასაღები (ნაგულისხმევი: server.pem)</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -2843,10 +2603,6 @@ rpcpassword=%s
         <translation>დაუშვებელი მნიშვნელობა -paytxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Invalid amount</source>
-        <translation>დაუშვებელი თანხა</translation>
-    </message>
-    <message>
         <source>Insufficient funds</source>
         <translation>არ არის საკმარისი თანხა</translation>
     </message>
@@ -2877,10 +2633,6 @@ rpcpassword=%s
     <message>
         <source>Done loading</source>
         <translation>ჩატვირთვა დასრულებულია</translation>
-    </message>
-    <message>
-        <source>To use the %s option</source>
-        <translation>%s ოპციის გამოსაყენებლად</translation>
     </message>
     <message>
         <source>Error</source>
