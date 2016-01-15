@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Mazacoin"
-            VALUE "FileDescription",    "Mazacoind (OSS daemon/client for Mazacoin)"
+            VALUE "CompanyName",        "Maza"
+            VALUE "FileDescription",    "Mazad (OSS daemon/client for Maza)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "mazacoind"
+            VALUE "InternalName",       "mazad"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "mazacoind.exe"
-            VALUE "ProductName",        "Mazacoind"
+            VALUE "OriginalFilename",   "mazad.exe"
+            VALUE "ProductName",        "Mazad"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

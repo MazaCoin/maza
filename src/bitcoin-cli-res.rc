@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Mazacoin"
-            VALUE "FileDescription",    "Mazacoin-cli (OSS RPC client for Mazacoin)"
+            VALUE "CompanyName",        "Maza"
+            VALUE "FileDescription",    "Maza-cli (OSS RPC client for Maza)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "mazacoin-cli"
+            VALUE "InternalName",       "maza-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "mazacoin-cli.exe"
-            VALUE "ProductName",        "Mazacoin-cli"
+            VALUE "OriginalFilename",   "maza-cli.exe"
+            VALUE "ProductName",        "Maza-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

@@ -29,10 +29,10 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Mazacoin-Qt</string>
+  <string>Maza-Qt</string>
 
   <key>CFBundleIdentifier</key>
-  <string>org.mazacoin.Mazacoin-Qt</string>
+  <string>org.maza.Maza-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -40,10 +40,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.mazacoin.MazacoinPayment</string>
+      <string>org.maza.MazaPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>mazacoin</string>
+        <string>maza</string>
       </array>
     </dict>
   </array>
@@ -52,7 +52,7 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.mazacoin.paymentrequest</string>
+      <string>org.maza.paymentrequest</string>
       <key>UTTypeDescription</key>
       <string>Bitcoin payment request</string>
       <key>UTTypeConformsTo</key>
@@ -62,10 +62,10 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-mazacoin-payment-request</string>
+        <string>application/x-maza-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>mazacoinpaymentrequest</string>
+          <string>mazapaymentrequest</string>
         </array>
       </dict>
     </dict>
@@ -78,7 +78,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.mazacoin.paymentrequest</string>
+        <string>org.maza.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

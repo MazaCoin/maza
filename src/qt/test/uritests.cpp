@@ -13,54 +13,54 @@ void URITests::uriTests()
 {
     SendCoinsRecipient rv;
     QUrl uri;
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?req-dontexist="));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?req-dontexist="));
     QVERIFY(!GUIUtil::parseBitcoinURI(uri, &rv));
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?dontexist="));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?dontexist="));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
     QVERIFY(rv.amount == 0);
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?label=Wikipedia Example Address"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?label=Wikipedia Example Address"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString("Wikipedia Example Address"));
     QVERIFY(rv.amount == 0);
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=0.001"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=0.001"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
     QVERIFY(rv.amount == 100000);
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1.001"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1.001"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
     QVERIFY(rv.amount == 100100000);
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=100&label=Wikipedia Example"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=100&label=Wikipedia Example"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.amount == 10000000000LL);
     QVERIFY(rv.label == QString("Wikipedia Example"));
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?message=Wikipedia Example Address"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?message=Wikipedia Example Address"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
 
-    QVERIFY(GUIUtil::parseBitcoinURI("mazacoin://MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?message=Wikipedia Example Address", &rv));
+    QVERIFY(GUIUtil::parseBitcoinURI("maza://MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?message=Wikipedia Example Address", &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?req-message=Wikipedia Example Address"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?req-message=Wikipedia Example Address"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1,000&label=Wikipedia Example"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1,000&label=Wikipedia Example"));
     QVERIFY(!GUIUtil::parseBitcoinURI(uri, &rv));
 
-    uri.setUrl(QString("mazacoin:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1,000.0&label=Wikipedia Example"));
+    uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1,000.0&label=Wikipedia Example"));
     QVERIFY(!GUIUtil::parseBitcoinURI(uri, &rv));
 }

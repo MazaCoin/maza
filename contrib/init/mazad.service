@@ -1,0 +1,22 @@
+[Unit]
+Description=Maza's distributed currency daemon
+After=network.target
+
+[Service]
+User=maza
+Group=maza
+
+Type=forking
+PIDFile=/var/lib/mazad/mazad.pid
+ExecStart=/usr/bin/mazad -daemon -pid=/var/lib/mazad/mazad.pid \
+-conf=/etc/maza/maza.conf -datadir=/var/lib/mazad -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

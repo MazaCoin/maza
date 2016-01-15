@@ -26,7 +26,7 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// MazacoinMiner
+// MazaMiner
 //
 
 //
@@ -421,7 +421,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("MazacoinMiner : generated block is stale");
+            return error("MazaMiner : generated block is stale");
     }
 
     // Remove key from key pool
@@ -436,14 +436,14 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     // Process this block the same as if we had received it from another node
     CValidationState state;
     if (!ProcessNewBlock(state, NULL, pblock))
-        return error("MazacoinMiner : ProcessNewBlock, block not accepted");
+        return error("MazaMiner : ProcessNewBlock, block not accepted");
 
     return true;
 }
 
 void static BitcoinMiner(CWallet *pwallet)
 {
-    LogPrintf("MazacoinMiner started\n");
+    LogPrintf("MazaMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
 
@@ -477,13 +477,13 @@ void static BitcoinMiner(CWallet *pwallet)
             auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
             if (!pblocktemplate.get())
             {
-                LogPrintf("Error in MazacoinMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+                LogPrintf("Error in MazaMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
                 return;
             }
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-            LogPrintf("Running MazacoinMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            LogPrintf("Running MazaMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
                 ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
             //
@@ -509,7 +509,7 @@ void static BitcoinMiner(CWallet *pwallet)
                         assert(hash == pblock->GetHash());
 
                         SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                        LogPrintf("MazacoinMiner:\n");
+                        LogPrintf("MazaMiner:\n");
                         LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
                         ProcessBlockFound(pblock, *pwallet, reservekey);
                         SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -575,7 +575,7 @@ void static BitcoinMiner(CWallet *pwallet)
     }
     catch (boost::thread_interrupted)
     {
-        LogPrintf("MazacoinMiner terminated\n");
+        LogPrintf("MazaMiner terminated\n");
         throw;
     }
     catch (const std::runtime_error &e)

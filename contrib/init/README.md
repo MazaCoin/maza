@@ -1,9 +1,9 @@
 Sample configuration files for:
 
-SystemD: mazacoind.service
-Upstart: mazacoind.conf
-OpenRC:  mazacoind.openrc
-         mazacoind.openrcconf
+SystemD: mazad.service
+Upstart: mazad.conf
+OpenRC:  mazad.openrc
+         mazad.openrcconf
 
 have been made available to assist packagers in creating node packages here.
 

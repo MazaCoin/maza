@@ -1,5 +1,5 @@
 ---
-name: "mazacoin-win-0.10"
+name: "maza-win-0.10"
 enable_cache: true
 suites:
 - "precise"
@@ -21,7 +21,7 @@ packages:
 reference_datetime: "2013-06-01 00:00:00"
 remotes:
 - "url": "https://github.com/mazacoin/mazacoin-new.git"
-  "dir": "mazacoin"
+  "dir": "maza"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped
@@ -65,7 +65,7 @@ script: |
   done
   export PATH=${WRAP_DIR}:${PATH}
 
-  cd mazacoin
+  cd maza
   BASEPREFIX=`pwd`/depends
   # Build dependencies for each host
   for i in $HOSTS; do
@@ -76,14 +76,14 @@ script: |
   ./autogen.sh
   ./configure --prefix=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`
   make dist
-  SOURCEDIST=`echo bitcoin-*.tar.gz`
+  SOURCEDIST=`echo maza-*.tar.gz`
   DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
 
   # Correct tar file order
   mkdir -p temp
   pushd temp
   tar xf ../$SOURCEDIST
-  find bitcoin-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
+  find maza-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
   popd
 
   ORIGPATH="$PATH"
@@ -100,7 +100,7 @@ script: |
     make ${MAKEOPTS}
     make deploy
     make install-strip
-    cp -f mazacoin-*setup*.exe $OUTDIR/
+    cp -f maza-*setup*.exe $OUTDIR/
     cd installed
     mv ${DISTNAME}/bin/*.dll ${DISTNAME}/lib/
     find . -name "lib*.la" -delete

@@ -106,7 +106,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a Mazacoin address (e.g. %1)").arg("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
+    widget->setPlaceholderText(QObject::tr("Enter a Maza address (e.g. %1)").arg("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
 #endif
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
     widget->setCheckValidator(new BitcoinAddressCheckValidator(parent));
@@ -123,8 +123,8 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // return if URI is not valid or is no mazacoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("mazacoin"))
+    // return if URI is not valid or is no maza: URI
+    if(!uri.isValid() || uri.scheme() != QString("maza"))
         return false;
 
     SendCoinsRecipient rv;
@@ -184,13 +184,13 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 {
-    // Convert mazacoin:// to mazacoin:
+    // Convert maza:// to maza:
     //
-    //    Cannot handle this later, because mazacoin:// will cause Qt to see the part after // as host,
+    //    Cannot handle this later, because maza:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("mazacoin://", Qt::CaseInsensitive))
+    if(uri.startsWith("maza://", Qt::CaseInsensitive))
     {
-        uri.replace(0, 11, "mazacoin:");
+        uri.replace(0, 11, "maza:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -198,7 +198,7 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString formatBitcoinURI(const SendCoinsRecipient &info)
 {
-    QString ret = QString("mazacoin:%1").arg(info.address);
+    QString ret = QString("maza:%1").arg(info.address);
     int paramCount = 0;
 
     if (info.amount)
@@ -567,12 +567,12 @@ TableViewLastColumnResizingFixer::TableViewLastColumnResizingFixer(QTableView* t
 #ifdef WIN32
 boost::filesystem::path static StartupShortcutPath()
 {
-    return GetSpecialFolderPath(CSIDL_STARTUP) / "Mazacoin.lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / "Maza.lnk";
 }
 
 bool GetStartOnSystemStartup()
 {
-    // check for Mazacoin.lnk
+    // check for Maza.lnk
     return boost::filesystem::exists(StartupShortcutPath());
 }
 
@@ -649,7 +649,7 @@ boost::filesystem::path static GetAutostartDir()
 
 boost::filesystem::path static GetAutostartFilePath()
 {
-    return GetAutostartDir() / "mazacoin.desktop";
+    return GetAutostartDir() / "maza.desktop";
 }
 
 bool GetStartOnSystemStartup()
@@ -687,10 +687,10 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         boost::filesystem::ofstream optionFile(GetAutostartFilePath(), std::ios_base::out|std::ios_base::trunc);
         if (!optionFile.good())
             return false;
-        // Write a mazacoin.desktop file to the autostart directory:
+        // Write a maza.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
-        optionFile << "Name=Mazacoin\n";
+        optionFile << "Name=Maza\n";
         optionFile << "Exec=" << pszExePath << " -min\n";
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
@@ -709,7 +709,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
 LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl);
 LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl)
 {
-    // loop through the list of startup items and try to find the mazacoin app
+    // loop through the list of startup items and try to find the maza app
     CFArrayRef listSnapshot = LSSharedFileListCopySnapshot(list, NULL);
     for(int i = 0; i < CFArrayGetCount(listSnapshot); i++) {
         LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(listSnapshot, i);
@@ -743,7 +743,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
     LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, bitcoinAppUrl);
 
     if(fAutoStart && !foundItem) {
-        // add mazacoin app to startup item list
+        // add maza app to startup item list
         LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, bitcoinAppUrl, NULL, NULL);
     }
     else if(!fAutoStart && foundItem) {
