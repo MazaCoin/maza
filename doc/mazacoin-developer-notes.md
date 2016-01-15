@@ -1,16 +1,16 @@
-Mazacoin Developer Notes
+Maza Developer Notes
 ========================
 
 | | |
 | ------------------- | ------------------------------------ |
 | Algorithm           | SHA256                               |
-| Block Reward        | 1000 MZC                             |
+| Block Reward        | 1000 MAZA                             |
 | Block Time          | 2 minutes                            |
 | Reward Halving      | 950,000 blocks                       |
-| Min Block Rewad     | 1 MZC                                |
+| Min Block Rewad     | 1 MAZA                                |
 | Difficulty Retarget | every 1 block using DarkGravityWave3 |
 
-Total coin mined: 2.398 billion MZC + yearly inflation
+Total coin mined: 2.398 billion MAZA + yearly inflation
 
 2.398 billion coins will be mined in approx. 36yrs
 

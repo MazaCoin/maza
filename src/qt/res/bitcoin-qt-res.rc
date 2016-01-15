@@ -19,14 +19,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Mazacoin"
-            VALUE "FileDescription",    "Mazacoin Core (OSS GUI client for Mazacoin)"
+            VALUE "CompanyName",        "Maza"
+            VALUE "FileDescription",    "Maza Core (OSS GUI client for Maza)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "mazacoin-qt"
+            VALUE "InternalName",       "maza-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "mazacoin-qt.exe"
-            VALUE "ProductName",        "Mazacoin Core"
+            VALUE "OriginalFilename",   "maza-qt.exe"
+            VALUE "ProductName",        "Maza Core"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

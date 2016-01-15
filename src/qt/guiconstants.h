@@ -44,9 +44,9 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 35
 
-#define QAPP_ORG_NAME "Mazacoin"
+#define QAPP_ORG_NAME "Maza"
 #define QAPP_ORG_DOMAIN "mazacoin.org"
-#define QAPP_APP_NAME_DEFAULT "Mazacoin-Qt"
-#define QAPP_APP_NAME_TESTNET "Mazacoin-Qt-testnet"
+#define QAPP_APP_NAME_DEFAULT "Maza-Qt"
+#define QAPP_APP_NAME_TESTNET "Maza-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

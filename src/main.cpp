@@ -31,7 +31,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-# error "Mazacoin cannot be compiled without assertions."
+# error "Maza cannot be compiled without assertions."
 #endif
 
 /**
@@ -73,7 +73,7 @@ static void CheckBlockIndex();
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Mazacoin Signed Message:\n";
+const string strMessageMagic = "Maza Signed Message:\n";
 
 // Internal stuff
 namespace {

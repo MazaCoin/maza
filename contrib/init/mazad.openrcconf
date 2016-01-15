@@ -1,0 +1,27 @@
+# /etc/conf.d/mazad: config file for /etc/init.d/mazad
+
+# Config file location
+#MAZAD_CONFIGFILE="/etc/maza/maza.conf"
+
+# What directory to write pidfile to?  (created and owned by $MAZAD_USER)
+#MAZAD_PIDDIR="/var/run/mazad"
+
+# What filename to give the pidfile
+#MAZAD_PIDFILE="${MAZAD_PIDDIR}/mazad.pid"
+
+# Where to write mazad data (be mindful that the blockchain is large)
+#MAZAD_DATADIR="/var/lib/mazad"
+
+# User and group to own mazad process
+#MAZAD_USER="maza"
+#MAZAD_GROUP="maza"
+
+# Path to mazad executable
+#MAZAD_BIN="/usr/bin/mazad"
+
+# Nice value to run mazad under
+#MAZAD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+MAZAD_OPTS="-disablewallet"
+

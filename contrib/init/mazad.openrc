@@ -1,0 +1,86 @@
+#!/sbin/runscript
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/maza/.maza" ]; then
+	MAZAD_DEFAULT_DATADIR="/var/lib/maza/.maza"
+else
+	MAZAD_DEFAULT_DATADIR="/var/lib/mazad"
+fi
+
+MAZAD_CONFIGFILE=${MAZAD_CONFIGFILE:-/etc/maza/maza.conf}
+MAZAD_PIDDIR=${MAZAD_PIDDIR:-/var/run/mazad}
+MAZAD_PIDFILE=${MAZAD_PIDFILE:-${MAZAD_PIDDIR}/mazad.pid}
+MAZAD_DATADIR=${MAZAD_DATADIR:-${MAZAD_DEFAULT_DATADIR}}
+MAZAD_USER=${MAZAD_USER:-maza}
+MAZAD_GROUP=${MAZAD_GROUP:-maza}
+MAZAD_BIN=${MAZAD_BIN:-/usr/bin/mazad}
+
+name="Maza Core Daemon"
+description="Maza crypto-currency p2p network daemon"
+
+command="/usr/bin/mazad"
+command_args="-pid=\"${MAZAD_PIDFILE}\" \
+		-conf=\"${MAZAD_CONFIGFILE}\" \
+		-datadir=\"${MAZAD_DATADIR}\" \
+		-daemon \
+		${MAZAD_OPTS}"
+
+required_files="${MAZAD_CONFIGFILE}"
+start_stop_daemon_args="-u ${MAZAD_USER} \
+			-N ${MAZAD_NICE:-0} -w 2000"
+pidfile="${MAZAD_PIDFILE}"
+retry=60
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${MAZAD_USER}:${MAZAD_GROUP}" \
+	"${MAZAD_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${MAZAD_USER}:${MAZAD_GROUP}" \
+	"${MAZAD_PIDDIR}"
+
+	checkpath -f \
+	-o ${MAZAD_USER}:${MAZAD_GROUP} \
+	-m 0660 \
+	${MAZAD_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${MAZAD_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run mazad."
+		eerror "The setting must appear in ${MAZAD_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"Maza Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}
