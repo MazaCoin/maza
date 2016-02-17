@@ -1,3 +1,45 @@
+gitian-descriptors
+==================
+
+### Descriptor files
+
+Multiple descriptors are provided
+  * gitian-{linux,win,osx}.yml 
+     - "standard" descriptors, full build
+  * gitian-{linux,win,osx}-deps.yml 
+     - Builds ONLY dependencies for caching for future builds
+  * gitian-win{32,64}.yml
+     - Builds win32 and win64 binaries separately
+  * gitian-win{32,64}-deps.yml
+     - Builds win32 and win64 dependencies seperately
+  * gitian-osx-signer.yml
+     - codesigning for OSX package
+
+The multiple descriptors are provided to trim down time spent in each step 
+of the build process when running on automated systems (with timeouts) such as travis-ci.org
+
+
+### guruvan's notes on getting gitian builds running using Docker
+
+In general, most modern CPU with virtualization capability will work to run gitian inside LXC from Docker
+[gitian-docker](https://github.com/guruvan/gitian-docker) is known to run on 
+a Stock AWS Ubuntu 15.10 image with Docker 1.9.1 installed
+  - clone the above project
+  - make a .env file, set variables as per examples
+  - run:
+  ```
+  ./build.sh maza-release-v0,10.2.env all
+  ```
+  The above should simply run, and build MAZA for all available OSes (Windows32 Windows64, Linux, OSX) 
+  Please report issues if the above fails
+ 
+ This should also easily run in a VM with Ubuntu or similar installed, OR 
+  with boot2docker on Windows or OSX. 
+    - Standard boot2docker Vbox shared folders will not have correct permissions, umount & mount correctly
+    
+
+
+
 ### Gavin's notes on getting gitian builds up and running using KVM:###
 
 These instructions distilled from:

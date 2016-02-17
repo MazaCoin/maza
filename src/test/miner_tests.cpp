@@ -81,6 +81,10 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         pblock->hashMerkleRoot = pblock->BuildMerkleTree();
         pblock->nNonce = blockinfo[i].nonce;
         CValidationState state;
+        CDataStream ssBlock(SER_NETWORK, PROTOCOL_VERSION);
+        ssBlock << *pblock;
+        std::string strHex = HexStr(ssBlock.begin(), ssBlock.end());
+        LogPrintf("%s\n", strHex);
         BOOST_CHECK(ProcessNewBlock(state, NULL, pblock));
         BOOST_CHECK(state.IsValid());
         pblock->hashPrevBlock = pblock->GetHash();

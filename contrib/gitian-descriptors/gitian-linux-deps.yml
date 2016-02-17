@@ -1,5 +1,5 @@
 ---
-name: "maza-linux-0.10.2"
+name: "maza-linux-deps-0.10.2"
 enable_cache: true
 suites:
 - "precise"
@@ -69,41 +69,41 @@ script: |
     make ${MAKEOPTS} -C ${BASEPREFIX} HOST="${i}"
   done
 
-  # Create the release tarball using (arbitrarily) the first host
-  ./autogen.sh
-  ./configure --prefix=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`
-  make dist
-  SOURCEDIST=`echo maza-*.tar.gz`
-  DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
-  # Correct tar file order
-  mkdir -p temp
-  pushd temp
-  tar xf ../$SOURCEDIST
-  find maza-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
-  popd
-
-  ORIGPATH="$PATH"
-  # Extract the release tarball into a dir for each host and build
-  for i in ${HOSTS}; do
-    export PATH=${BASEPREFIX}/${i}/native/bin:${ORIGPATH}
-    mkdir -p distsrc-${i}
-    cd distsrc-${i}
-    INSTALLPATH=`pwd`/installed/${DISTNAME}
-    mkdir -p ${INSTALLPATH}
-    tar --strip-components=1 -xf ../$SOURCEDIST
-
-    ./configure --prefix=${BASEPREFIX}/${i} --bindir=${INSTALLPATH}/bin --includedir=${INSTALLPATH}/include --libdir=${INSTALLPATH}/lib --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS}
-    make ${MAKEOPTS}
-    make install-strip
-    cd installed
-    find . -name "lib*.la" -delete
-    find . -name "lib*.a" -delete
-    rm -rf ${DISTNAME}/lib/pkgconfig
-    find ${DISTNAME} | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
-    cd ../../
-  done
-  mkdir -p $OUTDIR/src
-  mv $SOURCEDIST $OUTDIR/src
-  mv ${OUTDIR}/${DISTNAME}-x86_64-*.tar.gz ${OUTDIR}/${DISTNAME}-linux64.tar.gz
-  mv ${OUTDIR}/${DISTNAME}-i686-*.tar.gz ${OUTDIR}/${DISTNAME}-linux32.tar.gz
+#  # Create the release tarball using (arbitrarily) the first host
+#  ./autogen.sh
+#  ./configure --prefix=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`
+#  make dist
+#  SOURCEDIST=`echo maza-*.tar.gz`
+#  DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
+#  # Correct tar file order
+#  mkdir -p temp
+#  pushd temp
+#  tar xf ../$SOURCEDIST
+#  find maza-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
+#  popd
+#
+#  ORIGPATH="$PATH"
+#  # Extract the release tarball into a dir for each host and build
+#  for i in ${HOSTS}; do
+#    export PATH=${BASEPREFIX}/${i}/native/bin:${ORIGPATH}
+#    mkdir -p distsrc-${i}
+#    cd distsrc-${i}
+#    INSTALLPATH=`pwd`/installed/${DISTNAME}
+#    mkdir -p ${INSTALLPATH}
+#    tar --strip-components=1 -xf ../$SOURCEDIST
+#
+#    ./configure --prefix=${BASEPREFIX}/${i} --bindir=${INSTALLPATH}/bin --includedir=${INSTALLPATH}/include --libdir=${INSTALLPATH}/lib --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS}
+#    make ${MAKEOPTS}
+#    make install-strip
+#    cd installed
+#    find . -name "lib*.la" -delete
+#    find . -name "lib*.a" -delete
+#    rm -rf ${DISTNAME}/lib/pkgconfig
+#    find ${DISTNAME} | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
+#    cd ../../
+#  done
+#  mkdir -p $OUTDIR/src
+#  mv $SOURCEDIST $OUTDIR/src
+#  mv ${OUTDIR}/${DISTNAME}-x86_64-*.tar.gz ${OUTDIR}/${DISTNAME}-linux64.tar.gz
+#  mv ${OUTDIR}/${DISTNAME}-i686-*.tar.gz ${OUTDIR}/${DISTNAME}-linux32.tar.gz
 

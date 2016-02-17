@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=MAZA
+Comment=MAZA P2P Cryptocurrency
+Comment[fr]=MAZA, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=MAZA, eşten eşe kriptografik sanal para birimi
+Exec=maza-qt %u
+Terminal=false
+Type=Application
+Icon=bitcoin128
+MimeType=x-scheme-handler/maza;
+Categories=Office;Finance;

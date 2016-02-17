@@ -33,15 +33,15 @@ def check_json_precision():
         raise RuntimeError("JSON encode/decode loses precision")
 
 def determine_db_dir():
-    """Return the default location of the bitcoin data directory"""
+    """Return the default location of the maza data directory"""
     if platform.system() == "Darwin":
-        return os.path.expanduser("~/Library/Application Support/Bitcoin/")
+        return os.path.expanduser("~/Library/Application Support/Maza/")
     elif platform.system() == "Windows":
-        return os.path.join(os.environ['APPDATA'], "Bitcoin")
-    return os.path.expanduser("~/.bitcoin")
+        return os.path.join(os.environ['APPDATA'], "Maza")
+    return os.path.expanduser("~/.maza")
 
 def read_bitcoin_config(dbdir):
-    """Read the bitcoin.conf file from dbdir, returns dictionary of settings"""
+    """Read the maza.conf file from dbdir, returns dictionary of settings"""
     from ConfigParser import SafeConfigParser
 
     class FakeSecHead(object):
@@ -59,11 +59,11 @@ def read_bitcoin_config(dbdir):
                 return s
 
     config_parser = SafeConfigParser()
-    config_parser.readfp(FakeSecHead(open(os.path.join(dbdir, "bitcoin.conf"))))
+    config_parser.readfp(FakeSecHead(open(os.path.join(dbdir, "maza.conf"))))
     return dict(config_parser.items("all"))
 
 def connect_JSON(config):
-    """Connect to a bitcoin JSON-RPC server"""
+    """Connect to a maza JSON-RPC server"""
     testnet = config.get('testnet', '0')
     testnet = (int(testnet) > 0)  # 0/1 in config file, convert to True/False
     if not 'rpcport' in config:
@@ -72,7 +72,7 @@ def connect_JSON(config):
     try:
         result = ServiceProxy(connect)
         # ServiceProxy is lazy-connect, so send an RPC command mostly to catch connection errors,
-        # but also make sure the bitcoind we're talking to is/isn't testnet:
+        # but also make sure the mazad we're talking to is/isn't testnet:
         if result.getmininginfo()['testnet'] != testnet:
             sys.stderr.write("RPC server at "+connect+" testnet setting mismatch\n")
             sys.exit(1)
@@ -221,15 +221,15 @@ def main():
 
     parser = optparse.OptionParser(usage="%prog [options]")
     parser.add_option("--from", dest="fromaddresses", default=None,
-                      help="addresses to get bitcoins from")
+                      help="addresses to get mazas from")
     parser.add_option("--to", dest="to", default=None,
-                      help="address to get send bitcoins to")
+                      help="address to get send mazas to")
     parser.add_option("--amount", dest="amount", default=None,
                       help="amount to send")
     parser.add_option("--fee", dest="fee", default="0.0",
                       help="fee to include")
     parser.add_option("--datadir", dest="datadir", default=determine_db_dir(),
-                      help="location of bitcoin.conf file with RPC username/password (default: %default)")
+                      help="location of maza.conf file with RPC username/password (default: %default)")
     parser.add_option("--testnet", dest="testnet", default=False, action="store_true",
                       help="Use the test network")
     parser.add_option("--dry_run", dest="dry_run", default=False, action="store_true",

@@ -1,5 +1,5 @@
 ---
-name: "maza-win-0.10"
+name: "maza-win-0.10.2"
 enable_cache: true
 suites:
 - "precise"
@@ -18,9 +18,9 @@ packages:
 - "g++-mingw-w64"
 - "nsis"
 - "zip"
-reference_datetime: "2013-06-01 00:00:00"
+reference_datetime: "2016-02-01 00:00:00"
 remotes:
-- "url": "https://github.com/mazacoin/mazacoin-new.git"
+- "url": "https://github.com/mazacoin/maza.git"
   "dir": "maza"
 files: []
 script: |
