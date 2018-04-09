@@ -4,7 +4,7 @@
 
 #include "data/tx_invalid.json.h"
 #include "data/tx_valid.json.h"
-#include "test/test_bitcoin.h"
+#include "test/test_maza.h"
 
 #include "clientversion.h"
 #include "consensus/validation.h"
@@ -363,7 +363,7 @@ void CheckWithFlag(const CTransactionRef &output,
     CTransaction inputi(input);
     bool ret = VerifyScript(
         inputi.vin[0].scriptSig, output->vout[0].scriptPubKey,
-        flags | SCRIPT_ENABLE_SIGHASH_FORKID,
+        flags, /// | SCRIPT_ENABLE_SIGHASH_FORKID,
         TransactionSignatureChecker(&inputi, 0, output->vout[0].nValue),
         &error);
     BOOST_CHECK_EQUAL(ret, success);

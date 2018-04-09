@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/maza-config.h"
 #endif
 
 #include "util.h"
@@ -103,8 +103,8 @@ namespace program_options {
 
 } // namespace boost
 
-const char *const BITCOIN_CONF_FILENAME = "bitcoin.conf";
-const char *const BITCOIN_PID_FILENAME = "bitcoind.pid";
+const char *const MAZA_CONF_FILENAME = "maza.conf";
+const char *const MAZA_PID_FILENAME = "maza.pid";
 
 CCriticalSection cs_args;
 std::map<std::string, std::string> mapArgs;
@@ -450,7 +450,7 @@ static std::string FormatException(const std::exception *pex,
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char *pszModule = "bitcoin";
+    const char *pszModule = "maza";
 #endif
     if (pex)
         return strprintf("EXCEPTION: %s       \n%s       \n%s in %s       \n",
@@ -469,10 +469,10 @@ void PrintExceptionContinue(const std::exception *pex, const char *pszThread) {
 
 boost::filesystem::path GetDefaultDataDir() {
     namespace fs = boost::filesystem;
-// Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcoin
-// Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcoin
-// Mac: ~/Library/Application Support/Bitcoin
-// Unix: ~/.bitcoin
+// Windows < Vista: C:\Documents and Settings\Username\Application Data\Maza
+// Windows >= Vista: C:\Users\Username\AppData\Roaming\Maza
+// Mac: ~/Library/Application Support/Maza
+// Unix: ~/.maza
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "Maza";
@@ -485,7 +485,7 @@ boost::filesystem::path GetDefaultDataDir() {
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Bitcoin";
+    return pathRet / "Library/Application Support/Maza";
 #else
     // Unix
     return pathRet / ".maza";
@@ -542,7 +542,7 @@ boost::filesystem::path GetConfigFile(const std::string &confPath) {
 void ReadConfigFile(const std::string &confPath) {
     boost::filesystem::ifstream streamConfig(GetConfigFile(confPath));
 
-    // No bitcoin.conf file is OK
+    // No maza.conf file is OK
     if (!streamConfig.good()) return;
 
     {
@@ -555,7 +555,7 @@ void ReadConfigFile(const std::string &confPath) {
              end;
              it != end; ++it) {
             // Don't overwrite existing settings so command line settings
-            // override bitcoin.conf
+            // override maza.conf
             std::string strKey = std::string("-") + it->string_key;
             std::string strValue = it->value[0];
             InterpretNegativeSetting(strKey, strValue);
@@ -569,7 +569,7 @@ void ReadConfigFile(const std::string &confPath) {
 
 #ifndef WIN32
 boost::filesystem::path GetPidFile() {
-    boost::filesystem::path pathPidFile(GetArg("-pid", BITCOIN_PID_FILENAME));
+    boost::filesystem::path pathPidFile(GetArg("-pid", MAZA_PID_FILENAME));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
@@ -830,11 +830,11 @@ std::string CopyrightHolders(const std::string &strPrefix) {
         strPrefix +
         strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
 
-    // Check for untranslated substitution to make sure Bitcoin Core copyright
+    // Check for untranslated substitution to make sure Maza copyright
     // is not removed by accident.
     if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION)
-            .find("Bitcoin Core") == std::string::npos) {
-        strCopyrightHolders += "\n" + strPrefix + "The Bitcoin Core developers";
+            .find("Maza") == std::string::npos) {
+        strCopyrightHolders += "\n" + strPrefix + "The Maza developers";
     }
     return strCopyrightHolders;
 }

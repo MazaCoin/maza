@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/maza-config.h"
 #endif
 
 #include "utilitydialog.h"
@@ -69,7 +69,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about)
         ui->helpMessage->setVisible(false);
     } else {
         setWindowTitle(tr("Command-line options"));
-        QString header = tr("Usage:") + "\n" + "  bitcoin-qt [" +
+        QString header = tr("Usage:") + "\n" + "  maza-qt [" +
                          tr("command-line options") + "]                     " +
                          "\n";
         QTextCursor cursor(ui->helpMessage->document());
@@ -78,7 +78,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about)
         cursor.insertText(header);
         cursor.insertBlock();
 
-        std::string strUsage = HelpMessage(HMM_BITCOIN_QT);
+        std::string strUsage = HelpMessage(HMM_MAZA_QT);
         const bool showDebug = GetBoolArg("-help-debug", false);
         strUsage += HelpMessageGroup(tr("UI Options:").toStdString());
         if (showDebug) {

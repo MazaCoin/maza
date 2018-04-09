@@ -556,11 +556,6 @@ void BlockAssembler::addPackageTxs(int &nPackagesSelected,
         // Update transactions that depend on each of these
         nDescendantsUpdated += UpdatePackagesForAdded(ancestors, mapModifiedTx);
     }
-    catch (const std::runtime_error &e)
-    {
-        LogPrintf("BitcoinMiner runtime error: %s\n", e.what());
-        return;
-    }
 }
 
 void BlockAssembler::addPriorityTxs() {

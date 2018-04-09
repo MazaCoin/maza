@@ -11,7 +11,7 @@
 #include "random.h"
 #include "serialize.h"
 #include "streams.h"
-#include "test/test_bitcoin.h"
+#include "test/test_maza.h"
 #include "uint256.h"
 #include "util.h"
 #include "utilstrencodings.h"
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(bloom_create_insert_key) {
     std::string strSecret =
         std::string("5Kg1gnAjaLfKiwhhPpGS3QfRg2m6awQvaj98JCZBZQ5SuS2F15C");
     CBitcoinSecret vchSecret;
-    BOOST_CHECK(vchSecret.SetString(strSecret));
+    (vchSecret.SetString(strSecret));
 
     CKey key = vchSecret.GetKey();
     CPubKey pubkey = key.GetPubKey();
@@ -1078,7 +1078,7 @@ BOOST_AUTO_TEST_CASE(rolling_bloom) {
     for (int i = 0; i < 10000; i++) {
         if (rb1.contains(RandomData())) ++nHits;
     }
-    // Run test_bitcoin with --log_level=message to see BOOST_TEST_MESSAGEs:
+    // Run test_maza with --log_level=message to see BOOST_TEST_MESSAGEs:
     BOOST_TEST_MESSAGE("RollingBloomFilter got "
                        << nHits << " false positives (~100 expected)");
 

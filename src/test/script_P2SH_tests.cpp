@@ -10,7 +10,7 @@
 #include "script/ismine.h"
 #include "script/script_error.h"
 #include "script/sign.h"
-#include "test/test_bitcoin.h"
+#include "test/test_maza.h"
 #include "validation.h"
 
 #include <vector>
@@ -113,8 +113,7 @@ BOOST_AUTO_TEST_CASE(sign) {
             const CTxOut &output = txFrom.vout[txTo[i].vin[0].prevout.n];
             bool sigOK =
                 CScriptCheck(output.scriptPubKey, output.nValue, txTo[i], 0,
-                             SCRIPT_VERIFY_P2SH | SCRIPT_VERIFY_STRICTENC |
-                                 SCRIPT_ENABLE_SIGHASH_FORKID,
+                             SCRIPT_VERIFY_P2SH | SCRIPT_VERIFY_STRICTENC,
                              false, txdata)();
             if (i == j) {
                 BOOST_CHECK_MESSAGE(sigOK,

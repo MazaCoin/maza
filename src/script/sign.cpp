@@ -161,9 +161,16 @@ bool ProduceSignature(const BaseSignatureCreator &creator,
     sigdata.scriptSig = PushAll(result);
 
     // Test solution
+    // Because we have no good way to get nHashType here, we just try with and
+    // without enabling it. One of the two must pass.
+    // TODO: Remove after the fork.
     return solved &&
-           VerifyScript(sigdata.scriptSig, fromPubKey,
-                        STANDARD_SCRIPT_VERIFY_FLAGS, creator.Checker());
+           (VerifyScript(sigdata.scriptSig, fromPubKey,
+                         STANDARD_SCRIPT_VERIFY_FLAGS, creator.Checker()) ||
+            VerifyScript(sigdata.scriptSig, fromPubKey,
+                         STANDARD_SCRIPT_VERIFY_FLAGS |
+                             SCRIPT_ENABLE_SIGHASH_FORKID,
+                         creator.Checker()));
 }
 
 SignatureData DataFromTransaction(const CMutableTransaction &tx,
@@ -238,8 +245,14 @@ static std::vector<valtype> CombineMultisig(
                 continue;
             }
 
-            if (checker.CheckSig(sig, pubkey, scriptPubKey,
-                                 STANDARD_SCRIPT_VERIFY_FLAGS)) {
+            // If the transaction is using SIGHASH_FORKID, we ned to set the
+            // apropriate flags.
+            // TODO: Remove after the Hard Fork.
+            uint32_t flags = STANDARD_SCRIPT_VERIFY_FLAGS;
+            if (sig.back() & SIGHASH_FORKID) {
+                flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
+            }
+            if (checker.CheckSig(sig, pubkey, scriptPubKey, flags)) {
                 sigs[pubkey] = sig;
                 break;
             }
@@ -273,7 +286,7 @@ struct Stacks {
     explicit Stacks(const std::vector<valtype> &scriptSigStack_)
         : script(scriptSigStack_) {}
     explicit Stacks(const SignatureData &data) {
-        EvalScript(script, data.scriptSig, MANDATORY_SCRIPT_VERIFY_FLAGS,
+        EvalScript(script, data.scriptSig, SCRIPT_VERIFY_STRICTENC,
                    BaseSignatureChecker());
     }
 
@@ -383,6 +396,6 @@ bool DummySignatureCreator::CreateSig(std::vector<uint8_t> &vchSig,
     vchSig[4 + 33] = 0x02;
     vchSig[5 + 33] = 32;
     vchSig[6 + 33] = 0x01;
-    vchSig[6 + 33 + 32] = SIGHASH_ALL | SIGHASH_FORKID;
+    vchSig[6 + 33 + 32] = SIGHASH_ALL;
     return true;
 }

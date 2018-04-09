@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/maza-config.h"
 #endif
 
 #include "init.h"
@@ -136,7 +136,7 @@ bool ShutdownRequested() {
 /**
  * This is a minimally invasive approach to shutdown on LevelDB read errors from
  * the chainstate, while keeping user interface out of the common library, which
- * is shared between bitcoind, and bitcoin-qt and non-server tools.
+ * is shared between mazad, and maza-qt and non-server tools.
  */
 class CCoinsViewErrorCatcher : public CCoinsViewBacked {
 public:
@@ -185,7 +185,7 @@ void Shutdown() {
     /// part of the way, for example if the data directory was found to be
     /// locked. Be sure that anything that writes files or flushes caches only
     /// does this if the respective module was initialized.
-    RenameThread("bitcoin-shutoff");
+    RenameThread("maza-shutoff");
     mempool.AddTransactionsUpdated(1);
 
     StopHTTPRPC();
@@ -337,8 +337,8 @@ std::string HelpMessage(HelpMessageMode mode) {
                       .defaultAssumeValid.GetHex()));
     strUsage += HelpMessageOpt(
         "-conf=<file>", strprintf(_("Specify configuration file (default: %s)"),
-                                  BITCOIN_CONF_FILENAME));
-    if (mode == HMM_BITCOIND) {
+                                  MAZA_CONF_FILENAME));
+    if (mode == HMM_MAZAD) {
 #if HAVE_DECL_DAEMON
         strUsage += HelpMessageOpt(
             "-daemon",
@@ -386,7 +386,7 @@ std::string HelpMessage(HelpMessageMode mode) {
 #ifndef WIN32
     strUsage += HelpMessageOpt(
         "-pid=<file>",
-        strprintf(_("Specify pid file (default: %s)"), BITCOIN_PID_FILENAME));
+        strprintf(_("Specify pid file (default: %s)"), MAZA_PID_FILENAME));
 #endif
     strUsage += HelpMessageOpt(
         "-prune=<n>",
@@ -659,7 +659,7 @@ std::string HelpMessage(HelpMessageMode mode) {
         "addrman, alert, bench, cmpctblock, coindb, db, http, libevent, lock, "
         "mempool, mempoolrej, net, proxy, prune, rand, reindex, rpc, "
         "selectcoins, tor, zmq"; // Don't translate these and qt below
-    if (mode == HMM_BITCOIN_QT) debugCategories += ", qt";
+    if (mode == HMM_MAZA_QT) debugCategories += ", qt";
     strUsage += HelpMessageOpt(
         "-debug=<category>",
         strprintf(_("Output debugging information (default: %u, supplying "
@@ -858,8 +858,8 @@ std::string HelpMessage(HelpMessageMode mode) {
 
 std::string LicenseInfo() {
     const std::string URL_SOURCE_CODE =
-        "<https://github.com/Bitcoin-ABC/bitcoin-abc>";
-    const std::string URL_WEBSITE = "<https://www.bitcoinabc.org>";
+        "<https://github.com/mazacoin/maza>";
+    const std::string URL_WEBSITE = "<https://www.mazacoin.org>";
 
     return CopyrightHolders(
                strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR) +
@@ -965,7 +965,7 @@ void CleanupBlockRevFiles() {
 
 void ThreadImport(const Config &config,
                   std::vector<boost::filesystem::path> vImportFiles) {
-    RenameThread("bitcoin-loadblk");
+    RenameThread("maza-loadblk");
 
     {
         CImportingNow imp;
@@ -1038,7 +1038,7 @@ void ThreadImport(const Config &config,
 }
 
 /** Sanity checks
- *  Ensure that Bitcoin is running in a usable environment with all
+ *  Ensure that Maza is running in a usable environment with all
  *  necessary library support.
  */
 bool InitSanityCheck(void) {
@@ -1518,10 +1518,10 @@ bool AppInitParameterInteraction(Config &config) {
     // Signal Bitcoin Cash support.
     // TODO: remove some time after the hardfork when no longer needed
     // to differentiate the network nodes.
-    nLocalServices = ServiceFlags(nLocalServices | NODE_BITCOIN_CASH);
+    nLocalServices = ServiceFlags(nLocalServices); // | NODE_BITCOIN_CASH);
 
     // Preferentially keep peers which service NODE_BITCOIN_CASH
-    nRelevantServices = ServiceFlags(nRelevantServices | NODE_BITCOIN_CASH);
+    nRelevantServices = ServiceFlags(nRelevantServices); // | NODE_BITCOIN_CASH);
 
     nMaxTipAge = GetArg("-maxtipage", DEFAULT_MAX_TIP_AGE);
 
@@ -1575,7 +1575,7 @@ bool AppInitParameterInteraction(Config &config) {
 static bool LockDataDirectory(bool probeOnly) {
     std::string strDataDir = GetDataDir().string();
 
-    // Make sure only a single Bitcoin process is using the data directory.
+    // Make sure only a single Maza process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     // empty lock file; created if it doesn't exist.
     FILE *file = fopen(pathLockFile.string().c_str(), "a");
@@ -1650,7 +1650,7 @@ bool AppInitMain(Config &config, boost::thread_group &threadGroup,
     LogPrintf("Default data directory %s\n", GetDefaultDataDir().string());
     LogPrintf("Using data directory %s\n", GetDataDir().string());
     LogPrintf("Using config file %s\n",
-              GetConfigFile(GetArg("-conf", BITCOIN_CONF_FILENAME)).string());
+              GetConfigFile(GetArg("-conf", MAZA_CONF_FILENAME)).string());
     LogPrintf("Using at most %i automatic connections (%i file descriptors "
               "available)\n",
               nMaxConnections, nFD);

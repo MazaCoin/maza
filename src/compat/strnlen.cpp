@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/maza-config.h"
 #endif
 
 #include <cstring>
@@ -14,3 +14,4 @@ size_t strnlen(const char *start, size_t max_len) {
 
     return end ? (size_t)(end - start) : max_len;
 }
+#endif // HAVE_DECL_STRNLEN

@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/maza-config.h"
 #endif
 
 #include "askpassphrasedialog.h"
@@ -112,7 +112,7 @@ void AskPassphraseDialog::accept() {
             QMessageBox::StandardButton retval = QMessageBox::question(
                 this, tr("Confirm wallet encryption"),
                 tr("Warning: If you encrypt your wallet and lose your "
-                   "passphrase, you will <b>LOSE ALL OF YOUR BITCOINS</b>!") +
+                   "passphrase, you will <b>LOSE ALL OF YOUR MAZA</b>!") +
                     "<br><br>" +
                     tr("Are you sure you wish to encrypt your wallet?"),
                 QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
@@ -126,7 +126,7 @@ void AskPassphraseDialog::accept() {
                                    "process. "
                                    "Remember that encrypting your wallet "
                                    "cannot fully protect "
-                                   "your bitcoins from being stolen by malware "
+                                   "your maza from being stolen by malware "
                                    "infecting your computer.")
                                     .arg(tr(PACKAGE_NAME)) +
                                 "<br><br><b>" +

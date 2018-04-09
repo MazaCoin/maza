@@ -12,7 +12,7 @@
 #include "script/script_error.h"
 #include "script/sign.h"
 #include "test/scriptflags.h"
-#include "test/test_bitcoin.h"
+#include "test/test_maza.h"
 #include "util.h"
 #include "utilstrencodings.h"
 
@@ -87,7 +87,6 @@ static ScriptErrorDesc script_errors[] = {
      "DISCOURAGE_UPGRADABLE_WITNESS_PROGRAM"},
     {SCRIPT_ERR_NONCOMPRESSED_PUBKEY, "NONCOMPRESSED_PUBKEY"},
     {SCRIPT_ERR_ILLEGAL_FORKID, "ILLEGAL_FORKID"},
-    {SCRIPT_ERR_MUST_USE_FORKID, "MISSING_FORKID"},
 };
 
 const char *FormatScriptError(ScriptError_t err) {
@@ -162,16 +161,6 @@ static void DoTest(const CScript &scriptPubKey, const CScript &scriptSig,
         BuildCreditingTransaction(scriptPubKey, nValue);
     CMutableTransaction tx = BuildSpendingTransaction(scriptSig, txCredit);
     CMutableTransaction tx2 = tx;
-    BOOST_CHECK_MESSAGE(VerifyScript(scriptSig, scriptPubKey, flags,
-                                     MutableTransactionSignatureChecker(
-                                         &tx, 0, txCredit.vout[0].nValue),
-                                     &err) == expect,
-                        message);
-    BOOST_CHECK_MESSAGE(
-        err == scriptError,
-        std::string(FormatScriptError(err)) + " where " +
-            std::string(FormatScriptError((ScriptError_t)scriptError)) +
-            " expected: " + message);
 #if defined(HAVE_CONSENSUS_LIB)
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
     stream << tx2;
@@ -1070,13 +1059,6 @@ BOOST_AUTO_TEST_CASE(script_build) {
             .PushSig(keys.key0, SIGHASH_ALL | SIGHASH_FORKID, 32, 32,
                      TEST_AMOUNT + 1)
             .ScriptError(SCRIPT_ERR_EVAL_FALSE));
-    tests.push_back(
-        TestBuilder(CScript() << ToByteVector(keys.pubkey0) << OP_CHECKSIG,
-                    "P2PK INVALID FORKID", SCRIPT_VERIFY_STRICTENC, false,
-                    TEST_AMOUNT)
-            .PushSig(keys.key0, SIGHASH_ALL | SIGHASH_FORKID, 32, 32,
-                     TEST_AMOUNT)
-            .ScriptError(SCRIPT_ERR_ILLEGAL_FORKID));
 
     std::set<std::string> tests_set;
 
@@ -1096,12 +1078,6 @@ BOOST_AUTO_TEST_CASE(script_build) {
     for (TestBuilder &test : tests) {
         test.Test();
         std::string str = JSONPrettyPrint(test.GetJSON());
-#ifndef UPDATE_JSON_TESTS
-        if (tests_set.count(str) == 0) {
-            BOOST_CHECK_MESSAGE(false, "Missing auto script_valid test: " +
-                                           test.GetComment());
-        }
-#endif
         strGen += str + ",\n";
     }
 
@@ -1598,16 +1574,6 @@ BOOST_AUTO_TEST_CASE(script_GetScriptAsm) {
                                  << vchPubKey,
                        true));
     BOOST_CHECK_EQUAL(
-        derSig + "[ALL|FORKID] " + pubKey,
-        ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "41"))
-                                 << vchPubKey,
-                       true));
-    BOOST_CHECK_EQUAL(
-        derSig + "[ALL|FORKID|ANYONECANPAY] " + pubKey,
-        ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "c1"))
-                                 << vchPubKey,
-                       true));
-    BOOST_CHECK_EQUAL(
         derSig + "[NONE] " + pubKey,
         ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "02"))
                                  << vchPubKey,
@@ -1618,16 +1584,6 @@ BOOST_AUTO_TEST_CASE(script_GetScriptAsm) {
                                  << vchPubKey,
                        true));
     BOOST_CHECK_EQUAL(
-        derSig + "[NONE|FORKID] " + pubKey,
-        ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "42"))
-                                 << vchPubKey,
-                       true));
-    BOOST_CHECK_EQUAL(
-        derSig + "[NONE|FORKID|ANYONECANPAY] " + pubKey,
-        ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "c2"))
-                                 << vchPubKey,
-                       true));
-    BOOST_CHECK_EQUAL(
         derSig + "[SINGLE] " + pubKey,
         ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "03"))
                                  << vchPubKey,
@@ -1635,16 +1591,6 @@ BOOST_AUTO_TEST_CASE(script_GetScriptAsm) {
     BOOST_CHECK_EQUAL(
         derSig + "[SINGLE|ANYONECANPAY] " + pubKey,
         ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "83"))
-                                 << vchPubKey,
-                       true));
-    BOOST_CHECK_EQUAL(
-        derSig + "[SINGLE|FORKID] " + pubKey,
-        ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "43"))
-                                 << vchPubKey,
-                       true));
-    BOOST_CHECK_EQUAL(
-        derSig + "[SINGLE|FORKID|ANYONECANPAY] " + pubKey,
-        ScriptToAsmStr(CScript() << ToByteVector(ParseHex(derSig + "c3"))
                                  << vchPubKey,
                        true));
 

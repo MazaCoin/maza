@@ -1,29 +1,26 @@
-Bitcoin ABC
+Maza
 ===========
 
-https://bitcoinabc.org
+https://mazacoin.org
 
-What is Bitcoin?
+What is Maza?
 ----------------
 
-Bitcoin is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
+Maza is an experimental digital currency that enables instant payments to
+anyone, anywhere in the world. Maza uses peer-to-peer technology to operate
 with no central authority: managing transactions and issuing money are carried
 out collectively by the network.
 
-What is Bitcoin ABC?
+What is Maza-QT?
 --------------------
 
-Bitcoin ABC is the name of open source software which enables the use of Bitcoin.
-It is designed to facilite a hard fork to increase Bitcoin's block size limit.
-"ABC" stands for "Adjustable Blocksize Cap".
-
-Bitcoin ABC is a fork of the [Bitcoin Core](https://bitcoincore.org) software project.
+Maza-QT is the name of open source software which enables the use of Maza.
+Maza is a fork of the [Bitcoin Core](https://bitcoincore.org) software project.
 
 License
 -------
 
-Bitcoin ABC is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Maza is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
@@ -31,8 +28,3 @@ Development Process
 
 This Github repository contains only source code of releases.
 
-Bitcoin ABC development takes place at https://reviews.bitcoinabc.org/
-
-You can clone the active development version from here:
-
-    https://reviews.bitcoinabc.org/source/bitcoin-abc.git

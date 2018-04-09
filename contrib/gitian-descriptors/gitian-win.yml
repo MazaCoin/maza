@@ -1,5 +1,5 @@
 ---
-name: "bitcoin-abc-0.15-win"
+name: "maza-0.15-win"
 enable_cache: true
 suites:
 - "trusty"

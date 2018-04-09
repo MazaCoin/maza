@@ -82,7 +82,7 @@ extern double NSAppKitVersionNumber;
 #endif
 
 namespace GUIUtil {
-const QString URI_SCHEME("bitcoincash");
+const QString URI_SCHEME("maza");
 
 QString dateTimeStr(const QDateTime &date) {
     return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") +
@@ -136,7 +136,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent) {
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
     widget->setPlaceholderText(
-        QObject::tr("Enter a Bitcoin address (e.g. %1)")
+        QObject::tr("Enter a Maza address (e.g. %1)")
             .arg(QString::fromStdString(DummyAddress(Params()))));
 #endif
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
@@ -152,7 +152,7 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent) {
 }
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out) {
-    // return if URI is not valid or is no bitcoincash: URI
+    // return if URI is not valid or is no maza: URI
     if (!uri.isValid() || uri.scheme() != URI_SCHEME) return false;
 
     SendCoinsRecipient rv;
@@ -186,7 +186,7 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out) {
             fShouldReturnFalse = false;
         } else if (i->first == "amount") {
             if (!i->second.isEmpty()) {
-                if (!BitcoinUnits::parse(BitcoinUnits::BCC, i->second,
+                if (!BitcoinUnits::parse(BitcoinUnits::MZC, i->second,
                                          &rv.amount)) {
                     return false;
                 }
@@ -205,9 +205,9 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out) {
 }
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient *out) {
-    // Convert bitcoincash:// to bitcoincash:
+    // Convert maza:// to maza:
     //
-    //    Cannot handle this later, because bitcoincash://
+    //    Cannot handle this later, because maza://
     //    will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
     if (uri.startsWith(URI_SCHEME + "://", Qt::CaseInsensitive)) {
@@ -224,7 +224,7 @@ QString formatBitcoinURI(const SendCoinsRecipient &info) {
     if (info.amount) {
         ret +=
             QString("?amount=%1")
-                .arg(BitcoinUnits::format(BitcoinUnits::BCC, info.amount, false,
+                .arg(BitcoinUnits::format(BitcoinUnits::MZC, info.amount, false,
                                           BitcoinUnits::separatorNever));
         paramCount++;
     }
@@ -580,12 +580,12 @@ TableViewLastColumnResizingFixer::TableViewLastColumnResizingFixer(
 static boost::filesystem::path StartupShortcutPath() {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "Bitcoin.lnk";
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Maza.lnk";
     // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
     if (chain == CBaseChainParams::TESTNET)
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "Bitcoin (testnet).lnk";
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Maza (testnet).lnk";
     return GetSpecialFolderPath(CSIDL_STARTUP) /
-           strprintf("Bitcoin (%s).lnk", chain);
+           strprintf("Maza (%s).lnk", chain);
 }
 
 bool GetStartOnSystemStartup() {
@@ -680,8 +680,8 @@ static boost::filesystem::path GetAutostartDir() {
 static boost::filesystem::path GetAutostartFilePath() {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetAutostartDir() / "bitcoin.desktop";
-    return GetAutostartDir() / strprintf("bitcoin-%s.lnk", chain);
+        return GetAutostartDir() / "maza.desktop";
+    return GetAutostartDir() / strprintf("maza-%s.lnk", chain);
 }
 
 bool GetStartOnSystemStartup() {
@@ -716,13 +716,13 @@ bool SetStartOnSystemStartup(bool fAutoStart) {
             GetAutostartFilePath(), std::ios_base::out | std::ios_base::trunc);
         if (!optionFile.good()) return false;
         std::string chain = ChainNameFromCommandLine();
-        // Write a bitcoin.desktop file to the autostart directory:
+        // Write a maza.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == CBaseChainParams::MAIN)
-            optionFile << "Name=Bitcoin\n";
+            optionFile << "Name=Maza\n";
         else
-            optionFile << strprintf("Name=Bitcoin (%s)\n", chain);
+            optionFile << strprintf("Name=Maza (%s)\n", chain);
         optionFile << "Exec=" << pszExePath
                    << strprintf(" -min -testnet=%d -regtest=%d\n",
                                 GetBoolArg("-testnet", false),
@@ -919,9 +919,11 @@ QString formatServicesStr(quint64 mask) {
                 case NODE_XTHIN:
                     strList.append("XTHIN");
                     break;
+                    /*
                 case NODE_BITCOIN_CASH:
                     strList.append("CASH");
                     break;
+                     */
                 default:
                     strList.append(QString("%1[%2]").arg("UNKNOWN").arg(check));
             }

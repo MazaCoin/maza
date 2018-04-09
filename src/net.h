@@ -96,7 +96,7 @@ static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
 static const size_t DEFAULT_MAXSENDBUFFER = 1 * 1000;
 
 static const ServiceFlags REQUIRED_SERVICES =
-    ServiceFlags(NODE_NETWORK | NODE_BITCOIN_CASH);
+    ServiceFlags(NODE_NETWORK);
 
 // Default 24-hour ban.
 // NOTE: When adjusting this, update rpcnet:setban's help ("24h")
@@ -700,8 +700,6 @@ public:
     std::atomic<int64_t> nMinPingUsecTime;
     // Whether a ping is requested.
     std::atomic<bool> fPingQueued;
-    // Whether the node uses the bitcoin cash magic to communicate.
-    std::atomic<bool> fUsesCashMagic;
     // Minimum fee rate with which to filter inv's to this node
     CAmount minFeeFilter;
     CCriticalSection cs_feeFilter;
@@ -752,10 +750,7 @@ public:
     int GetSendVersion() const;
 
     const CMessageHeader::MessageStartChars &
-    GetMagic(const CChainParams &params) const {
-        return fUsesCashMagic ? params.CashMessageStart()
-                              : params.MessageStart();
-    }
+    GetMagic(const CChainParams &params) const { return params.MessageStart();    }
 
     CService GetAddrLocal() const;
     //! May not be called more than once

@@ -51,10 +51,10 @@ const int BITCOIN_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
 const char *BIP70_MESSAGE_PAYMENTACK = "PaymentACK";
 const char *BIP70_MESSAGE_PAYMENTREQUEST = "PaymentRequest";
 // BIP71 payment protocol media types
-const char *BIP71_MIMETYPE_PAYMENT = "application/bitcoincash-payment";
-const char *BIP71_MIMETYPE_PAYMENTACK = "application/bitcoincash-paymentack";
+const char *BIP71_MIMETYPE_PAYMENT = "application/maza-payment";
+const char *BIP71_MIMETYPE_PAYMENTACK = "application/maza-paymentack";
 const char *BIP71_MIMETYPE_PAYMENTREQUEST =
-    "application/bitcoincash-paymentrequest";
+    "application/maza-paymentrequest";
 
 struct X509StoreDeleter {
     void operator()(X509_STORE *b) { X509_STORE_free(b); }
@@ -211,13 +211,13 @@ void PaymentServer::ipcParseCommandLine(int argc, char *argv[]) {
         QString arg(argv[i]);
         if (arg.startsWith("-")) continue;
 
-        // If the bitcoincash: URI contains a payment request, we are not able
+        // If the maza: URI contains a payment request, we are not able
         // to detect the network as that would require fetching and parsing the
         // payment request. That means clicking such an URI which contains a
         // testnet payment request will start a mainnet instance and throw a
         // "wrong network" error.
         if (arg.startsWith(GUIUtil::URI_SCHEME + ":",
-                           Qt::CaseInsensitive)) // bitcoincash: URI
+                           Qt::CaseInsensitive)) // maza: URI
         {
             savedPaymentRequests.append(arg);
 
@@ -296,7 +296,7 @@ PaymentServer::PaymentServer(QObject *parent, bool startLocalServer)
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     // Install global event filter to catch QFileOpenEvents
-    // on Mac: sent when you click bitcoincash: links
+    // on Mac: sent when you click maza: links
     // other OSes: helpful when dealing with payment request files
     if (parent) parent->installEventFilter(this);
 
@@ -328,7 +328,7 @@ PaymentServer::~PaymentServer() {
 }
 
 //
-// OSX-specific way of handling bitcoincash: URIs and PaymentRequest mime types.
+// OSX-specific way of handling maza: URIs and PaymentRequest mime types.
 // Also used by paymentservertests.cpp and when opening a payment request file
 // via "Open URI..." menu entry.
 //
@@ -350,7 +350,7 @@ void PaymentServer::initNetManager() {
     if (!optionsModel) return;
     if (netManager != nullptr) delete netManager;
 
-    // netManager is used to fetch paymentrequests given in bitcoincash: URIs
+    // netManager is used to fetch paymentrequests given in maza: URIs
     netManager = new QNetworkAccessManager(this);
 
     QNetworkProxy proxy;
@@ -388,7 +388,7 @@ void PaymentServer::handleURIOrFile(const QString &s) {
         return;
     }
 
-    // bitcoincash: URI
+    // maza: URI
     if (s.startsWith(GUIUtil::URI_SCHEME + ":", Qt::CaseInsensitive)) {
 #if QT_VERSION < 0x050000
         QUrl uri(s);

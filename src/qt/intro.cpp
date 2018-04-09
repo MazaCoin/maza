@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/maza-config.h"
 #endif
 
 #include "intro.h"
@@ -178,7 +178,7 @@ bool Intro::pickDataDirectory() {
          * one */
         Intro intro;
         intro.setDataDirectory(dataDir);
-        intro.setWindowIcon(QIcon(":icons/bitcoin"));
+        intro.setWindowIcon(QIcon(":icons/maza"));
 
         while (true) {
             if (!intro.exec()) {
@@ -203,8 +203,8 @@ bool Intro::pickDataDirectory() {
     }
     /* Only override -datadir if different from the default, to make it possible
      * to
-     * override -datadir in the bitcoin.conf file in the default data directory
-     * (to be consistent with bitcoind behavior)
+     * override -datadir in the maza.conf file in the default data directory
+     * (to be consistent with mazad behavior)
      */
     if (dataDir != getDefaultDataDirectory())
         SoftSetArg("-datadir", GUIUtil::qstringToBoostPath(dataDir)
