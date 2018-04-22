@@ -1,40 +1,40 @@
-Bitcoin ABC
+Maza
 =====================
 
 Setup
 ---------------------
-Bitcoin ABC is a fork of Bitcoin Core, which is the original Bitcoin client and builds the backbone of the network. It downloads and stores the entire history of Bitcoin transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+Maza is a fork of Bitcoin Core, which is the original Bitcoin client and builds the backbone of the network. It downloads and stores the entire history of Maza transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download Bitcoin ABC, visit [bitcoinabc.org](https://download.bitcoinabc.org/).
+To download Maza, visit [mazacoin.org](https://download.maza.org/).
 
 Running
 ---------------------
-The following are some helpful notes on how to run Bitcoin on your native platform.
+The following are some helpful notes on how to run Maza on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- `bin/bitcoin-qt` (GUI) or
-- `bin/bitcoind` (headless)
+- `bin/maza-qt` (GUI) or
+- `bin/mazad` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run bitcoin-qt.exe.
+Unpack the files into a directory, and then run maza-qt.exe.
 
 ### OS X
 
-Drag bitcoin-abc to your applications folder, and then run bitcoin-abc.
+Drag maza-abc to your applications folder, and then run maza-abc.
 
 ### Need Help?
 
-* See the documentation at the [Bitcoin Wiki](https://en.bitcoin.it/wiki/Main_Page)
+* See the documentation at the [Maza Wiki](https://en.maza.it/wiki/Main_Page)
 for help and more information.
-* Ask for help on the [Bitcoin ABC Subreddit](https://www.reddit.com/r/BitcoinABC/).
+* Ask for help on the [Maza Subreddit](https://www.reddit.com/r/Mazacoin/).
 
 Building
 ---------------------
-The following are developer notes on how to build Bitcoin on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Maza on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -44,12 +44,12 @@ The following are developer notes on how to build Bitcoin on your native platfor
 
 Development
 ---------------------
-The Bitcoin ABC repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The Maza repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://dev.visucore.com/bitcoin/doxygen/)
+- [Source Code Documentation (External Link)](https://dev.visucore.com/maza/doxygen/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [Travis CI](travis-ci.md)

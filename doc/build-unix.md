@@ -1,12 +1,12 @@
 UNIX BUILD NOTES
 ====================
-Some notes on how to build Bitcoin ABC in Unix.
+Some notes on how to build Maza in Unix.
 
 (for OpenBSD specific instructions, see [build-openbsd.md](build-openbsd.md))
 
 Note
 ---------------------
-Always use absolute paths to configure and compile bitcoin and the dependencies,
+Always use absolute paths to configure and compile maza and the dependencies,
 for example, when specifying the path of the dependency:
 
 	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX

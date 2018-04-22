@@ -139,24 +139,93 @@ set_property(TARGET qt_stuff PROPERTY CXX_STANDARD 11)
 file(GLOB QT_TRANSLATIONS_FILES locale/*.ts)
 
 SET(QT_TRANSLATIONS_FILES
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_af.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_af_ZA.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ar.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_be_BY.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_bg.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_bg_BG.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ca.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ca@valencia.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ca_ES.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_cs.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_cy.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_da.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_de.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_el.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_el_GR.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_en.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_en_GB.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_eo.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_AR.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_CL.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_CO.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_DO.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_ES.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_MX.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_UY.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_es_VE.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_et.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_et_EE.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_eu_ES.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_fa.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_fa_IR.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_fi.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_bg.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_fr.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_fr_CA.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_fr_FR.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_gl.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_he.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_hi_IN.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_hr.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_hu.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_id_ID.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_it.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_it_IT.ts
 	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ja.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pl.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pt_BR.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pt_PT.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ru.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sk.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sv.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_vi.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_zh_CN.ts
-	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_zh_TW.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ka.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_kk_KZ.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ko_KR.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ku_IQ.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ky.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_la.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_lt.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_lv_LV.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_mk_MK.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_mn.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ms_MY.ts
+	${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_nb.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ne.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_nl.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pam.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pl.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pt_BR.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_pt_PT.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ro.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ro_RO.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ru.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ru_RU.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sk.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sl_SI.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sq.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sr.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sr@latin.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_sv.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ta.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_th_TH.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_tr.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_tr_TR.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_uk.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_ur_PK.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_uz@Cyrl.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_vi.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_vi_VN.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_zh.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_zh_CN.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_zh_HK.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/locale/maza_zh_TW.ts
+
 	)
 
 get_filename_component(QM_FILES_BINARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/locale" ABSOLUTE)

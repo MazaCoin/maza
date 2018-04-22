@@ -13,17 +13,17 @@ BitcoinUnits::BitcoinUnits(QObject *parent)
 
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits() {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(MZC);
-    unitlist.append(mMZC);
-    unitlist.append(uMZC);
+    unitlist.append(MAZA);
+    unitlist.append(mMAZA);
+    unitlist.append(uMAZA);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit) {
     switch (unit) {
-        case MZC:
-        case mMZC:
-        case uMZC:
+        case MAZA:
+        case mMAZA:
+        case uMAZA:
             return true;
         default:
             return false;
@@ -32,12 +32,12 @@ bool BitcoinUnits::valid(int unit) {
 
 QString BitcoinUnits::name(int unit) {
     switch (unit) {
-        case MZC:
-            return QString("MZC");
-        case mMZC:
-            return QString("mMZC");
-        case uMZC:
-            return QString::fromUtf8("μMZC");
+        case MAZA:
+            return QString("MAZA");
+        case mMAZA:
+            return QString("mMAZA");
+        case uMAZA:
+            return QString::fromUtf8("μMAZA");
         default:
             return QString("???");
     }
@@ -45,12 +45,12 @@ QString BitcoinUnits::name(int unit) {
 
 QString BitcoinUnits::description(int unit) {
     switch (unit) {
-        case MZC:
-            return QString("Bitcoins");
-        case mMZC:
-            return QString("Milli-Bitcoins (1 / 1" THIN_SP_UTF8 "000)");
-        case uMZC:
-            return QString("Micro-Bitcoins (1 / 1" THIN_SP_UTF8
+        case MAZA:
+            return QString("Maza");
+        case mMAZA:
+            return QString("Milli-Maza (1 / 1" THIN_SP_UTF8 "000)");
+        case uMAZA:
+            return QString("Micro-Maza (1 / 1" THIN_SP_UTF8
                            "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
@@ -59,11 +59,11 @@ QString BitcoinUnits::description(int unit) {
 
 qint64 BitcoinUnits::factor(int unit) {
     switch (unit) {
-        case MZC:
+        case MAZA:
             return 100000000;
-        case mMZC:
+        case mMAZA:
             return 100000;
-        case uMZC:
+        case uMAZA:
             return 100;
         default:
             return 100000000;
@@ -72,11 +72,11 @@ qint64 BitcoinUnits::factor(int unit) {
 
 int BitcoinUnits::decimals(int unit) {
     switch (unit) {
-        case MZC:
+        case MAZA:
             return 8;
-        case mMZC:
+        case mMAZA:
             return 5;
-        case uMZC:
+        case uMAZA:
             return 2;
         default:
             return 0;

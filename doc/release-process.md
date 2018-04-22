@@ -1,4 +1,4 @@
-Bitcoin ABC Release Process
+Maza Release Process
 ===========================
 
 
@@ -43,21 +43,20 @@ Bitcoin ABC Release Process
     
 7. Verify matching gitian builds, gather signatures
 
-8. Upload gitian build to [bitcoinabc.org](https://download.bitcoinabc.org/)
+8. Upload gitian build to [mazacoin.org](https://download.mazacoin.org/)
 
 9. Re-verify the uploads (make sure that downloading them, their checksums are ok)
 
-10. Create a [GitHub release](https://github.com/Bitcoin-ABC/bitcoin-abc/releases) 
+10. Create a [GitHub release](https://github.com/mazacoin/maza/releases) 
 
 
 ## After Release
 
-11. Update version number on www.bitcoinabc.org
+11. Update version number on www.mazacoin.org
 
-12. Publish signed checksums (various places, e.g. blog, reddit/r/BitcoinABC)
+12. Publish signed checksums (various places, e.g. blog, reddit/r/mazacoin)
 
 13. Announce Release:
-    - [Reddit](https://www.reddit.com/r/BitcoinABC/)
-    - Twitter @Bitcoin_ABC
-    - Public slack channels friendly to Bitcoin ABC announcements 
-      (eg. #abc-announce on BTCforks,  #hardfork on BTCchat)
+    - [Reddit](https://www.reddit.com/r/Mazacoin/)
+    - Twitter @Mazcoin
+    - Public Telegram/Discord channels friendly to Mazacoin announcements 
