@@ -146,12 +146,13 @@ public:
 
         vSeeds.push_back(CDNSSeedData("mazacoin.org", "node.mazacoin.org"));
         
+		
+		base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
+		base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,9);
+		base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,224);
+		base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
+		base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
 
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(50);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(9);
-        base58Prefixes[SECRET_KEY]     = list_of(224);
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E);
-        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xAD)(0xE4);
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
@@ -201,12 +202,13 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();vSeeds.push_back(CDNSSeedData("mazatest.cryptoadhd.com", "mazatest.cryptoadhd.com"));
-
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(88);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(188);
-        base58Prefixes[SECRET_KEY]     = list_of(239);
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x35)(0x87)(0xCF);
-        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x35)(0x83)(0x94);
+		
+		base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,88);
+		base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,188);
+		base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,239);
+		base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
+		base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
+		
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
