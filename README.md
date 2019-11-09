@@ -1,7 +1,7 @@
 We are reorganizing this code so that it:
-1) is directly forked from it's bitcoin source
-2) produces proper gitian-builds
-3) moves all significant deviations from bitcoin out of the main code so differences betwee MAZA and BTC are clear
+1) is directly forked from it's Bitcoin source
+2) produces proper Gitian-Builds
+3) moves all significant deviations from Bitcoin out of the main code so differences between MAZA and BTC are clear
 4) provides a proper testnet environment
 
 
