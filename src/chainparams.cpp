@@ -170,6 +170,7 @@ public:
 
         // Note that of those with the service bits flag, most only support a subset of possible options
         vSeeds.emplace_back("node.mazacoin.org");
+	vSeeds.emplace_back("seed.mazanode.com");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,9);
@@ -299,6 +300,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.emplace_back("mazatest.cryptoadhd.com");
+	vSeeds.emplace_back("testnet.seed.mazanode.com");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,88);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,188);
