@@ -461,12 +461,20 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
     CBlockIndex* pindexPrev;
     {
         LOCK(cs_main);
-        pindexPrev = mapBlockIndex[pblock->hashPrevBlock];
+        // mapBlockIndex::operator[] INSERTS a nullptr when the key is absent,
+        // so the old code dereferenced it (crash) before reaching the null
+        // check below — a corrupt blk*.dat entry whose hashPrevBlock is not
+        // in the index segfaulted the node during load/reindex. Use find()
+        // and reject before any dereference; behaviour for every block whose
+        // prev index exists is byte-for-byte identical (same pointer, height
+        // computed from the same pindexPrev, just after the guard).
+        auto itPrev = mapBlockIndex.find(pblock->hashPrevBlock);
+        if (itPrev == mapBlockIndex.end() || itPrev->second == nullptr) {
+            LogPrintf("CheckHiveProof: Couldn't get previous block's CBlockIndex!\n");
+            return false;
+        }
+        pindexPrev = itPrev->second;
         blockHeight = pindexPrev->nHeight + 1;
-    }
-    if (!pindexPrev) {
-        LogPrintf("CheckHiveProof: Couldn't get previous block's CBlockIndex!\n");
-        return false;
     }
     if (verbose)
         LogPrintf("CheckHiveProof: nHeight             = %i\n", blockHeight);
