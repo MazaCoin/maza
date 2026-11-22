@@ -111,6 +111,9 @@ struct Params {
     double powSplit2;                   // Below this Hive difficulty threshold, PoW block chainwork bonus is halved again
     int maxConsecutiveHiveBlocks;       // Maximum hive blocks that can occur consecutively before a PoW block is required
     int hiveDifficultyWindow;           // How many blocks the SMA averages over in hive difficulty adjust
+    // Reject noncanonical ASCII BCT txids in Hive proofs from this block height onwards.
+    // Keep historical blocks valid by activating only at an agreed future height.
+    int hiveCanonicalBctTxidHeight;
 
     // Maza: MinotaurX+Hive1.2-related consensus fields
     int64_t lwmaAveragingWindow;        // Averaging window size for LWMA diff adjust
