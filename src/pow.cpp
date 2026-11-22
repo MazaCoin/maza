@@ -21,6 +21,14 @@
 
 BeePopGraphPoint beePopGraph[1024*40];       // Maza: Hive
 
+// Hive proofs serialize the BCT txid as ASCII.  uint256S() is case-insensitive,
+// but the Hive hash uses those exact ASCII bytes.  Without this check, changing
+// hex letter case creates free independent bee-hash lottery entries for one BCT.
+bool IsCanonicalHiveBctTxid(const std::string& txidStr)
+{
+    return txidStr.size() == 64 && txidStr == uint256S(txidStr).GetHex();
+}
+
 // Maza: MinotaurX+Hive1.2: Diff adjustment for pow algos (post-MinotaurX activation)
 // Modified LWMA-3
 // Copyright (c) 2017-2021 The Bitcoin Gold developers, Zawy, iamstenman (Microbitcoin), The Litecoin Cash developers
@@ -544,6 +552,14 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
     std::string txidStr = std::string(txid.begin(), txid.end());
     if (verbose)
         LogPrintf("CheckHiveProof: bctTxId             = %s\n", txidStr);
+
+    // Historical mixed-case proofs remain valid before the fork height.
+    // Reject all alternate encodings afterwards, before hashing the bee.
+    if (blockHeight >= consensusParams.hiveCanonicalBctTxidHeight &&
+        !IsCanonicalHiveBctTxid(txidStr)) {
+        LogPrintf("CheckHiveProof: Noncanonical BCT txid encoding at height %i\n", blockHeight);
+        return false;
+    }
 
     // Check bee hash against target
     std::string deterministicRandString = GetDeterministicRandString(pindexPrev);

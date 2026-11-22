@@ -29,6 +29,7 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
 unsigned int GetNextHiveWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params);                       // Maza: Hive: Get the current Bee Hash Target
 unsigned int GetNextWorkRequiredLWMA(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, const POW_TYPE powType); // Maza: MinotaurX+Hive1.2: LWMA difficulty adjustment for all pow types
 bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& params);                                                 // Maza: Hive: Check the hive proof for given block
+bool IsCanonicalHiveBctTxid(const std::string& txidStr); // Canonical 64-character lowercase hex identifier
 bool GetNetworkHiveInfo(int& immatureBees, int& immatureBCTs, int& matureBees, int& matureBCTs, CAmount& potentialLifespanRewards, const Consensus::Params& consensusParams, bool recalcGraph = false); // Maza: Hive: Get count of all live and gestating BCTs on the network
 
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */

@@ -136,6 +136,9 @@ public:
         consensus.powSplit2 = 0.0025;                       // Below this Hive difficulty threshold, PoW block chainwork bonus is halved again
         consensus.maxConsecutiveHiveBlocks = 2;             // Maximum hive blocks that can occur consecutively before a PoW block is required
         consensus.hiveDifficultyWindow = 36;                // How many blocks the SMA averages over in hive difficulty adjust
+        // SECURITY FIX: Replace max() with the community-agreed future activation height
+        // before releasing the mainnet/testnet consensus upgrade.
+        consensus.hiveCanonicalBctTxidHeight = 4520000;
 
         // Maza: MinotaurX+Hive1.2-related consensus fields
         consensus.lwmaAveragingWindow = 90;                 // Averaging window size for LWMA diff adjust
@@ -267,6 +270,9 @@ public:
         consensus.powSplit2 = 0.0005;                       // Below this Hive difficulty threshold, PoW block chainwork bonus is halved again
         consensus.maxConsecutiveHiveBlocks = 2;             // Maximum hive blocks that can occur consecutively before a PoW block is required
         consensus.hiveDifficultyWindow = 36;                // How many blocks the SMA averages over in hive difficulty adjust
+        // SECURITY FIX: Replace max() with the community-agreed future activation height
+        // before releasing the mainnet/testnet consensus upgrade.
+        consensus.hiveCanonicalBctTxidHeight = 886290;
 
         // Maza: MinotaurX+Hive1.2-related consensus fields
         consensus.lwmaAveragingWindow = 90;                 // Averaging window size for LWMA diff adjust
@@ -360,6 +366,7 @@ public:
         // Maza fields
         
         consensus.hiveNonceMarker = 192;                    // Nonce marker for hivemined blocks
+        consensus.hiveCanonicalBctTxidHeight = 0;           // Regtest: immediate activation
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
