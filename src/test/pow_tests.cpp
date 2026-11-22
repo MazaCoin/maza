@@ -83,4 +83,24 @@ BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
     }
 }
 
+BOOST_AUTO_TEST_CASE(hive_bct_txid_ascii_canonicalization)
+{
+    const std::string lowercase = "e07eb7612dad2c8129e568df00b3cea837f6d51dc0fa2497b26fd65d21d322f0";
+    // Accepted historical proof at height 4,483,316; must be rejected only
+    // at or after the separately configured consensus activation height.
+    const std::string mixedcase = "E07eb7612DAD2C8129E568dF00b3cEa837f6d51Dc0fA2497b26fd65D21d322f0";
+
+    BOOST_CHECK(IsCanonicalHiveBctTxid(lowercase));
+    BOOST_CHECK(!IsCanonicalHiveBctTxid(mixedcase));
+    BOOST_CHECK(!IsCanonicalHiveBctTxid(lowercase.substr(1))); // Too short
+    BOOST_CHECK(!IsCanonicalHiveBctTxid(lowercase + "0"));    // Too long
+    BOOST_CHECK(!IsCanonicalHiveBctTxid(std::string(64, 'g'))); // Not hex
+    BOOST_CHECK_EQUAL(uint256S(lowercase).GetHex(), uint256S(mixedcase).GetHex());
+
+    const auto mainParams = CreateChainParams(CBaseChainParams::MAIN);
+    const auto regParams = CreateChainParams(CBaseChainParams::REGTEST);
+    BOOST_CHECK(mainParams->GetConsensus().hiveCanonicalBctTxidHeight > 4489099);
+    BOOST_CHECK_EQUAL(regParams->GetConsensus().hiveCanonicalBctTxidHeight, 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
