@@ -104,6 +104,7 @@ BASE_SCRIPTS= [
     'rpc_blockchain.py',
     'rpc_deprecated.py',
     'wallet_disable.py',
+    'regtest_startup.py',
     'rpc_net.py',
     'wallet_keypool.py',
     'p2p_mempool.py',

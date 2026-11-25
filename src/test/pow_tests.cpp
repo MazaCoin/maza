@@ -6,6 +6,7 @@
 #include <chainparams.h>
 #include <pow.h>
 #include <random.h>
+#include <sstream>
 #include <util.h>
 #include <test/test_bitcoin.h>
 
@@ -101,6 +102,78 @@ BOOST_AUTO_TEST_CASE(hive_bct_txid_ascii_canonicalization)
     const auto regParams = CreateChainParams(CBaseChainParams::REGTEST);
     BOOST_CHECK(mainParams->GetConsensus().hiveCanonicalBctTxidHeight > 4489099);
     BOOST_CHECK_EQUAL(regParams->GetConsensus().hiveCanonicalBctTxidHeight, 0);
+}
+
+
+/* Maza: CheckProofOfWork() reads one limit per PoW type for every block it
+ * checks, and GetNextWorkRequiredLWMA() reads one whenever it picks a target.
+ * A network whose parameters supply fewer limits than that reads past the end
+ * of the vector while connecting its first block. Regtest supplied none, so no
+ * regtest node could start. */
+BOOST_AUTO_TEST_CASE(pow_type_limits_cover_every_pow_type)
+{
+    for (const std::string& network : {CBaseChainParams::MAIN, CBaseChainParams::TESTNET, CBaseChainParams::REGTEST}) {
+        const auto chainParams = CreateChainParams(network);
+        const Consensus::Params& consensus = chainParams->GetConsensus();
+
+        std::ostringstream supplied;
+        supplied << network << " parameters supply " << consensus.powTypeLimits.size()
+                 << " proof-of-work limits where every PoW type needs one of " << NUM_BLOCK_TYPES;
+        BOOST_REQUIRE_MESSAGE(consensus.powTypeLimits.size() >= static_cast<size_t>(NUM_BLOCK_TYPES), supplied.str());
+    }
+}
+
+/* Every network builds its genesis block from the same coinbase transaction, so
+ * their merkle roots agree. The constant regtest asserted did not. */
+BOOST_AUTO_TEST_CASE(genesis_merkle_root_is_shared_by_every_network)
+{
+    const uint256 root = CreateChainParams(CBaseChainParams::MAIN)->GenesisBlock().hashMerkleRoot;
+    for (const std::string& network : {CBaseChainParams::TESTNET, CBaseChainParams::REGTEST}) {
+        const uint256 other = CreateChainParams(network)->GenesisBlock().hashMerkleRoot;
+        std::ostringstream message;
+        message << network << " genesis merkle root " << other.GetHex()
+                << " differs from mainnet's " << root.GetHex();
+        BOOST_CHECK_MESSAGE(root == other, message.str());
+    }
+}
+
+/* Regtest blocks are mined at the target its first nBits stands for, so that is
+ * what the node has to accept, and nothing above it. */
+BOOST_AUTO_TEST_CASE(regtest_accepts_its_easiest_target)
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::REGTEST);
+    const Consensus::Params& consensus = chainParams->GetConsensus();
+
+    const unsigned int nBits = chainParams->GenesisBlock().nBits;
+    arith_uint256 target;
+    target.SetCompact(nBits);
+
+    BOOST_CHECK_MESSAGE(CheckProofOfWork(ArithToUint256(target), nBits, consensus),
+                        "regtest rejected a hash at the target its blocks are mined at");
+
+    arith_uint256 above = target;
+    ++above;
+    BOOST_CHECK_MESSAGE(!CheckProofOfWork(ArithToUint256(above), nBits, consensus),
+                        "regtest accepted a hash above its target");
+}
+
+/* A network mines at its starting difficulty until it first retargets. Regtest
+ * never set one, so its blocks were asked for a target of zero. */
+BOOST_AUTO_TEST_CASE(regtest_first_block_is_mined_at_its_easiest_target)
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::REGTEST);
+    const Consensus::Params& consensus = chainParams->GetConsensus();
+    const CBlock& genesis = chainParams->GenesisBlock();
+
+    CBlockIndex tip;
+    tip.nHeight = 0;
+    tip.nTime = genesis.nTime;
+    tip.nBits = genesis.nBits;
+    CBlockHeader next;
+    next.nTime = genesis.nTime;
+
+    BOOST_CHECK_EQUAL(GetNextWorkRequired(&tip, &next, consensus),
+                      UintToArith256(consensus.powLimitSHA).GetCompact());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
