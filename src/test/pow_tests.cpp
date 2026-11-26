@@ -121,24 +121,23 @@ BOOST_AUTO_TEST_CASE(pow_type_limits_cover_every_pow_type)
                  << " proof-of-work limits where every PoW type needs one of " << NUM_BLOCK_TYPES;
         BOOST_REQUIRE_MESSAGE(consensus.powTypeLimits.size() >= static_cast<size_t>(NUM_BLOCK_TYPES), supplied.str());
     }
+
+    // Regtest mines at its easiest target for either type, so each of its
+    // limits is the target its first nBits stands for.
+    const auto regtestParams = CreateChainParams(CBaseChainParams::REGTEST);
+    const Consensus::Params& regtest = regtestParams->GetConsensus();
+    BOOST_CHECK_MESSAGE(regtest.powTypeLimits[POW_TYPE_SHA256] == regtest.powLimitSHA,
+                        "regtest's sha256d limit is not its easiest target");
+    BOOST_CHECK_MESSAGE(regtest.powTypeLimits[POW_TYPE_MINOTAURX] == regtest.powLimitSHA,
+                        "regtest's MinotaurX limit is not its easiest target");
 }
 
-/* Every network builds its genesis block from the same coinbase transaction, so
- * their merkle roots agree. The constant regtest asserted did not. */
-BOOST_AUTO_TEST_CASE(genesis_merkle_root_is_shared_by_every_network)
-{
-    const uint256 root = CreateChainParams(CBaseChainParams::MAIN)->GenesisBlock().hashMerkleRoot;
-    for (const std::string& network : {CBaseChainParams::TESTNET, CBaseChainParams::REGTEST}) {
-        const uint256 other = CreateChainParams(network)->GenesisBlock().hashMerkleRoot;
-        std::ostringstream message;
-        message << network << " genesis merkle root " << other.GetHex()
-                << " differs from mainnet's " << root.GetHex();
-        BOOST_CHECK_MESSAGE(root == other, message.str());
-    }
-}
-
-/* Regtest blocks are mined at the target its first nBits stands for, so that is
- * what the node has to accept, and nothing above it. */
+/* Regtest blocks are mined at the target its first nBits stands for, so that
+ * is what the node has to accept. It must still refuse a block whose nBits
+ * claims an easier target than its limit, and a hash above its target. Without
+ * the limits this reads past the end of an empty vector, which is undefined
+ * behaviour and not a clean failure: the unfixed tree is shown by the daemon
+ * dying in CheckProofOfWork() on its first block, not by this case. */
 BOOST_AUTO_TEST_CASE(regtest_accepts_its_easiest_target)
 {
     const auto chainParams = CreateChainParams(CBaseChainParams::REGTEST);
@@ -155,10 +154,29 @@ BOOST_AUTO_TEST_CASE(regtest_accepts_its_easiest_target)
     ++above;
     BOOST_CHECK_MESSAGE(!CheckProofOfWork(ArithToUint256(above), nBits, consensus),
                         "regtest accepted a hash above its target");
+
+    // One above the limit, as nBits. The limit is 2^255 - 1, and the compact
+    // form of 2^255 carries no sign bit, so an easier target is the only thing
+    // wrong with this block.
+    arith_uint256 easier = UintToArith256(consensus.powLimitSHA);
+    ++easier;
+    const unsigned int easierBits = easier.GetCompact();
+    bool negative = true;
+    bool overflow = true;
+    arith_uint256 claimed;
+    claimed.SetCompact(easierBits, &negative, &overflow);
+    BOOST_CHECK_MESSAGE(!negative && !overflow && claimed > UintToArith256(consensus.powLimitSHA),
+                        "the easier target does not read back as a positive number above the limit");
+    BOOST_CHECK_MESSAGE(!CheckProofOfWork(uint256(), easierBits, consensus),
+                        "regtest accepted a block that claims an easier target than its limit");
 }
 
-/* A network mines at its starting difficulty until it first retargets. Regtest
- * never set one, so its blocks were asked for a target of zero. */
+/* Until a network has 20 difficulty-adjustment intervals of blocks,
+ * GetNextWorkRequiredBTC() hands out its starting difficulty. Regtest never
+ * set one, so its blocks were asked for a target of zero. Of the three fixes
+ * only the first has no unit case that fails cleanly: without it the binary
+ * aborts while selecting regtest's parameters. The second is caught by
+ * pow_type_limits_cover_every_pow_type above, the third by this case. */
 BOOST_AUTO_TEST_CASE(regtest_first_block_is_mined_at_its_easiest_target)
 {
     const auto chainParams = CreateChainParams(CBaseChainParams::REGTEST);

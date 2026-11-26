@@ -373,8 +373,8 @@ public:
 
         // Maza: MinotaurX+Hive1.2: One proof-of-work limit per PoW type. Regtest
         // accepts the easiest target for every type.
-        consensus.powTypeLimits.emplace_back(consensus.powLimitSHA);
-        consensus.powTypeLimits.emplace_back(consensus.powLimitSHA);
+        consensus.powTypeLimits.emplace_back(consensus.powLimitSHA);   // sha256d limit
+        consensus.powTypeLimits.emplace_back(consensus.powLimitSHA);   // MinotaurX limit
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
