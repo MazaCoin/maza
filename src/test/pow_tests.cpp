@@ -6,6 +6,7 @@
 #include <chainparams.h>
 #include <pow.h>
 #include <random.h>
+#include <sstream>
 #include <util.h>
 #include <test/test_bitcoin.h>
 
@@ -101,6 +102,96 @@ BOOST_AUTO_TEST_CASE(hive_bct_txid_ascii_canonicalization)
     const auto regParams = CreateChainParams(CBaseChainParams::REGTEST);
     BOOST_CHECK(mainParams->GetConsensus().hiveCanonicalBctTxidHeight > 4489099);
     BOOST_CHECK_EQUAL(regParams->GetConsensus().hiveCanonicalBctTxidHeight, 0);
+}
+
+
+/* Maza: CheckProofOfWork() reads one limit per PoW type for every block it
+ * checks, and GetNextWorkRequiredLWMA() reads one whenever it picks a target.
+ * A network whose parameters supply fewer limits than that reads past the end
+ * of the vector while connecting its first block. Regtest supplied none, so no
+ * regtest node could start. */
+BOOST_AUTO_TEST_CASE(pow_type_limits_cover_every_pow_type)
+{
+    for (const std::string& network : {CBaseChainParams::MAIN, CBaseChainParams::TESTNET, CBaseChainParams::REGTEST}) {
+        const auto chainParams = CreateChainParams(network);
+        const Consensus::Params& consensus = chainParams->GetConsensus();
+
+        std::ostringstream supplied;
+        supplied << network << " parameters supply " << consensus.powTypeLimits.size()
+                 << " proof-of-work limits where every PoW type needs one of " << NUM_BLOCK_TYPES;
+        BOOST_REQUIRE_MESSAGE(consensus.powTypeLimits.size() >= static_cast<size_t>(NUM_BLOCK_TYPES), supplied.str());
+    }
+
+    // Regtest mines at its easiest target for either type, so each of its
+    // limits is the target its first nBits stands for.
+    const auto regtestParams = CreateChainParams(CBaseChainParams::REGTEST);
+    const Consensus::Params& regtest = regtestParams->GetConsensus();
+    BOOST_CHECK_MESSAGE(regtest.powTypeLimits[POW_TYPE_SHA256] == regtest.powLimitSHA,
+                        "regtest's sha256d limit is not its easiest target");
+    BOOST_CHECK_MESSAGE(regtest.powTypeLimits[POW_TYPE_MINOTAURX] == regtest.powLimitSHA,
+                        "regtest's MinotaurX limit is not its easiest target");
+}
+
+/* Regtest blocks are mined at the target its first nBits stands for, so that
+ * is what the node has to accept. It must still refuse a block whose nBits
+ * claims an easier target than its limit, and a hash above its target. Without
+ * the limits this reads past the end of an empty vector, which is undefined
+ * behaviour and not a clean failure: the unfixed tree is shown by the daemon
+ * dying in CheckProofOfWork() on its first block, not by this case. */
+BOOST_AUTO_TEST_CASE(regtest_accepts_its_easiest_target)
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::REGTEST);
+    const Consensus::Params& consensus = chainParams->GetConsensus();
+
+    const unsigned int nBits = chainParams->GenesisBlock().nBits;
+    arith_uint256 target;
+    target.SetCompact(nBits);
+
+    BOOST_CHECK_MESSAGE(CheckProofOfWork(ArithToUint256(target), nBits, consensus),
+                        "regtest rejected a hash at the target its blocks are mined at");
+
+    arith_uint256 above = target;
+    ++above;
+    BOOST_CHECK_MESSAGE(!CheckProofOfWork(ArithToUint256(above), nBits, consensus),
+                        "regtest accepted a hash above its target");
+
+    // One above the limit, as nBits. The limit is 2^255 - 1, and the compact
+    // form of 2^255 carries no sign bit, so an easier target is the only thing
+    // wrong with this block.
+    arith_uint256 easier = UintToArith256(consensus.powLimitSHA);
+    ++easier;
+    const unsigned int easierBits = easier.GetCompact();
+    bool negative = true;
+    bool overflow = true;
+    arith_uint256 claimed;
+    claimed.SetCompact(easierBits, &negative, &overflow);
+    BOOST_CHECK_MESSAGE(!negative && !overflow && claimed > UintToArith256(consensus.powLimitSHA),
+                        "the easier target does not read back as a positive number above the limit");
+    BOOST_CHECK_MESSAGE(!CheckProofOfWork(uint256(), easierBits, consensus),
+                        "regtest accepted a block that claims an easier target than its limit");
+}
+
+/* Until a network has 20 difficulty-adjustment intervals of blocks,
+ * GetNextWorkRequiredBTC() hands out its starting difficulty. Regtest never
+ * set one, so its blocks were asked for a target of zero. Of the three fixes
+ * only the first has no unit case that fails cleanly: without it the binary
+ * aborts while selecting regtest's parameters. The second is caught by
+ * pow_type_limits_cover_every_pow_type above, the third by this case. */
+BOOST_AUTO_TEST_CASE(regtest_first_block_is_mined_at_its_easiest_target)
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::REGTEST);
+    const Consensus::Params& consensus = chainParams->GetConsensus();
+    const CBlock& genesis = chainParams->GenesisBlock();
+
+    CBlockIndex tip;
+    tip.nHeight = 0;
+    tip.nTime = genesis.nTime;
+    tip.nBits = genesis.nBits;
+    CBlockHeader next;
+    next.nTime = genesis.nTime;
+
+    BOOST_CHECK_EQUAL(GetNextWorkRequired(&tip, &next, consensus),
+                      UintToArith256(consensus.powLimitSHA).GetCompact());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

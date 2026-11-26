@@ -348,6 +348,7 @@ public:
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimitSHA = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.startingDifficulty = consensus.powLimitSHA; // Regtest mines at the easiest target from its first block
         consensus.nPowTargetTimespan = 8 * 60; // 8 minutes
         consensus.nPowTargetSpacing = 2 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -370,6 +371,11 @@ public:
         consensus.hiveNonceMarker = 192;                    // Nonce marker for hivemined blocks
         consensus.hiveCanonicalBctTxidHeight = 0;           // Regtest: immediate activation
 
+        // Maza: MinotaurX+Hive1.2: One proof-of-work limit per PoW type. Regtest
+        // accepts the easiest target for every type.
+        consensus.powTypeLimits.emplace_back(consensus.powLimitSHA);   // sha256d limit
+        consensus.powTypeLimits.emplace_back(consensus.powLimitSHA);   // MinotaurX limit
+
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
 
@@ -386,7 +392,7 @@ public:
         genesis = CreateGenesisBlock(1390748221, 4, 0x207fffff, 1, 5000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x57939ce0a96bf42965fee5956528a456d0edfb879b8bd699bcbb4786d27b979d"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(genesis.hashMerkleRoot == uint256S("0x62d496378e5834989dd9594cfc168dbb76f84a39bbda18286cddc7d1d1589f4f"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
